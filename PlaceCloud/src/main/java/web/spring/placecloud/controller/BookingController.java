@@ -91,7 +91,7 @@ public class BookingController {
 		log.info("bookingUpdatePOST()");
 		int result = bookingService.updateBoard(bookingVO);
 		log.info(result + "행 수정");
-		return "redirect:/booking/bookingList";
+		return "redirect:/booking/bookingDetail?bookingId=" + bookingVO.getBookingId();
 	}
 
 	// bookingDetail.jsp에서 예약 정보 번호를 전송 받아 예약 정보 삭제
