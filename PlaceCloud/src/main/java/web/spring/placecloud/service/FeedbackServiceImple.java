@@ -20,7 +20,10 @@ public class FeedbackServiceImple implements FeedbackService {
 	@Override
 	public int createFeedback(FeedbackVO feedbackVO) {
 		log.info("createFeedback()");
-		return feedbackMapper.insert(feedbackVO);
+		int insertResult = feedbackMapper.insert(feedbackVO);
+		log.info(insertResult + "댓글 등록");
+		
+		return insertResult;
 	}
 	
 	// 댓글 리스트 조회
@@ -32,20 +35,21 @@ public class FeedbackServiceImple implements FeedbackService {
 	
 	// 댓글 수정
 	@Override
-	public int updateFeedback(int feedbackId, String feedbackContent) {
+	public int updateFeedback(FeedbackVO feedbackVO) {
 		log.info("updateFeedbakc()");
-		FeedbackVO feedbackVO = new FeedbackVO();
-		feedbackVO.setFeedbackId(feedbackId);
-		feedbackVO.setFeedbackContent(feedbackContent);
-		return feedbackMapper.update(feedbackVO);
+		int updateResult = feedbackMapper.update(feedbackVO);
+		log.info(updateResult + "댓글 수정");
+		
+		return updateResult;
 	}
 	
 	// 댓글 삭제
 	@Override
-	public int deleteFeedback(int feedbackId, int reviewId) {
+	public int deleteFeedback(int feedbackId) {
 		log.info("deleteFeedback()");
 		int deleteResult = feedbackMapper.delete(feedbackId);
 		log.info(deleteResult + "댓글 삭제");
+		
 		return deleteResult;
 	}
 
