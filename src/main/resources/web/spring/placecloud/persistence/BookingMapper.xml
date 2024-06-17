@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			BOOKING_USERPHONE = #{bookingUserPhone},
 			BOOKING_USEREMAIL = #{bookingUserEmail},
 			BOOKING_PERPOSE = #{bookingPerpose},
-			BOOKING_CONTENT = #{bookingContent},
+			BOOKING_CONTENT = #{bookingContent}
 		WHERE BOOKING_ID = #{bookingId}
 	</update>
 	
