@@ -16,7 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="placeInfo" column="PLACE_INFO"/>
 		<result property="placeWarning" column="PLACE_WARNING"/>
 		<result property="placeMoneyTime" column="PLACE_MONEY_TIME"/>
-		<result property="placeMoneyPackage" column="PLACE_MONEY_PACKAGE"/>
 		<result property="memberEmail" column="MEMBER_EMAIL"/>
 		<result property="placeCreateDate" column="PLACE_CREATE_DATE"/>
 	</resultMap>
@@ -24,18 +23,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert">
 		INSERT INTO PLACE
 		(PLACE_ID, PLACE_NAME, PLACE_CATEGORY, PLACE_CONTEXT, PLACE_ADDRESS, 
-		PLACE_INFO, PLACE_WARNING, PLACE_MONEY_TIME, PLACE_MONEY_PACKAGE, MEMBER_EMAIL, PLACE_CREATE_DATE)
+		PLACE_INFO, PLACE_WARNING, PLACE_MONEY_TIME, MEMBER_EMAIL, PLACE_CREATE_DATE)
 		VALUES
 		(PLACE_SEQ.NEXTVAL, #{placeName}, #{placeCategory}, #{placeContext}, #{placeAddress}, #{placeWarning}, 
-		#{placeInfo}, #{placeMoneyTime}, #{placeMoneyPackage}, #{memberEmail}, SYSDATE)
+		#{placeInfo}, #{placeMoneyTime}, #{memberEmail}, SYSDATE)
 	</insert>
+	
+	<select id="selectAllPlace" resultMap="placeResultMap">
+		SELECT * FROM PLACE ORDER BY PLACE_ID ASC
+	</select>
 
-	<select id="selectAllPlace" resultMap="placeResultMap" parameterType="java.lang.String">
+	<select id="selectMyPlace" resultMap="placeResultMap" parameterType="java.lang.String">
 		SELECT * FROM PLACE WHERE MEMBER_EMAIL = #{memberEmail} ORDER BY PLACE_ID ASC
 	</select>
 
 	<select id="selectByPlaceId" resultMap="placeResultMap">
 		SELECT * FROM PLACE WHERE PLACE_ID = #{placeId}
+	</select>
+	
+	<select id="selectByCategory" resultMap="placeResultMap">
+		SELECT * FROM PLACE WHERE PLACE_CATEGORY = #{placeCategory}
 	</select>
 
 	<update id="update">
@@ -46,8 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		PLACE_ADDRESS = #{placeAddress},
 		PLACE_WARNING = #{placeWarning},
 		PLACE_INFO = #{placeInfo},
-		PLACE_MONEY_TIME = #{placeMoneyTime},
-		PLACE_MONEY_PACKAGE = #{placeMoneyPackage}
+		PLACE_MONEY_TIME = #{placeMoneyTime}
 		WHERE PLACE_ID = #{placeId}
 	</update>
 

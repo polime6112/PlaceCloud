@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
-
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.PlaceVO;
+import web.spring.placecloud.service.ImageService;
 import web.spring.placecloud.service.PlaceService;
 
 @Controller
@@ -24,37 +24,78 @@ public class PlaceController {
     @Autowired
     private PlaceService placeService;
     
-    @GetMapping("/registerPlace")
-    public void registerGET() {
-        log.info("registerPlaceGet");
-    }
+    @Autowired
+    private ImageService imageService;
     
-    @PostMapping("registerPlace")
-    public String registerPOST(PlaceVO placeVO, HttpSession httpSession, @RequestParam("memberEmail") String memberEmail, Model model) {
-        log.info("registerPlacePost");
-        log.info(placeVO + "");
-        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
-        if (memberVO != null) {
-	        if (placeVO.getPlaceCategory().contains("옵션")) {
-	        	return "/place/registerPlace";
-	        } else {
-	            memberEmail = memberVO.getMemberEmail();
-	            log.info(memberEmail);
-	            placeVO.setMemberEmail(memberEmail);
-	            int placeNum = placeService.createPlace(placeVO);
-	            log.info(placeNum + "행 등록");
-	            List<PlaceVO> list = placeService.getAllPlace(memberEmail);
-	            log.info(list + "");
-	            model.addAttribute("List", list);
-	            return "/place/mainPlace";
-	        }
-        } else {
-        	log.error("세션이 존재하지 않습니다.");
-        	return "redirect:/member/memberLogin";
+    @GetMapping("/mainPlace")
+    public String mainPlaceGET(HttpSession httpSession, Model model) {
+    	log.info("mainPlaceGet");
+    	MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
+    	if (memberVO != null) {
+    		List<PlaceVO> list = placeService.getAllPlace();
+    		log.info("List : " + list);
+    		model.addAttribute("List", list);
+    		log.info(memberVO.getMemberEmail());
+    		return "place/mainPlace";
+    	} else {
+    		log.error("세션이 존재하지 않습니다.");
+    		return "redirect:/member/memberLogin";
     	}
     }
+    
+    @GetMapping("/myPlace")
+    public String myGET(@RequestParam("memberEmail") String memberEmail, Model model, HttpSession httpSession) {
+    	log.info("myPlaceGet");
+    	log.info(memberEmail);
+    	MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
+    	if (memberVO != null) {
+    		List<PlaceVO> list = placeService.getMyPlace(memberEmail);
+    		log.info("List : " + list);
+    		model.addAttribute("List", list);
+    		log.info(memberEmail);
+    		return "place/myPlace";
+    	} else {
+    		log.error("세션이 존재하지 않습니다.");
+    		return "redirect:/member/memberLogin";
+    	}
+    }
+    
+    @GetMapping("/registerPlace")
+    public String registerGET(HttpSession httpSession) {
+        log.info("registerPlaceGet");
+        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
+        if (memberVO == null) {
+            return "redirect:/member/memberLogin";
+        }
+        return "/place/registerPlace";
+    }
+    
+    @PostMapping("/registerPlace")
+    public String registerPOST(PlaceVO placeVO, HttpSession httpSession, Model model) {
+        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
+        if (memberVO == null) {
+            return "redirect:/member/memberLogin";
+        }
+
+        if (placeVO.getPlaceCategory().contains("옵션")) {
+            return "/place/registerPlace";
+        }
+
+        String memberEmail = memberVO.getMemberEmail();
+        placeVO.setMemberEmail(memberEmail);
+
+        int placeNum = placeService.createPlace(placeVO);
+
+        if (placeNum > 0) {
+            return "redirect:/place/myPlace?memberEmail=" + placeVO.getMemberEmail();
+        } else {
+            model.addAttribute("errorMessage", "장소 등록에 실패했습니다.");
+            return "/place/registerPlace";
+        }
+    }
+    
     @GetMapping("/updatePlace")
-    public String updateGET(HttpSession httpSession, PlaceVO placeVO) {
+    public String updateGET(HttpSession httpSession, PlaceVO placeVO, Model model) {
     	log.info("updatePlaceGet");
 
         MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
@@ -63,7 +104,8 @@ public class PlaceController {
         if (memberVO != null) {
             String memberEmail = memberVO.getMemberEmail();
             log.info("Member Email : " + memberEmail);
-            return "/place/updatePlace?placeId=" + placeVO.getPlaceId();
+            model.addAttribute("placeVO", placeVO);
+            return "place/updatePlace";
         } else {
         	log.error("세션이 존재하지 않습니다.");
         	return "redirect:/member/memberLogin";
@@ -71,23 +113,18 @@ public class PlaceController {
     }
     
     @PostMapping("/updatePlace")
-    public String updatePOST(PlaceVO placeVO, HttpSession httpSession, Integer placeId) {
+    public String updatePOST(PlaceVO placeVO, HttpSession httpSession, Model model, Integer placeId) {
         log.info("updatePlacePost");
         MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
         if (memberVO != null) {
-        	if (placeVO.getPlaceCategory().contains("옵션")) {
-                String memberEmail = memberVO.getMemberEmail();
-                log.info(memberEmail);
-            	return "redirect:/place/updatePlace?placeId=" + placeVO.getPlaceId();
-            } else {
-                String memberEmail = memberVO.getMemberEmail();
-                log.info(memberEmail);
-                log.info(placeVO.toString());
-                int placeNum = placeService.updatePlace(placeVO);
-                log.info(placeNum + "행 수정");
-                placeVO = placeService.getPlaceById(placeId);
-                return "redirect:/place/infoPlace?placeId=" + placeVO.getPlaceId();
-            }
+        	String memberEmail = memberVO.getMemberEmail();
+        	log.info(memberEmail);
+        	log.info(placeVO.toString());
+        	int placeNum = placeService.updatePlace(placeVO);
+        	log.info(placeNum + "행 수정");
+        	placeId = placeVO.getPlaceId();
+        	placeVO = placeService.getPlaceById(placeId);
+        	return "redirect:/place/myPlace?memberEmail=" + memberEmail;
         } else {
         	log.error("세션이 존재하지 않습니다.");
         	return "redirect:/member/memberLogin";
@@ -102,7 +139,7 @@ public class PlaceController {
         	String memberEmail = memberVO.getMemberEmail();
         	PlaceVO placeVO = placeService.getPlaceById(placeId);
         	log.info("Member Email: " + memberEmail);
-        	log.info(placeVO + "");
+        	log.info("PlaceVO : " + placeVO);
         	model.addAttribute("placeVO", placeVO);
         	return "place/infoPlace";        	
         } else {
@@ -111,33 +148,20 @@ public class PlaceController {
     	}
     }
     
-    @GetMapping("mainPlace")
-    public String mainGET(String memberEmail, Model model, HttpSession httpSession) {
-        log.info("mainPlaceGet");
-        log.info(memberEmail);
-        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
-        if (memberVO != null) {
-        	List<PlaceVO> list = placeService.getAllPlace(memberEmail);
-        	log.info(list + "");
-        	model.addAttribute("List", list);
-        	return "place/mainPlace";
-        } else {
-        	log.error("세션이 존재하지 않습니다.");
-        	return "redirect:/member/memberLogin";
-        }
-    }
     
     @GetMapping("/deletePlace")
-    public String deleteGET(@RequestParam("placeId") Integer placeId, @RequestParam("memberEmail") String memberEmail, Model model, HttpSession httpSession) {
+    public String deleteGET(Integer placeId, String memberEmail, Model model, HttpSession httpSession) {
         log.info("deletePlaceGet");
         MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
         if (memberVO != null) {
         	int placeDel = placeService.deletePlace(placeId);
+        	int imageDel = imageService.deleteImage(placeId);
         	log.info(placeDel + "행 삭제");
-        	List<PlaceVO> list = placeService.getAllPlace(memberEmail);
-        	log.info(list + "");
+        	log.info(imageDel + "행 삭제");
+        	List<PlaceVO> list = placeService.getMyPlace(memberEmail);
+        	log.info("List : " + list);
         	model.addAttribute("List", list);
-        	return "redirect:/place/mainPlace?memberEmail=" + memberEmail;        	
+        	return "redirect:/place/myPlace?memberEmail=" + memberEmail;        	
         } else {
         	log.error("세션이 존재하지 않습니다.");
         	return "redirect:/member/memberLogin";

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PlaceImageVO {
+public class ImageVO {
 	private int imageId;
 	private String imageName;
 	private String imageExtension;

@@ -62,8 +62,8 @@ button:hover {
 		</div>
 	</header>
 	<h1>정보 수정하기</h1>
-	<form id="updatePlace" method="POST" >
-		<input type="hidden" id="placeId" name="placeId" value="${param.placeId}">
+	<form id="updatePlace" action="updatePlace" method="POST" >
+		<input type="text" id="placeId" name="placeId" value="${placeVO.placeId}">
 		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
 		<label for="placeName">장소 이름</label> 
 		<input type="text" id="placeName" name="placeName" required>
@@ -89,9 +89,7 @@ button:hover {
 		<input type="text" id="placeInfo" name="placeInfo" required>
 		<label for="placeMoneyTime">시간당 가격(원/시간)</label> 
 		<input type="number" id="placeMoneyTime" name="placeMoneyTime" required>
-		<label for="placeMoneyPackage">패키지당 가격(원)</label> 
-		<input type="number" id="placeMoneyPackage" name="placeMoneyPackage" required>
-		<button type="submit">수정</button>
+		<input type="submit" value="수정">
 	</form>
 </body>
 </html>

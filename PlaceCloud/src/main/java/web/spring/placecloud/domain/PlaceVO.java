@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PlaceVO {
-	private Integer placeId;
+	private int placeId;
 	private String placeName;
 	private String placeCategory;
 	private String placeContext;
@@ -20,7 +20,6 @@ public class PlaceVO {
 	private String placeWarning;
 	private String placeInfo;
 	private int placeMoneyTime;
-	private int placeMoneyPackage;
 	private String memberEmail;
 	private Date placeCreateDate;
 }

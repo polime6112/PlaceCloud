@@ -8,7 +8,7 @@
 <h1>
 	Hello world!  
 </h1>
-test
+
 <P>  The time on the server is ${serverTime}. </P>
 <a href="${pageContext.request.contextPath }/member/memberMain">To MemberMain</a>
 </body>

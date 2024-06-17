@@ -9,8 +9,10 @@ import web.spring.placecloud.domain.PlaceVO;
 @Mapper
 public interface PlaceMapper {
 	int insert(PlaceVO placeVO);
-	List<PlaceVO> selectAllPlace(String memberEmail);
-	PlaceVO selectByPlaceId(Integer placeId);
+	List<PlaceVO> selectAllPlace();
+	List<PlaceVO> selectMyPlace(String memberEmail);
+	PlaceVO selectByPlaceId(int placeId);
+	PlaceVO selectByPlaceCategory(String placeCategory);
 	int update(PlaceVO placeVO);
 	int delete(int placeId);
 }

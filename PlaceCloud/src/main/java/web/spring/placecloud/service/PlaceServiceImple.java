@@ -23,15 +23,27 @@ public class PlaceServiceImple implements PlaceService{
 	}
 	
 	@Override
-	public List<PlaceVO> getAllPlace(String memberEmail) {
+	public List<PlaceVO> getAllPlace() {
 		log.info("getAllPlace");
-		return placeMapper.selectAllPlace(memberEmail);
+		return placeMapper.selectAllPlace();
+	}
+	
+	@Override
+	public List<PlaceVO> getMyPlace(String memberEmail) {
+		log.info("getMyPlace");
+		return placeMapper.selectMyPlace(memberEmail);
 	}
 
 	@Override
-	public PlaceVO getPlaceById(Integer placeId) {
+	public PlaceVO getPlaceById(int placeId) {
 		log.info("getPlaceById");
 		return placeMapper.selectByPlaceId(placeId);
+	}
+	
+	@Override
+	public PlaceVO getPlaceByCategory(String placeCategory) {
+		log.info("getPlaceByCategory");
+		return placeMapper.selectByPlaceCategory(placeCategory);
 	}
 
 	@Override

@@ -7,18 +7,6 @@
 <meta charset="UTF-8">
 <title>내가 등록한 장소들</title>
 <style>
-	.wrap-btn {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-		gap: 32px;
-	}
-	
-	.btn-keyword {
-		padding: 16px;
-		background-color: white;
-		cursor: pointer;
-	}
-
     .placeList {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -52,31 +40,10 @@
 			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
 		</div>
 	</header>
-	<br><br>
+    <h2>${sessionScope.login.memberName}의 페이지</h2>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
-    <div class="wrap-btn">
-	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
-	    	<img class="icon" src="/placecloud/resources/image/party.png"/>
-	    	<div class="keyword">파티룸</div>
-	    </button>
-	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
-	    	<img class="icon" src="/placecloud/resources/image/meeting.png"/>
-	    	<div class="keyword">회의실</div>
-	    </button>
-	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
-	    	<img class="icon" src="/placecloud/resources/image/record.png"/>
-	    	<div class="keyword">녹음실</div>
-	    </button>
-	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
-	    	<img class="icon" src="/placecloud/resources/image/studio.png"/>
-	    	<div class="keyword">스튜디오</div>
-	    </button>2
-	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
-	    	<img class="icon" src="/placecloud/resources/image/stage.png"/>
-	    	<div class="keyword">공연장</div>
-	    </button>
-    </div>
-    <br><br><br>
+    <button onclick="location.href='../place/registerPlace'">장소 등록하기</button><br><br>
+    <hr>
     <div class="placeList">
 	    <c:forEach var="place" items="${List}">
 	        <div class="placeCard" onclick="location.href='../place/infoPlace?placeId=' + ${place.placeId}">

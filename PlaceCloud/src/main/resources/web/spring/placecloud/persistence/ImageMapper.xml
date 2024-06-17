@@ -3,9 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="web.spring.placecloud.persistence.PlaceImageMapper">
+<mapper namespace="web.spring.placecloud.persistence.ImageMapper">
 
-	<resultMap type="web.spring.placecloud.domain.PlaceImageVO" id="imageResultMap">
+	<resultMap type="web.spring.placecloud.domain.ImageVO" id="imageResultMap">
 
 		<id property="imageId" column="IMAGE_ID"/>
 		<result property="imageName" column="IMAGE_NAME"/>
@@ -15,19 +15,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<insert id="insert">
-		INSERT INTO PLACE_IMAGE
+		INSERT INTO IMAGE
 		(IMAGE_ID, IMAGE_NAME, IMAGE_EXTENSION, PLACE_ID, IMAGE_PATH)
 		VALUES
 		(IMAGE_SEQ.NEXTVAL, #{imageName}, #{imageExtension}, #{placeId}, #{imagePath})
 	</insert>
 
 	<select id="selectImageByPlaceId" resultMap="imageResultMap">
-		SELECT * FROM PLACE_IMAGE
+		SELECT * FROM IMAGE
 		WHERE PLACE_ID = #{placeId}
 	</select>
 
 	<update id="update">
-		UPDATE PLACE_IMAGE SET
+		UPDATE IMAGE SET
 		IMAGE_NAME = #{imageName},
 		IMAGE_EXTENSION = #{imageExtension},
 		IMAGE_PATH = #{imagePath}
@@ -35,8 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<delete id="delete">
-		DELETE FROM PLACE_IMAGE
-		WHERE IMAGE_ID = #{imageId}
+		DELETE FROM IMAGE
+		WHERE PLACE_ID = #{placeId}
 	</delete>
 
 </mapper>

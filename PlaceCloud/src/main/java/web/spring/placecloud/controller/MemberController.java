@@ -61,7 +61,7 @@ public class MemberController {
         if (login != null) {
             log.info("로그인 성공");
             session.setAttribute("login", login);
-            session.setMaxInactiveInterval(300); // 5분
+            session.setMaxInactiveInterval(6000); // 100분
             return "redirect:/member/memberMain";
         } else {
             log.info("로그인 실패");
