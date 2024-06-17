@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Mapper XML 설정 태그 -->
+
+<!-- namespace : 연결할 Mapper 인터페이스 경로 및 이름 -->
+<mapper
+	namespace="web.spring.placecloud.persistence.ReviewMapper">
+
+	<!-- <resultMap> : DB 쿼리 반환 데이터와 Entity 클래스의 멤버 변수 매핑을 정의하는 태그 - 속성 type 
+		: 연결할 클래스 id : SQL 쿼리 정의 태그에서 인식되는 이름 -->
+	<resultMap type="web.spring.placecloud.domain.ReviewVO"
+		id="reviewResultMap">
+
+		<!-- <id> : key 컬럼 매핑 태그 <result> : 컬럼 매핑 태그 - 속성 property : Entity 멤버 
+			변수 column : DB 테이블 컬럼 -->
+		<id property="reviewId" column="REVIEW_ID" />
+		<result property="placeId" column="PLACE_ID" />
+		<result property="reviewTitle" column="REVIEW_TITLE" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="reviewDateCreated" column="REVIEW_DATE_CREATED" />
+	</resultMap>
+
+	<!-- <select>, <insert>, <update>, <delete> : SQL 쿼리 정의 태그 - 속성 id : Mapper 
+		인터페이스 메서드 매핑 역할. resultMap : 쿼리 결과를 resultMap에 매핑. <resultMap> 태그의 id를 적용 
+		resultType : 쿼리 결과를 클래스에 매핑 -->
+
+	<insert id="insert">
+		<!-- 이용후기 등록 -->
+		INSERT INTO REVIEW VALUES (REVIEW_SEQ.NEXTVAL, #{placeId},
+		#{reviewTitle}, #{reviewContent}, #{memberEmail}, SYSDATE)
+	</insert>
+
+	<select id="selectList" resultMap="reviewResultMap">
+		<!-- 전체 이용후기 조회 -->
+		SELECT * FROM REVIEW ORDER BY REVIEW_ID DESC
+	</select>
+
+	<select id="selectOne" resultMap="reviewResultMap">
+		<!--특정 이용후기 조회 -->
+		SELECT * FROM REVIEW WHERE REVIEW_ID = #{reviewId}
+	</select>
+
+	<update id="update">
+		<!-- 특정 이용후기 수정 -->
+		UPDATE REVIEW SET
+		REVIEW_TITLE = #{reviewTitle},
+		REVIEW_CONTENT =
+		#{reviewContent},
+		REVIEW_DATE_CREATED = SYSDATE
+		WHERE REVIEW_ID =
+		#{reviewId}
+	</update>
+
+	<delete id="delete">
+		<!-- 특정 이용후기 삭제 -->
+		DELETE REVIEW
+		WHERE REVIEW_ID = #{reviewId}
+	</delete>
+
+	<select id="searchListByPagination" resultMap="reviewResultMap">
+		<!-- 페이지네이션된 이용후기 목록 조회 -->
+		SELECT * FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY REVIEW_ID DESC) AS
+		RN, REVIEW.*
+		FROM REVIEW
+		<choose>
+			<when test="type == 'reviewTitle' and keyword != null and keyword != ''">
+				WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type == 'memberEmail' and keyword != null and keyword != ''">
+				WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+		)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	<!-- WHERE 검색 유형이 '제목'일 때 <if test="type == 'reviewTitle'"> REVIEW_TITLE 
+		LIKE '%' || #{keyword} || '%' </if> 검색 유형이 '작성자'일 때 <if test="type == 'memberEmail'"> 
+		MEMBER_EMAIL LIKE '%' || #{keyword} || '%' </if> 검색 조건이 없을 때 <if test="type 
+		== null or type == ''"> 1=1 </if> -->
+
+	<select id="searchTotalCount" resultType="Integer">
+		<!-- 총 이용후기 수 조회 -->
+		SELECT COUNT(*) AS TOTAL_COUNT
+		FROM REVIEW
+		<choose>
+			<when test="type == 'reviewTitle' and keyword != null and keyword != ''">
+				WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type == 'memberEmail' and keyword != null and keyword != ''">
+				WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</select>
+	<!-- WHERE 검색 유형이 '제목'일 때 <if test="type == 'reviewTitle'"> REVIEW_TITLE 
+		LIKE '%' || #{keyword} || '%' </if> 검색 유형이 '작성자'일 때 <if test="type == 'memberEmail'"> 
+		MEMBER_EMAIL LIKE '%' || #{keyword} || '%' </if> 검색 조건이 없을 때 <if test="type 
+		== null or type == ''"> 1=1 </if> -->
+
+</mapper>

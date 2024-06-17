@@ -1,0 +1,18 @@
+package web.spring.placecloud.persistence;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import web.spring.placecloud.domain.MemberVO;
+
+@Mapper
+public interface MemberMapper {
+	int memberJoin(MemberVO memberVO); // 회원(게스트) 등록
+	MemberVO selectMember(String memberEmail); // 특정 회원(게스트) 조회
+	int update(MemberVO memberVO); // 특정 회원(게스트) 수정
+	int delete(String memberEmail); // 특정 회원(게스트) 삭제
+	MemberVO loginChk(MemberVO memberVO); // 로그인 체크
+	int emailDoubleChk(String memberEmail); // 이메일 중복 체크
+	int nameDoubleChk(String memberName); // 닉네임 중복 체크
+	int profilePicture(MemberVO memberVO); // 프로필 사진 업데이트
+	
+}
