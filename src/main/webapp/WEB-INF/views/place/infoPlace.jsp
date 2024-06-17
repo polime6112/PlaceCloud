@@ -1,3 +1,4 @@
+<%@page import="web.spring.placecloud.util.ImageUploadUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -32,8 +33,13 @@
 	<br> 주의사항 <input type="text" id="placeWarning" value="${placeVO.placeWarning }" readonly><br>
 	<br> 장소 설비 <input type="text" id="placeInfo" value="${placeVO.placeInfo }" readonly><br>
 	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
+<%-- 	<br>
+	<%
+	    int placeId = (int) request.getAttribute("placeVO.placeId");
+	%>
+	<img src="<%= ImageUploadUtil.makePath(placeId) %>"> --%>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
-		
+		<a href="${pageContext.request.contextPath}/booking/bookingInsert">예약 하기</a>
 	</c:if>
 	<c:if test="${sessionScope.login.memberStatus == 'host' }">
 		<br> <button name="updatePlace" onclick="location.href='../place/updatePlace?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>

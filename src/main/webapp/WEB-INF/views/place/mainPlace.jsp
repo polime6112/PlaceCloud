@@ -70,7 +70,7 @@
 	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
 	    	<img class="icon" src="/placecloud/resources/image/studio.png"/>
 	    	<div class="keyword">스튜디오</div>
-	    </button>2
+	    </button>
 	    <button class="btn-keyword" onclick="location.href='../place/searchPlace?placeCategory=' + ${keyword }">
 	    	<img class="icon" src="/placecloud/resources/image/stage.png"/>
 	    	<div class="keyword">공연장</div>

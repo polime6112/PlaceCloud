@@ -2,8 +2,6 @@ package web.spring.placecloud.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Calendar;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,23 +43,12 @@ public class ImageUploadUtil {
 	}
 	
 	/**
-	 * 이미지가 저장되는 폴더 이름을 날짜 형식(yyyy/MM/dd)으로 생성
+	 * 이미지가 저장되는 폴더 이름을 장소 번호 기준으로 생성
 	 * 
 	 * @return 날짜 형식의 폴더 이름
 	 */
-	public static String makeDatePath() {
-		Calendar calendar = Calendar.getInstance();
-		
-		String yearPath = String.valueOf(calendar.get(Calendar.YEAR));
-		log.info("yearPath : " + yearPath);
-		
-		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(calendar.get(Calendar.MONTH) + 1);
-		log.info("monthPath : " + monthPath);
-		
-		String datePath = monthPath + File.separator + new DecimalFormat("00").format(calendar.get(Calendar.DATE));
-		log.info("datePath : " + datePath);
-		
-		return datePath;
+	public static String makePath(int placeId) {
+		return Integer.toString(placeId);
 	}
 	
 	/**
@@ -71,12 +58,12 @@ public class ImageUploadUtil {
 	 * @param image 	 업로드된 이미지
 	 * @param uuid 		 UUID
 	 */
-	public static void saveImage(String uploadPath, MultipartFile image, String uuid) {
+	public static void saveImage(String uploadPath, MultipartFile image, String uuid, int placeId) {
 		if (image == null) {
 	        log.error("Image 없음");
 	        throw new IllegalArgumentException("Image는 null일 수 없음");
 	    }
-		File realUploadPath = new File(uploadPath, makeDatePath());
+		File realUploadPath = new File(uploadPath, makePath(placeId));
 		
 		if (!realUploadPath.exists()) {
 			realUploadPath.mkdirs();

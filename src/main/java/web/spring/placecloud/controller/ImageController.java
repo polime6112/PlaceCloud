@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
@@ -51,7 +50,7 @@ public class ImageController {
     }
     
     @PostMapping("/imageInsert/{placeId}")
-    public ResponseEntity<String> imageInsert(@RequestParam("image") MultipartFile image, HttpSession httpSession, @PathVariable("placeId") Integer placeId) {
+    public ResponseEntity<String> imageInsert(MultipartFile image, HttpSession httpSession, @PathVariable("placeId") Integer placeId) {
         log.info("imageInsert");
         
         if (image.isEmpty()) {
@@ -61,11 +60,11 @@ public class ImageController {
         // UUID 생성
         String imageName = UUID.randomUUID().toString();
         // 이미지 저장
-        ImageUploadUtil.saveImage(uploadPath, image, imageName);
+        ImageUploadUtil.saveImage(uploadPath, image, imageName, placeId);
             
         ImageVO imageVO = new ImageVO();
         // 이미지 경로 설정
-        imageVO.setImagePath(ImageUploadUtil.makeDatePath());
+        imageVO.setImagePath(ImageUploadUtil.makePath(placeId));
         // 이미지 실제 이름 설정
         imageVO.setImageName(ImageUploadUtil.subName(image.getOriginalFilename()));
         // 이미지 변경 이름(UUID) 설정
