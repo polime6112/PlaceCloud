@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.FeedbackVO;
 import web.spring.placecloud.persistence.FeedbackMapper;
-import web.spring.placecloud.persistence.ReplyMapper;
 
 @Service
 @Log4j
@@ -16,9 +15,6 @@ public class FeedbackServiceImple implements FeedbackService {
 	
 	@Autowired
 	public FeedbackMapper feedbackMapper;
-	
-	@Autowired
-	public ReplyMapper replyMapper;
 	
 	// 댓글 등록
 	@Override
@@ -51,10 +47,6 @@ public class FeedbackServiceImple implements FeedbackService {
 	@Override
 	public int deleteFeedback(int feedbackId) {
 		log.info("deleteFeedback()");
-		
-		int deleteReplyResult = replyMapper.deleteByFeedbackId(feedbackId);
-		log.info(deleteReplyResult + "대댓글 삭제");
-		
 		int deleteResult = feedbackMapper.delete(feedbackId);
 		log.info(deleteResult + "댓글 삭제");
 		
