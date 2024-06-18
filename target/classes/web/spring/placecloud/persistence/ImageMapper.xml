@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.spring.placecloud.persistence.ImageMapper">
+
+	<resultMap type="web.spring.placecloud.domain.ImageVO" id="imageResultMap">
+
+		<id property="imageId" column="IMAGE_ID"/>
+		<result property="imageName" column="IMAGE_NAME"/>
+		<result property="imageExtension" column="IMAGE_EXTENSION"/>
+		<result property="placeId" column="PLACE_ID"/>
+		<result property="imagePath" column="IMAGE_PATH"/>
+	</resultMap>
+
+	<insert id="insert">
+		INSERT INTO IMAGE
+		(IMAGE_ID, IMAGE_NAME, IMAGE_EXTENSION, PLACE_ID, IMAGE_PATH)
+		VALUES
+		(IMAGE_SEQ.NEXTVAL, #{imageName}, #{imageExtension}, #{placeId}, #{imagePath})
+	</insert>
+
+	<select id="selectImageByPlaceId" resultMap="imageResultMap">
+		SELECT * FROM IMAGE
+		WHERE PLACE_ID = #{placeId}
+	</select>
+
+	<update id="update">
+		UPDATE IMAGE SET
+		IMAGE_NAME = #{imageName},
+		IMAGE_EXTENSION = #{imageExtension},
+		IMAGE_PATH = #{imagePath}
+		WHERE IMAGE_ID = #{imageId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM IMAGE
+		WHERE PLACE_ID = #{placeId}
+	</delete>
+
+</mapper>

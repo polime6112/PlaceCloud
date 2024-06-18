@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BOOKING_ID = #{bookingId}
 	</select>
 	
-	<update id="update"> <!-- 예약 정보 수정 -->
+	<update id="update"> <!-- 투숙객, 예약 날짜 수정 -->
 		UPDATE BOOKING
 		SET BOOKING_DATE = #{bookingDate},
 			BOOKING_PERSON = #{bookingPerson},

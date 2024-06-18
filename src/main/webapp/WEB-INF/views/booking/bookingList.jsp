@@ -101,7 +101,6 @@
 <body>
     <div class="container">
         <h1>${sessionScope.login.memberName }님의 예약 목록</h1>
-        <button class="userInfo" onclick="location.href='/placecloud/member/memberMain'">메인 화면</button>
         <button class="userInfo" onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
         <br><br>
         <div class="row">

@@ -13,7 +13,7 @@
 	<h2>예약 정보</h2>
 	<p>예약 번호 : ${bookingVO.bookingId }</p>
 	<div>
-		<p>예약 공간 : ${bookingVO.placeName }</p>
+		<p>${bookingVO.placeName }</p>
 		<fmt:formatDate value="${bookingVO.bookingDate }"
 		pattern="yyyy-MM-dd" var="bookingDate"/>
 		<p>예약 날짜 : ${bookingDate }</p>
@@ -31,21 +31,22 @@
 		<p>결제 금액</p>
 		<p>${bookingVO.bookingPrice }원</p>
 	</div>
-	<button onclick="location.href='../booking/bookingList'">뒤로가기</button>
-	<button onclick="location.href='../booking/bookingUpdate?bookingId=${bookingVO.bookingId}'">수정하기</button>
+	<button onclick="location.href='bookingList'">뒤로가기</button>
+	<button onclick="location.href='bookingUpdate?bookingId=${bookingVO.bookingId }'">수정하기</button>
 	<button id="deleteBooking">예약 취소</button>
 	<form id="deleteform" action="bookingDelete" method="post">
 		<input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
 	</form>
 	
 	<script type="text/javascript">
+		
 		$(document).ready(function(){
 			$('#deleteBooking').click(function(){
-				if(confirm('삭제하시겠습니까?')){
+				if(confirm('취소하시겠습니까?')){
 					$('#deleteform').submit(); // form 데이터 전송
-				}	
-			});
-		}); // end document
+				}
+			})	
+		}) // end document
 		
 	</script>
 	
