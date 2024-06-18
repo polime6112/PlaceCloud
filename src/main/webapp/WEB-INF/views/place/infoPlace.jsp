@@ -39,7 +39,7 @@
 	%>
 	<img src="<%= ImageUploadUtil.makePath(placeId) %>"> --%>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
-		<a href="${pageContext.request.contextPath}/booking/bookingInsert">예약 하기</a>
+		<a href="${pageContext.request.contextPath}/booking/bookingInsert?placeId=${placeVO.placeId}">예약 하기</a>
 	</c:if>
 	<c:if test="${sessionScope.login.memberStatus == 'host' }">
 		<br> <button name="updatePlace" onclick="location.href='../place/updatePlace?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>

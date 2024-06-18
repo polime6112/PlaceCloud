@@ -12,26 +12,30 @@
 	<h1>공간 예약</h1>
 	<form action="../kakaoPay" method="post">
 		<div>
-			<input type="hidden" name="placeId" value="1">
+			<input type="hidden" name="placeId" value="${PlaceVO.placeId }">
 			<p>예약 공간</p>
-			<input type="text" name="placeName" value="파티룸">
+			<input type="text" name="placeName" value="${PlaceVO.placeName }">
+			<p>카테고리 : ${PlaceVO.placeCategory }</p>
+			<p>주소 : ${PlaceVO.placeAddress }</p>
+			<p>장소 설비 : ${PlaceVO.placeInfo }</p>
+			<p>주의 사항 : ${PlaceVO.placeWarning }</p>
 		</div>
 		<div>
 			<p>예약 날짜</p>
-			<input type="date" name="bookingDate">
+			<input type="date" name="bookingDate" required>
 			<br>
 			<p>예약 인원</p>
-			<input type="text" name="bookingPerson">
+			<input type="text" name="bookingPerson" required>
 		</div>
 		<div>
 			<p>예약자</p>
-			<input type="text" name="bookingUserName"> 
+			<input type="text" name="bookingUserName" required> 
 		<br>
 			<p>전화번호</p>
-			<input type="text" name="bookingUserPhone" value="${sessionScope.login.memberPhone }">
+			<input type="text" name="bookingUserPhone" required value="${sessionScope.login.memberPhone }">
 		<br>
 			<p>이메일</p>
-			<input type="email" name="bookingUserEmail" value="${sessionScope.login.memberEmail }">
+			<input type="email" name="bookingUserEmail" required value="${sessionScope.login.memberEmail }">
 		<br>
 			<p>사용 목적</p>
 			<textarea cols="120" name="bookingPerpose" 

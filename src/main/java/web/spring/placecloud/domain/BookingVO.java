@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class BookingVO {
 	private int bookingId;
-	private int placeId;
+	private String placeId;
 	private String placeName;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date bookingDate;
@@ -25,7 +25,7 @@ public class BookingVO {
 	private String bookingUserEmail;
 	private String bookingPerpose;
 	private String bookingContent;
-	private int bookingPrice;
+	private String bookingPrice;
 	private Date bookingSysdate;
 
 } // end ReservationInfoVO

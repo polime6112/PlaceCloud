@@ -57,11 +57,11 @@ public class KakaoPayService {
 		Map<String, String> params = new HashMap<String, String>();
 	
 		params.put("cid", cid); // 가맹점 코드
-		params.put("partner_order_id", "1"); // 주문 번호 
-		params.put("partner_user_id", "test@naver.com"); // 회원 아이디
-		params.put("item_name", "파티룸"); // 상품 명
+		params.put("partner_order_id", bookingVO.getPlaceId()); // 주문 번호 
+		params.put("partner_user_id", bookingVO.getBookingUserEmail()); // 회원 아이디
+		params.put("item_name", bookingVO.getPlaceName()); // 상품 명
 		params.put("quantity", "1"); // 상품 수량
-		params.put("total_amount", "1000"); // 총 금액
+		params.put("total_amount", bookingVO.getBookingPrice()); // 총 금액
 		params.put("tax_free_amount", "1"); // 비과세 금액
 		params.put("approval_url", "http://localhost:8080/placecloud/kakaoPaySuccess"); // 성공시 url (최대 255자)
 		params.put("cancel_url", "http://localhost:8080/placecloud/booking/bookingInsert"); // 취소시 url (최대 255자)
