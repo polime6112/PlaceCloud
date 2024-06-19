@@ -109,6 +109,7 @@
                         replaceContent = replaceContent.replaceAll(">", "&gt;");
                         replaceContent = replaceContent.replaceAll("\"", "&quot;");
                         
+                        // 날짜 이상하게 보여서 formatte
                         var feedbackDate = new Date(feedback.feedbackDateCreated);
                         var formattedDate = feedbackDate.getFullYear() + '-' +
                                             ('0' + (feedbackDate.getMonth() + 1)).slice(-2) + '-' +
@@ -117,21 +118,36 @@
                                             ('0' + feedbackDate.getMinutes()).slice(-2) + ':' +
                                             ('0' + feedbackDate.getSeconds()).slice(-2);
                         
+                        // 댓글 리스트
                         selectAllView += '<li>댓글번호 &nbsp; '+ feedback.feedbackId;
                         selectAllView += '<div class="feedback" id="feedbackId' + feedback.feedbackId + '">';
                         selectAllView += '<p>&nbsp;&nbsp;' + feedback.memberEmail + '</p>';
                         selectAllView += '<p>&nbsp;&nbsp;' + replaceContent + '</p>';
                         selectAllView += '<p>&nbsp;&nbsp;' + formattedDate + '</p>';
-
+						
+                        // 댓글 작성한 이메일과 로그인한 이메일이 같으면
                         if (memberEmail === feedback.memberEmail) {
                             selectAllView += '<div class="row">';
                             selectAllView += '<div class="col-12">';
+                            // 수정 및 삭제 버튼
                             selectAllView += '<button type="button" data-feedbackId="' + feedback.feedbackId + '" class="mini token operator" onclick="updateAndDeleteFeedbackBtn(' + feedback.feedbackId + ', \'' + formattedDate + '\', \'' + replaceContent + '\', \'' + feedback.memberEmail + '\')" id="updateFeedback">수정 및 삭제</button>';
                             selectAllView += '</div></div>';
                         }
+                        
+                     	// 대댓글 작성 폼 
+                        selectAllView += '<div id="replyForm' + feedback.feedbackId + '" style="display:none;">';
+                        selectAllView += '<textarea id="replyContent' + feedback.feedbackId + '" rows="3"></textarea><br>';
+                        selectAllView += '<button type="button" onclick="submitReply(' + feedback.feedbackId + ')">답글 등록</button>';
+                        selectAllView += '</div>';
+                        
+                     	// 대댓글 보기 버튼
+                     	selectAllView += '<button type="button" class="mini token operator" onclick="toggleReply(' + feedback.feedbackId + ')">답글 보기/숨기기</button>';
 
                         selectAllView += '</div></li>';
+						
+                        /* getReplies(); */
                     });
+                                        
                 } else {
                     selectAllView += '--등록된 댓글이 없습니다.--';
                 }
@@ -142,7 +158,57 @@
             }
         });
     }
+    
+ 	// 대댓글 작성 폼 보이기/숨기기
+    function toggleReply(feedbackId) {
+ 		console.log('toggleReply()');
+        $('#replyForm' + feedbackId).toggle();
+    }
+ 	
+    /* function getReplies(feedbackId, selectAllView) {
+        console.log('getReplies()');
+        var feedbackId = $('#feedbackId').val();
+        $.ajax({
+            type: 'post',
+            url: '../reply/replies/' + feedbackId,  
+            contentType: 'application/json',  
+            data: JSON.stringify({ feedbackId: feedbackId }),  
+            dataType: 'json',
+            success: function(replies) {
+                if (replies.length > 0) {
+                    selectAllView += '<ul>';
+                    $.each(replies, function(idx, reply) {
+                        var replyContent = reply.replyContent;
+                        var replyDate = new Date(reply.replyDateCreated);
+                        var formattedReplyDate = replyDate.getFullYear() + '-' +
+                                                 ('0' + (replyDate.getMonth() + 1)).slice(-2) + '-' +
+                                                 ('0' + replyDate.getDate()).slice(-2) + ' ' +
+                                                 ('0' + replyDate.getHours()).slice(-2) + ':' +
+                                                 ('0' + replyDate.getMinutes()).slice(-2) + ':' +
+                                                 ('0' + replyDate.getSeconds()).slice(-2);
+                        
+                        selectAllView += '<li>';
+                        selectAllView += '<p>' + reply.memberEmail + ' 님의 대댓글:</p>';
+                        selectAllView += '<p>' + replyContent + '</p>';
+                        selectAllView += '<p>' + formattedReplyDate + '</p>';
+                        selectAllView += '</li>';
+                    });
+                    selectAllView += '</ul>';
+                } else {
+                    selectAllView += '<p>등록된 대댓글이 없습니다.</p>';
+                }
 
+                // 댓글과 대댓글을 모두 처리한 후에 한 번에 화면에 추가
+                $("#feedbackSelectAll").append(selectAllView);
+            },
+            error: function() {
+                alert('대댓글 가져오기 실패');
+            }
+        });
+    } */
+
+ 	
+ 	// 댓글 등록 버튼
     $('#feedbackBtn').click(function() {
     	console.log('feedbackBt')
         var reviewId = $('#reviewId').val();
@@ -179,7 +245,8 @@
             }
         });
     });
-
+	
+ 	// 댓글 및 수정 버튼 눌렀을때
     function updateAndDeleteFeedbackBtn(feedbackId, feedbackDateCreated, content, memberEmail) {
         console.log('updateAndDeleteFeedbackBtn()');
     	var updateFeedbackView = "";
@@ -205,8 +272,10 @@
         updateFeedbackView += '</div>'; 
 
         $('#feedbackId' + feedbackId).replaceWith(updateFeedbackView);
-    }
-
+        
+    } // end updateAndDeleteFeedbackBtn()
+	
+ 	// 댓글 수정 버튼
     function updateFeedback(feedbackId, reviewId) {
     	console.log('updateFeedback()');
     	var feedbackId = $('#feedbackId').val();
@@ -242,9 +311,12 @@
             error: function() {
                 alert('통신 실패');
             }
-        });
-    }
-
+            
+        }); // end ajax()
+        
+    } // end updateFeedback()
+	
+    // 댓글 삭제 버튼
     function deleteFeedback(feedbackId, reviewId) {
     	console.log('deleteFeedback()');
     	var feedbackId = $('#feedbackId').val();
@@ -275,23 +347,31 @@
                 error: function() {
                     alert('통신 실패');
                 }
-            });
+                
+            }); // end ajax()
         }
-    }
+        
+    } // end deleteFeedback()
 	
+    // 취소 버튼
     function cancel() {
     	console.log('cancel()');
     	getFeedbackList();
-    }
+    	
+    } // end cancel()
+    
     $(document).ready(function() {
         getFeedbackList();
         
+        // 게시판 삭제
         $('#deleteReview').click(function() {
             if (confirm('삭제하시겠습니까?')) {
                 $('#deleteForm').submit(); 
             }
-        });
-    });
+            
+        }); // end deleteReview.click()
+        
+    }); // end document()
 
     </script>
     
