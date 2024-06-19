@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.log4j.Log4j;
+import web.spring.placecloud.domain.ImageVO;
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.PlaceVO;
 import web.spring.placecloud.service.ImageService;
@@ -20,6 +20,10 @@ import web.spring.placecloud.service.PlaceService;
 @RequestMapping(value ="/place")
 @Log4j
 public class PlaceController {
+	
+    @Autowired
+    // ServletConfig에 @Bean으로 설정된 uploadPath() 객체 사용
+    private String uploadPath;
 	
     @Autowired
     private PlaceService placeService;
@@ -44,7 +48,7 @@ public class PlaceController {
     }
     
     @GetMapping("/myPlace")
-    public String myGET(@RequestParam("memberEmail") String memberEmail, Model model, HttpSession httpSession) {
+    public String myGET(String memberEmail, Model model, HttpSession httpSession) {
     	log.info("myPlaceGet");
     	log.info(memberEmail);
     	MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
@@ -67,7 +71,7 @@ public class PlaceController {
         if (memberVO == null) {
             return "redirect:/member/memberLogin";
         }
-        return "/place/registerPlace";
+        return "place/registerPlace";
     }
     
     @PostMapping("/registerPlace")
@@ -78,7 +82,7 @@ public class PlaceController {
         }
 
         if (placeVO.getPlaceCategory().contains("옵션")) {
-            return "/place/registerPlace";
+            return "place/registerPlace";
         }
 
         String memberEmail = memberVO.getMemberEmail();
@@ -87,10 +91,10 @@ public class PlaceController {
         int placeNum = placeService.createPlace(placeVO);
 
         if (placeNum > 0) {
-            return "redirect:/place/myPlace?memberEmail=" + placeVO.getMemberEmail();
+            return "redirect:/place/myPlace?memberEmail=" + memberVO.getMemberEmail();
         } else {
             model.addAttribute("errorMessage", "장소 등록에 실패했습니다.");
-            return "/place/registerPlace";
+            return "place/registerPlace";
         }
     }
     
@@ -132,15 +136,19 @@ public class PlaceController {
     }
     
     @GetMapping("/infoPlace")
-    public String infoGET(@RequestParam("placeId") Integer placeId, HttpSession httpSession, Model model) {
+    public String infoGET(Integer placeId, HttpSession httpSession, Model model) {
         log.info("infoPlaceGet");
         MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
         if (memberVO != null) {
         	String memberEmail = memberVO.getMemberEmail();
         	PlaceVO placeVO = placeService.getPlaceById(placeId);
+        	ImageVO imageVO = imageService.getImageByPlaceId(placeId); // placeId를 매개변수로 imageVO 값 불러오기
         	log.info("Member Email: " + memberEmail);
         	log.info("PlaceVO : " + placeVO);
+        	log.info("ImageVO : " + imageVO);
         	model.addAttribute("placeVO", placeVO);
+        	model.addAttribute("imageVO", imageVO);
+        	model.addAttribute("uploadPath", uploadPath);
         	return "place/infoPlace";        	
         } else {
         	log.error("세션이 존재하지 않습니다.");
@@ -155,13 +163,13 @@ public class PlaceController {
         MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
         if (memberVO != null) {
         	int placeDel = placeService.deletePlace(placeId);
-        	int imageDel = imageService.deleteImage(placeId);
+        	int imageDel = imageService.delete(placeId);
         	log.info(placeDel + "행 삭제");
         	log.info(imageDel + "행 삭제");
         	List<PlaceVO> list = placeService.getMyPlace(memberEmail);
         	log.info("List : " + list);
         	model.addAttribute("List", list);
-        	return "redirect:/place/myPlace?memberEmail=" + memberEmail;        	
+        	return "place/myPlace";
         } else {
         	log.error("세션이 존재하지 않습니다.");
         	return "redirect:/member/memberLogin";

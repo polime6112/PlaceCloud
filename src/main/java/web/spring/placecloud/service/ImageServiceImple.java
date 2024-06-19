@@ -15,9 +15,9 @@ public class ImageServiceImple implements ImageService {
 	private ImageMapper imageMapper;
 
 	@Override
-	public int insertImage(ImageVO imageVO) {
+	public int upload(ImageVO imageVO) {
 		log.info("insertImage");
-		return imageMapper.insert(imageVO);
+		return imageMapper.insertImage(imageVO);
 	}
 
 	@Override
@@ -27,15 +27,15 @@ public class ImageServiceImple implements ImageService {
 	}
 
 	@Override
-	public int updateImage(ImageVO imageVO) {
+	public int update(ImageVO imageVO) {
 		log.info("updateImage");
-		return imageMapper.update(imageVO);
+		return imageMapper.updateImage(imageVO);
 	}
 
 	@Override
-	public int deleteImage(int placeId) {
+	public int delete(int placeId) {
 		log.info("deleteImage");
-		return imageMapper.delete(placeId);
+		return imageMapper.deleteImage(placeId);
 	}
 	
 	

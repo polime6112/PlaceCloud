@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="imagePath" column="IMAGE_PATH"/>
 	</resultMap>
 
-	<insert id="insert">
+	<insert id="insertImage">
 		INSERT INTO IMAGE
 		(IMAGE_ID, IMAGE_NAME, IMAGE_EXTENSION, PLACE_ID, IMAGE_PATH)
 		VALUES
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE PLACE_ID = #{placeId}
 	</select>
 
-	<update id="update">
+	<update id="updateImage">
 		UPDATE IMAGE SET
 		IMAGE_NAME = #{imageName},
 		IMAGE_EXTENSION = #{imageExtension},
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE IMAGE_ID = #{imageId}
 	</update>
 
-	<delete id="delete">
+	<delete id="deleteImage">
 		DELETE FROM IMAGE
 		WHERE PLACE_ID = #{placeId}
 	</delete>
