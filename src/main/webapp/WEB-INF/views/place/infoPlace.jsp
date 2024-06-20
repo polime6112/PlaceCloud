@@ -25,6 +25,7 @@
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
 		<input type="text" id="memberName" value="${placeVO.memberEmail }">
 	</c:if>
+	<input type="hidden" id="placeId" value="${placeVO.placeId }">
 	<input type="hidden" id="memberEmail" value="${placeVO.memberEmail }">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
 	<p>작성일 : ${placeCreateDate }</p>
@@ -36,14 +37,11 @@
 	<br> 장소 설비 <input type="text" id="placeInfo" value="${placeVO.placeInfo }" readonly><br>
 	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
 	<br>
-<%-- 	<input type="text" id="uploadPath" value="${uploadPath }" readonly>
-   	<input type="text" id="imagePath" value="${imageVO.imagePath }" readonly>
-   	<input type="text" id="imageName" value="${imageVO.imageName }" readonly>
-   	<input type="text" id="imageExtension" value="${imageVO.imageExtension }" readonly> --%>
-	<%-- <c:if test="${not empty imageVO }">
-	<input type="text" id="img" value="${uploadPath }/${imageVO.imagePath}/${imageVO.imageName}.${imageVO.imageExtension}" readonly>
-		<img src="${uploadPath}/${imageVO.imagePath}/${imageVO.imageName}.${imageVO.imageExtension}" alt="이미지 로딩 실패">
-	</c:if> --%>
+	<c:if test="${not empty imageVO }">
+		<a href="../image/download?placeId=${imageVO.placeId }">${imageVO.imageRealName }</a>
+		<br>
+		<img class="image" src="${uploadPath }/${imageVO.imagePath}/${imageVO.imageChgName}.${imageVO.imageExtension}" alt="이미지 로딩 실패">
+	</c:if>
 	
 	<br>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
