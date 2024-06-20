@@ -8,47 +8,6 @@
 <title>장소 이미지 등록</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
-<style>
-/* 사용자가 이미지를 드롭하는 영역 스타일 */
-.placeImage {
-	max-width: 500px;
-	margin: 20px auto;
-	padding: 20px;
-	background-color: #fff;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.imageUpload {
-    width: 100%;
-    height: 200px;
-    border: 2px dashed grey; /* 테두리 점선 */
-    margin-bottom: 20px; /* 아래 여백 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    line-height: 200px; /* 세로 중앙 정렬 */
-    font-size: 16px; /* 글꼴 크기 */
-    color: grey; /* 텍스트 색상 */
-}
-
-/* 드롭된 이미지를 출력하는 영역 스타일 */
-.imageList {
-    margin-top: 20px; /* 위 여백 */
-    background-color: #f9f9f9; /* 배경색 */
-    border: 1px solid #ddd; /* 테두리 실선 */
-    padding: 5px; /* 안쪽 여백 */
-    margin-bottom: 20px; /* 아래 여백 */
-    height: 120px; /* 높이 */
-    width: 100%; /* 너비 */
-}
-
-/* 드롭된 이미지의 스타일 */
-.imageItem {
-    margin-left: 10px; /* 왼쪽 여백 */
-    position: relative; /* 상대 위치 */
-    display: inline-block; /* 인라인 블록으로 표시 */
-    margin: 4px; /* 여백 */
-}
-</style>
 <body>
 	<header>
 		<div class="logo">

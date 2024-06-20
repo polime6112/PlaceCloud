@@ -59,12 +59,8 @@ public class ImageUploadUtil {
 	 * @param uuid 		 UUID
 	 */
 	public static void saveImage(String uploadPath, MultipartFile image, String uuid, int placeId) {
-		if (image == null) {
-	        log.error("Image 없음");
-	        throw new IllegalArgumentException("Image는 null일 수 없음");
-	    }
-		File realUploadPath = new File(uploadPath, makePath(placeId));
 		
+		File realUploadPath = new File(uploadPath, makePath(placeId));
 		if (!realUploadPath.exists()) {
 			realUploadPath.mkdirs();
 			log.info(realUploadPath.getPath() + " successfully created.");

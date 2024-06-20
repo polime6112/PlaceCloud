@@ -8,29 +8,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="web.spring.placecloud.domain.ImageVO" id="imageResultMap">
 
 		<id property="imageId" column="IMAGE_ID"/>
-		<result property="imageName" column="IMAGE_NAME"/>
-		<result property="imageExtension" column="IMAGE_EXTENSION"/>
 		<result property="placeId" column="PLACE_ID"/>
 		<result property="imagePath" column="IMAGE_PATH"/>
+		<result property="imageRealName" column="IMAGE_REAL_NAME"/>
+		<result property="imageChgName" column="IMAGE_CHG_NAME"/>
+		<result property="imageExtension" column="IMAGE_EXTENSION"/>
 	</resultMap>
 
-	<insert id="insertImage">
+	<insert id="uploadImage">
 		INSERT INTO IMAGE
-		(IMAGE_ID, IMAGE_NAME, IMAGE_EXTENSION, PLACE_ID, IMAGE_PATH)
+		(IMAGE_ID, PLACE_ID, IMAGE_PATH, IMAGE_REAL_NAME, IMAGE_CHG_NAME, IMAGE_EXTENSION)
 		VALUES
-		(IMAGE_SEQ.NEXTVAL, #{imageName}, #{imageExtension}, #{placeId}, #{imagePath})
+		(IMAGE_SEQ.NEXTVAL, #{placeId}, #{imagePath}, 
+		#{imageRealName}, #{imageChgName}, #{imageExtension})
 	</insert>
 
-	<select id="selectImageByPlaceId" resultMap="imageResultMap">
+	<select id="selectByPlaceId" resultMap="imageResultMap">
 		SELECT * FROM IMAGE
 		WHERE PLACE_ID = #{placeId}
 	</select>
 
 	<update id="updateImage">
 		UPDATE IMAGE SET
-		IMAGE_NAME = #{imageName},
-		IMAGE_EXTENSION = #{imageExtension},
-		IMAGE_PATH = #{imagePath}
+		IMAGE_PATH = #{imagePath},
+		IMAGE_REAL_NAME = #{imageRealName},
+		IMAGE_CHG_NAME = #{imageChgName},
+		IMAGE_EXTENSION = #{imageExtension}
 		WHERE IMAGE_ID = #{imageId}
 	</update>
 
