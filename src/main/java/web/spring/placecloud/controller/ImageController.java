@@ -58,11 +58,6 @@ public class ImageController {
         log.info("ImageVO : " + imageVO);
         MultipartFile image = imageVO.getImage();
         
-        if (image.isEmpty()) {
-            log.error("이미지가 비어있습니다.");
-            return "image/upload";
-        }
-        
         // UUID 생성
         String imageName = UUID.randomUUID().toString();
         // 이미지 저장
@@ -71,9 +66,9 @@ public class ImageController {
         // 이미지 경로 설정
         imageVO.setImagePath(ImageUploadUtil.makePath(placeId));
         // 이미지 실제 이름 설정
-        imageVO.setImageName(ImageUploadUtil.subName(image.getOriginalFilename()));
+        imageVO.setImageRealName(ImageUploadUtil.subName(image.getOriginalFilename()));
         // 이미지 변경 이름(UUID) 설정
-        imageVO.setImageName(imageName);
+        imageVO.setImageChgName(imageName);
         // 이미지 확장자 설정
         imageVO.setImageExtension(ImageUploadUtil.subExtension(image.getOriginalFilename()));
         // 이미지가 들어가는 장소 번호 

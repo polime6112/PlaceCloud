@@ -13,9 +13,10 @@ import lombok.ToString;
 @ToString
 public class ImageVO {
 	private int imageId;
-	private String imageName;
-	private String imageExtension;
 	private int placeId;
 	private String imagePath;
+	private String imageRealName;
+	private String imageChgName;
+	private String imageExtension;
 	private MultipartFile image;
 }

@@ -13,17 +13,17 @@ public class ImageServiceImple implements ImageService {
 	
 	@Autowired
 	private ImageMapper imageMapper;
-
+	
 	@Override
 	public int upload(ImageVO imageVO) {
-		log.info("insertImage");
-		return imageMapper.insertImage(imageVO);
+		log.info("upload");
+		return imageMapper.uploadImage(imageVO);
 	}
-
+	
 	@Override
-	public ImageVO getImageByPlaceId(int placeId) {
+	public ImageVO getImageById(int placeId) {
 		log.info("getImageById");
-		return imageMapper.selectImageByPlaceId(placeId);
+		return imageMapper.selectByPlaceId(placeId);
 	}
 
 	@Override
@@ -37,7 +37,4 @@ public class ImageServiceImple implements ImageService {
 		log.info("deleteImage");
 		return imageMapper.deleteImage(placeId);
 	}
-	
-	
-	
 }
