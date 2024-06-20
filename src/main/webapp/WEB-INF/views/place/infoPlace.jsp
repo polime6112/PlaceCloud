@@ -40,10 +40,10 @@
    	<input type="text" id="imagePath" value="${imageVO.imagePath }" readonly>
    	<input type="text" id="imageName" value="${imageVO.imageName }" readonly>
    	<input type="text" id="imageExtension" value="${imageVO.imageExtension }" readonly> --%>
-	<c:if test="${not empty imageVO }">
-	<%-- <input type="text" id="img" value="${uploadPath }/${imageVO.imagePath}/${imageVO.imageName}.${imageVO.imageExtension}" readonly> --%>
+	<%-- <c:if test="${not empty imageVO }">
+	<input type="text" id="img" value="${uploadPath }/${imageVO.imagePath}/${imageVO.imageName}.${imageVO.imageExtension}" readonly>
 		<img src="${uploadPath}/${imageVO.imagePath}/${imageVO.imageName}.${imageVO.imageExtension}" alt="이미지 로딩 실패">
-	</c:if>
+	</c:if> --%>
 	
 	<br>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
