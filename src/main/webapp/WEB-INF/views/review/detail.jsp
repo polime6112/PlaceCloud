@@ -142,10 +142,12 @@
                         
                      	// 대댓글 보기 버튼
                      	selectAllView += '<button type="button" class="mini token operator" onclick="toggleReply(' + feedback.feedbackId + ')">답글 보기/숨기기</button>';
-
-                        selectAllView += '</div></li>';
 						
-                        /* getReplies(); */
+                     	// 대댓글 리스트
+                        selectAllView += '<div id="replyList' + feedback.feedbackId + '" class="reply-list" style="display:none;"></div>';
+	
+                        selectAllView += '</div></li>';
+						 
                     });
                                         
                 } else {
@@ -159,58 +161,158 @@
         });
     }
     
- 	// 대댓글 작성 폼 보이기/숨기기
+ 	// 대댓글 작성/리스트 폼 보이기/숨기기
     function toggleReply(feedbackId) {
  		console.log('toggleReply()');
-        $('#replyForm' + feedbackId).toggle();
-    }
+        /* $('#replyForm' + feedbackId).toggle(); */
+        var memberEmail = $('#memberEmail').val();
+        var replyForm = $('#replyForm' + feedbackId);
+        var replyList = $('#replyList' + feedbackId);
+        
+        if(replyForm.is(':visible')) {
+        	replyForm.hide();
+        	replyList.hide();
+        } else {
+            $.ajax({
+                type: 'post',
+                data: JSON.stringify({ feedbackId: feedbackId }),
+                dataType: 'json', 
+                contentType: 'application/json',
+                url: '../reply/replies', 
+
+                success: function(data) {
+                    console.log("replies Success: ", data);
+                    var repliesView = '';
+                    if (data.length > 0) {
+                        $.each(data, function(index, reply) {
+                            var replaceContent = reply.replyContent;
+                            replaceContent = replaceContent.replaceAll("&", "&amp;");
+                            replaceContent = replaceContent.replaceAll("\n", " ");
+                            replaceContent = replaceContent.replaceAll("'", " ");
+                            replaceContent = replaceContent.replaceAll("<", "&lt;");
+                            replaceContent = replaceContent.replaceAll(">", "&gt;");
+                            replaceContent = replaceContent.replaceAll("\"", "&quot;");
+                            
+                            var replyDate = new Date(reply.replyDateCreated);
+                            var formattedDate = replyDate.getFullYear() + '-' +
+                                                ('0' + (replyDate.getMonth() + 1)).slice(-2) + '-' +
+                                                ('0' + replyDate.getDate()).slice(-2) + ' ' +
+                                                ('0' + replyDate.getHours()).slice(-2) + ':' +
+                                                ('0' + replyDate.getMinutes()).slice(-2) + ':' +
+                                                ('0' + replyDate.getSeconds()).slice(-2);
+
+                            repliesView += '<div class="reply">';
+                            repliesView += '<p>&nbsp;&nbsp;' + reply.memberEmail + ' / ' + formattedDate + '</p>';
+                            repliesView += '<p>&nbsp;&nbsp;' + replaceContent + '</p>';
+                            
+                            if(memberEmail === reply.memberEmail) {
+                            	repliesView += '<button type="button" data-replyId="' + reply.replyId + '" class="mini token operator" onclick="showUpdateReply(' + reply.replyId + ', \'' + replaceContent + '\')">수정</button>';
+                                repliesView += '<button type="button" onclick="deleteReply(' + reply.replyId + ', ' + feedbackId + ')">삭제</button>';
+                            }
+                            
+                            repliesView += '</div>';
+                            
+                        });
+                    } else {
+                        repliesView = '<p>--등록된 답글이 없습니다--</p>';
+                    }
+                    replyList.html(repliesView);
+                    replyForm.show();
+                    replyList.show();
+                },
+                error: function() {
+                    alert('통신 실패');
+                }
+            });
+        }
+    } // end toggleReply()
  	
-    /* function getReplies(feedbackId, selectAllView) {
-        console.log('getReplies()');
-        var feedbackId = $('#feedbackId').val();
+ 	// 대댓글 등록 함수
+    function submitReply(feedbackId) {
+        console.log('submitReply()');
+        var reviewId = $('#reviewId').val();
+        var memberEmail = $('#memberEmail').val();
+        var replyContent = $('#replyContent' + feedbackId).val();
+
+        if (replyContent == '') {
+            alert('내용을 입력해주세요');
+            return;
+        }
+
+        var obj = {
+            'reviewId': reviewId,
+            'feedbackId': feedbackId,
+            'memberEmail': memberEmail,
+            'replyContent': replyContent
+        };
+
         $.ajax({
             type: 'post',
-            url: '../reply/replies/' + feedbackId,  
-            contentType: 'application/json',  
-            data: JSON.stringify({ feedbackId: feedbackId }),  
-            dataType: 'json',
-            success: function(replies) {
-                if (replies.length > 0) {
-                    selectAllView += '<ul>';
-                    $.each(replies, function(idx, reply) {
-                        var replyContent = reply.replyContent;
-                        var replyDate = new Date(reply.replyDateCreated);
-                        var formattedReplyDate = replyDate.getFullYear() + '-' +
-                                                 ('0' + (replyDate.getMonth() + 1)).slice(-2) + '-' +
-                                                 ('0' + replyDate.getDate()).slice(-2) + ' ' +
-                                                 ('0' + replyDate.getHours()).slice(-2) + ':' +
-                                                 ('0' + replyDate.getMinutes()).slice(-2) + ':' +
-                                                 ('0' + replyDate.getSeconds()).slice(-2);
-                        
-                        selectAllView += '<li>';
-                        selectAllView += '<p>' + reply.memberEmail + ' 님의 대댓글:</p>';
-                        selectAllView += '<p>' + replyContent + '</p>';
-                        selectAllView += '<p>' + formattedReplyDate + '</p>';
-                        selectAllView += '</li>';
-                    });
-                    selectAllView += '</ul>';
+            url: '../reply/repliesInsert',
+            data: JSON.stringify(obj),
+            contentType: 'application/json',
+            success: function(result) {
+                if (result === "InsertSuccess") {
+                    alert('답글이 등록되었습니다');
+                    toggleReply(feedbackId); 
+                    $('#replyContent' + feedbackId).val('');
                 } else {
-                    selectAllView += '<p>등록된 대댓글이 없습니다.</p>';
+                    alert('답글 등록 실패');
                 }
-
-                // 댓글과 대댓글을 모두 처리한 후에 한 번에 화면에 추가
-                $("#feedbackSelectAll").append(selectAllView);
             },
             error: function() {
-                alert('대댓글 가져오기 실패');
+                alert('통신 실패');
             }
-        });
-    } */
+        }); // end ajax()
+        
+    } // end submitReply()
+    
+ 	/* // 답글 수정 화면을 보여주는 함수
+    function showUpdateReply(replyId, replyContent) {
+        console.log('showUpdateReply()', replyId); 
+        
+        var updateReplyView = '';
+        updateReplyView += '<div class="reply" id="replyUpdate' + replyId + '">';
+        updateReplyView += '<textarea id="updateReplyContent' + replyId + '" rows="3">' + replyContent + '</textarea>';
+        updateReplyView += '<button type="button" onclick="updateReply(' + replyId + ')">수정</button>';
+        updateReplyView += '<button type="button" onclick="cancelReply(' + replyId + ')">취소</button>';
+        updateReplyView += '</div>';
 
- 	
+        $('#replyUpdate' + replyId).replaceWith(updateReplyView);
+    } */
+    
+ 	// 대댓글 삭제
+    function deleteReply(replyId, feedbackId) {
+        if (confirm('답글을 정말 삭제하시겠습니까?')) {
+            var obj = {
+                'replyId': replyId,
+                'feedbackId': feedbackId
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '../reply/repliesDelete',
+                data: JSON.stringify(obj),
+                contentType: 'application/json',
+                success: function(data) {
+                    if (data === 'DeleteSuccess') {
+                        alert('답글이 삭제되었습니다');
+                        getFeedbackList();
+                    } else {
+                        alert('답글 삭제 실패');
+                    }
+                },
+                error: function() {
+                    alert('통신 실패');
+                }
+            });
+        }
+    } // end deleteReply()
+    
+    
  	// 댓글 등록 버튼
     $('#feedbackBtn').click(function() {
-    	console.log('feedbackBt')
+    	console.log('feedbackBtn()');
         var reviewId = $('#reviewId').val();
         var memberEmail = $('#memberEmail').val();
         var feedbackContent = $('#feedbackContent').val();
@@ -243,11 +345,13 @@
             error: function() {
                 alert('통신 실패');
             }
-        });
-    });
+            
+        }); // end ajax()
+        
+    }); // end feedbackBtn.click()
 	
  	// 댓글 및 수정 버튼 눌렀을때
-    function updateAndDeleteFeedbackBtn(feedbackId, feedbackDateCreated, content, memberEmail) {
+    function updateAndDeleteFeedbackBtn(feedbackId, feedbackDateCreated, feedbackContent, memberEmail) {
         console.log('updateAndDeleteFeedbackBtn()');
     	var updateFeedbackView = "";
 
@@ -256,12 +360,12 @@
             return;
         }
 
-        updateFeedbackView += '<div class="feedback" style="white-space:pre" id="feedbackno' + feedbackId + '">';
+        updateFeedbackView += '<div class="feedback" style="white-space:pre" id="feedbackId' + feedbackId + '">';
         updateFeedbackView += '<p>&nbsp;&nbsp;' + memberEmail + ' / ' + feedbackDateCreated + '</p>';
         updateFeedbackView += '<p> <label>&nbsp;&nbsp;댓글 수정</label> <br>';
         updateFeedbackView += '<input type="hidden" id="feedbackId" name="feedbackId" value="' + feedbackId + '">';
-        updateFeedbackView += '<textarea style="white-space:pre" id="updateContent' + feedbackId + '" class="mini2" rows="5" cols="80" name="updateContent' + feedbackId + '" maxlength="300" placeholder="' + content + '" autofocus>';
-        updateFeedbackView += content; 
+        updateFeedbackView += '<textarea style="white-space:pre" id="updateContent' + feedbackId + '" class="mini2" rows="5" cols="80" name="updateContent' + feedbackId + '" maxlength="300" placeholder="' + feedbackContent + '" autofocus>';
+        updateFeedbackView += feedbackContent; 
         updateFeedbackView += '</textarea></p>';
         updateFeedbackView += '<div class="row">';
         updateFeedbackView += '<div class="col-12">';

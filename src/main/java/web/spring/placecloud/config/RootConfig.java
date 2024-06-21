@@ -40,11 +40,9 @@ public class RootConfig {
    
    @Bean
    public SqlSessionFactory sqlSessionFactory() throws Exception { 
-      SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-      sqlSessionFactoryBean.setDataSource(dataSource());
-      SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject(); 
-      sqlSessionFactory.getConfiguration().setCacheEnabled(false); // setCacheEnabled = 값이 true면 다른 SqlSession이여도 동일한 SQL을 사용한다.
-      return sqlSessionFactory;
+	   SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+	   sqlSessionFactoryBean.setDataSource(dataSource());
+	   return (SqlSessionFactory) sqlSessionFactoryBean.getObject();
    }
    
    // 트랜잭션 매니저 객체를 빈으로 등록

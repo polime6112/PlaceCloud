@@ -26,7 +26,8 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
     
-    @PostMapping("/feedbackInsert")
+    // 댓글 등록
+    @PostMapping("feedbackInsert")
     @ResponseBody
     public String feedbackInsert(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
         log.info("feedbackInsert()");
@@ -49,6 +50,7 @@ public class FeedbackController {
         }
     } // end feedbackInsert()
     
+    // 댓글 리스트
     @PostMapping("feedbackAllList")
     @ResponseBody
     public List<FeedbackVO> feedbackAllList(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
@@ -63,6 +65,7 @@ public class FeedbackController {
         
     } // end feedbackAllList()
     
+    // 댓글 수정
     @PostMapping("feedbackUpdate")
     @ResponseBody
     public String feedbackUpdate(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
@@ -90,6 +93,7 @@ public class FeedbackController {
     	
     } // end feedbackUpdate()
     
+    // 댓글 삭제
     @PostMapping("feedbackDelete")
     @ResponseBody
     public String feedbackDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {

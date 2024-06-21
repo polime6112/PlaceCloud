@@ -9,7 +9,7 @@ public interface PlaceService {
 	List<PlaceVO> getAllPlace();
 	List<PlaceVO> getMyPlace(String memberEmail);
 	PlaceVO getPlaceById(int placeId);
-	PlaceVO getPlaceByCategory(String placeCategory);
+	List<PlaceVO> getPlaceByCategory(String placeCategory);
 	int updatePlace(PlaceVO placeVO);
 	int deletePlace(int placeId);
 }

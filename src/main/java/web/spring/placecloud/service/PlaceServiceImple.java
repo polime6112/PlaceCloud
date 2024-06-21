@@ -41,9 +41,9 @@ public class PlaceServiceImple implements PlaceService{
 	}
 	
 	@Override
-	public PlaceVO getPlaceByCategory(String placeCategory) {
+	public List<PlaceVO> getPlaceByCategory(String placeCategory) {
 		log.info("getPlaceByCategory");
-		return placeMapper.selectByPlaceCategory(placeCategory);
+		return placeMapper.selectByCategory(placeCategory);
 	}
 
 	@Override

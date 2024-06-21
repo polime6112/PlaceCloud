@@ -62,7 +62,7 @@ button:hover {
 		</div>
 	</header>
 	<h1>장소 등록하기</h1>
-	<form id="registerPlace" action="registerPlace" method="POST">
+	<form id="register" action="register" method="POST">
 		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
 		<label for="placeName">장소 이름</label>
 		<input type="text" id="placeName" name="placeName" required>
