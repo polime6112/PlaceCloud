@@ -35,7 +35,7 @@
 			<input type="text" name="bookingUserPhone" required value="${sessionScope.login.memberPhone }">
 		<br>
 			<p>이메일</p>
-			<input type="email" name="bookingUserEmail" required value="${sessionScope.login.memberEmail }">
+			<input type="email" name="bookingUserEmail" readonly value="${sessionScope.login.memberEmail }">
 		<br>
 			<p>사용 목적</p>
 			<textarea cols="120" name="bookingPerpose" 
