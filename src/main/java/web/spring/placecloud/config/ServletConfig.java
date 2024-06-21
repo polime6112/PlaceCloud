@@ -31,10 +31,6 @@ public class ServletConfig implements WebMvcConfigurer {
    public void addResourceHandlers(ResourceHandlerRegistry registry) {
       // resources 디렉토리 설정
       registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-      
-   // 파일 업로드 경로를 웹 경로로 매핑
-      registry.addResourceHandler("/upload/placecloud/**")
-              .addResourceLocations("file:///C:/upload/placecloud/");
    }
    
    // 파일을 저장할 경로 bean 생성
