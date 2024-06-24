@@ -45,8 +45,8 @@
 				if(confirm('취소하시겠습니까?')){
 					$('#deleteform').submit(); // form 데이터 전송
 				}
-			})	
-		}) // end document
+			});	
+		}); // end document
 		
 	</script>
 	

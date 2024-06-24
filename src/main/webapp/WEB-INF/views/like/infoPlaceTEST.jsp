@@ -24,8 +24,11 @@
 	<br>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
 		<input type="text" id="memberName" value="${placeVO.memberEmail }">
+		<div id="likePlace"></div>
+		<button id="like"></button>
 	</c:if>
 	<input type="hidden" id="memberEmail" value="${placeVO.memberEmail }">
+	<input type="hidden" id="placeId" value="${placeVO.placeId }">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
 	<p>작성일 : ${placeCreateDate }</p>
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
@@ -55,5 +58,53 @@
 		<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
 		<br> <button name="deletePlace" onclick="location.href='../place/deletePlace?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
 	</c:if>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			// 찜하기 기능
+			$('#like').click(function(){
+				let userEmail = $('#memberEmail').val(); // 찜한 계정 정보
+				let placeId = $('#placeId').val(); // 찜한 장소 번호
+				let placeName = $('#placeName').val(); // 찜한 장소 이름
+				
+				// javascript 객체 생성
+				let obj = {
+						'userEmail' : userEmail,
+						'placeId' : placeId,
+						'placeName' : placeName
+				}
+				console.log(obj);
+				
+				// ajax 송수신
+				$.ajax({
+					type : 'POST', // 메서드 타입
+					url : '../like', // url
+					headers : { // 헤더 정보
+						'Content-Type' : 'application/json' // json content-type 설정
+					},
+					date : JSON.stringify(obj), // JSON으로 변환
+					success : function(result) { // 전송 성공 시 서버에서 result 값 전송
+						console.log(result);
+						if (result == 1) {
+							alert('찜 하기 성공');
+							getLike();
+						}
+					}
+				})
+			}) // end like.clike()
+			
+			function getLike() {
+				let placeId = $('#boardId').val();
+				
+				let url = '../'
+			}
+			
+			
+		})
+		
+		
+	</script>
+	
 </body>
 </html>

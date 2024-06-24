@@ -62,7 +62,7 @@ button:hover {
 		</div>
 	</header>
 	<h1>정보 수정하기</h1>
-	<form id="updatePlace" action="updatePlace" method="POST" >
+	<form id="update" action="update" method="POST" >
 		<input type="text" id="placeId" name="placeId" value="${placeVO.placeId}">
 		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
 		<label for="placeName">장소 이름</label> 

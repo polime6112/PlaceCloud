@@ -42,12 +42,11 @@
 	</header>
     <h2>${sessionScope.login.memberName}의 페이지</h2>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
-    <button onclick="location.href='../place/registerPlace'">장소 등록하기</button><br><br>
+    <button name="register" onclick="location.href='../place/register'">장소 등록하기</button><br><br>
     <hr>
     <div class="placeList">
 	    <c:forEach var="place" items="${List}">
-	        <div class="placeCard" onclick="location.href='../place/infoPlace?placeId=' + ${place.placeId}">
-	        	<%-- <div class="placeImage">${place.placeImage }</div> --%>
+	        <div class="placeCard" onclick="location.href='../place/detail?placeId=' + ${place.placeId}">
 	            <div class="placeName">${place.placeName}</div>
 	            <div class="placeCategory">${place.placeCategory}</div>
 	        </div>

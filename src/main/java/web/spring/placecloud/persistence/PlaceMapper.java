@@ -12,7 +12,7 @@ public interface PlaceMapper {
 	List<PlaceVO> selectAllPlace();
 	List<PlaceVO> selectMyPlace(String memberEmail);
 	PlaceVO selectByPlaceId(int placeId);
-	PlaceVO selectByPlaceCategory(String placeCategory);
+	List<PlaceVO> selectByCategory(String placeCategory);
 	int update(PlaceVO placeVO);
 	int delete(int placeId);
 }
