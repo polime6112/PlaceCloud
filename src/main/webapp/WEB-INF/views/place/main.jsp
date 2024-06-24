@@ -104,7 +104,7 @@ $(document).ready(function() {
     
     // 버튼 클릭 시 카테고리 값을 URL 파라미터로 전달
     $('.btn-keyword').on('click', function() {
-        let category = $(this).find('.keyword').text();
+        let category = $(this).find('.category').text();
         location.href = '../place/search?placeCategory=' + encodeURIComponent(category);
     });
 });
@@ -122,30 +122,30 @@ $(document).ready(function() {
         <div class="wrap-btn">
             <button class="btn-keyword">
                 <img class="icon" src="../resources/image/party.png"/>
-                <div class="keyword">파티룸</div>
+                <div class="category">파티룸</div>
             </button>
             <button class="btn-keyword">
                 <img class="icon" src="../resources/image/meeting.png"/>
-                <div class="keyword">회의실</div>
+                <div class="category">회의실</div>
             </button>
             <button class="btn-keyword">
                 <img class="icon" src="../resources/image/record.png"/>
-                <div class="keyword">녹음실</div>
+                <div class="category">녹음실</div>
             </button>
             <button class="btn-keyword">
                 <img class="icon" src="../resources/image/studio.png"/>
-                <div class="keyword">스튜디오</div>
+                <div class="category">스튜디오</div>
             </button>
             <button class="btn-keyword">
                 <img class="icon" src="../resources/image/stage.png"/>
-                <div class="keyword">공연장</div>
+                <div class="category">공연장</div>
             </button>
         </div>
         <br><br><br>
-        <c:forEach var="place" items="${list}">
-            <div class="placeCard" id="placeCard_${place.placeId}" onclick="location.href='../place/detail?placeId=' + ${place.placeId}">
-                <div class="placeName">${place.placeName}</div>
-                <div class="placeCategory">${place.placeCategory}</div>
+        <c:forEach var="placeVO" items="${list}">
+            <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${place.placeId}">
+                <div class="placeName">${placeVO.placeName}</div>
+                <div class="placeCategory">${placeVO.placeCategory}</div>
             </div>
         </c:forEach>
     </div>
