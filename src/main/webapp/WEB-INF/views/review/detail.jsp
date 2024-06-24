@@ -164,7 +164,6 @@
  	// 대댓글 작성/리스트 폼 보이기/숨기기
     function toggleReply(feedbackId) {
  		console.log('toggleReply()');
-        /* $('#replyForm' + feedbackId).toggle(); */
         var memberEmail = $('#memberEmail').val();
         var replyForm = $('#replyForm' + feedbackId);
         var replyList = $('#replyList' + feedbackId);
@@ -206,7 +205,7 @@
                             repliesView += '<p>&nbsp;&nbsp;' + replaceContent + '</p>';
                             
                             if(memberEmail === reply.memberEmail) {
-                            	repliesView += '<button type="button" data-replyId="' + reply.replyId + '" class="mini token operator" onclick="showUpdateReply(' + reply.replyId + ', \'' + replaceContent + '\')">수정</button>';
+                            	repliesView += '<button type="button" data-replyId="' + reply.replyId + '" class="mini token operator" onclick="updateReply(' + reply.replyId + ', \'' + replaceContent + '\')">수정</button>';
                                 repliesView += '<button type="button" onclick="deleteReply(' + reply.replyId + ', ' + feedbackId + ')">삭제</button>';
                             }
                             
@@ -230,6 +229,7 @@
  	// 대댓글 등록 함수
     function submitReply(feedbackId) {
         console.log('submitReply()');
+        
         var reviewId = $('#reviewId').val();
         var memberEmail = $('#memberEmail').val();
         var replyContent = $('#replyContent' + feedbackId).val();
@@ -267,22 +267,51 @@
         
     } // end submitReply()
     
- 	/* // 답글 수정 화면을 보여주는 함수
-    function showUpdateReply(replyId, replyContent) {
-        console.log('showUpdateReply()', replyId); 
-        
-        var updateReplyView = '';
-        updateReplyView += '<div class="reply" id="replyUpdate' + replyId + '">';
-        updateReplyView += '<textarea id="updateReplyContent' + replyId + '" rows="3">' + replyContent + '</textarea>';
-        updateReplyView += '<button type="button" onclick="updateReply(' + replyId + ')">수정</button>';
-        updateReplyView += '<button type="button" onclick="cancelReply(' + replyId + ')">취소</button>';
-        updateReplyView += '</div>';
+    /* // 대댓글 수정
+    function updateReply(replyId, replyContent, feedbackId) {
+    	console.log('updateReply()');
+    	
+    	var replyId = $('#replyId').val();
+    	var replyContent = $('#replyContent' + feedbackId).val();
+    	
+    	 if (replyContent == '') {
+             alert('내용을 입력해주세요');
+             return;
+         }
 
-        $('#replyUpdate' + replyId).replaceWith(updateReplyView);
-    } */
+         var obj = {
+             'reviewId': reviewId,
+             'feedbackId': feedbackId,
+             'memberEmail': memberEmail,
+             'replyContent': replyContent
+         };
+
+         $.ajax({
+             type: 'post',
+             url: '../reply/repliesUpdate',
+             data: JSON.stringify(obj),
+             contentType: 'application/json',
+             success: function(result) {
+                 if (result === "UpdateSuccess") {
+                     alert('답글이 수정되었습니다');
+                     toggleReply(feedbackId); 
+                     $('#replyContent' + feedbackId).val('');
+                 } else {
+                     alert('답글 수정 실패');
+                 }
+             },
+             error: function() {
+                 alert('통신 실패');
+             }
+         }); // end ajax()
+         
+     
+    } // end updateReply() */
     
  	// 대댓글 삭제
     function deleteReply(replyId, feedbackId) {
+ 		console.log('deleteReply()');
+ 		
         if (confirm('답글을 정말 삭제하시겠습니까?')) {
             var obj = {
                 'replyId': replyId,

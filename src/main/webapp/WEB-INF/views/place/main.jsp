@@ -143,7 +143,7 @@ $(document).ready(function() {
         </div>
         <br><br><br>
         <c:forEach var="placeVO" items="${list}">
-            <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${place.placeId}">
+            <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
                 <div class="placeName">${placeVO.placeName}</div>
                 <div class="placeCategory">${placeVO.placeCategory}</div>
             </div>

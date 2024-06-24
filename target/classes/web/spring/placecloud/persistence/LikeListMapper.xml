@@ -19,13 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{placeId}, #{placeName})
 	</insert>
 	
-	<select id="selectList" resultMap="listResultMap">
+	<select id="selectList" resultMap="likeResultMap">
 		SELECT * FROM LIKELIST 
 		WHERE USER_EMAIL = #{userEmail}
 		ORDER BY LIKE_ID DESC
 	</select>
 	
-	<select id="selectOne" resultMap="listResultMap">
+	<select id="selectOne" resultMap="likeResultMap">
 		SELECT * FROM LIKELIST
 		WHERE USER_EMAIL = #{userEmail} AND PLACE_ID = #{placeId}
 	</select>
