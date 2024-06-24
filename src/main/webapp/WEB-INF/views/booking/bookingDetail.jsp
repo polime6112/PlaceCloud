@@ -1,3 +1,5 @@
+<%@page import="web.spring.placecloud.config.ServletConfig"%>
+<%@page import="web.spring.placecloud.util.ImageUploadUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,6 +16,11 @@
 	<p>예약 번호 : ${bookingVO.bookingId }</p>
 	<div>
 		<p>${bookingVO.placeName }</p>
+		<br>
+		<c:if test="${not empty ImageVO }">
+			<img class="image" src="../image/display?imagePath=${ImageVO.imagePath }&imageChgName=${ImageVO.imageChgName}
+									&imageExtension=${ImageVO.imageExtension}" alt="이미지 로딩 실패">
+		</c:if>
 		<fmt:formatDate value="${bookingVO.bookingDate }"
 		pattern="yyyy-MM-dd" var="bookingDate"/>
 		<p>예약 날짜 : ${bookingDate }</p>

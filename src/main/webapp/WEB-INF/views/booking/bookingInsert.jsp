@@ -1,3 +1,5 @@
+<%@page import="web.spring.placecloud.config.ServletConfig"%>
+<%@page import="web.spring.placecloud.util.ImageUploadUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,6 +17,12 @@
 			<input type="hidden" name="placeId" value="${PlaceVO.placeId }">
 			<p>예약 공간</p>
 			<input type="text" name="placeName" value="${PlaceVO.placeName }">
+			<br><br>
+			<c:if test="${not empty ImageVO }">
+				<img class="image" src="../image/display?imagePath=${ImageVO.imagePath }&imageChgName=${ImageVO.imageChgName}
+									&imageExtension=${ImageVO.imageExtension}" alt="이미지 로딩 실패">
+			</c:if>
+			<br>
 			<p>카테고리 : ${PlaceVO.placeCategory }</p>
 			<p>주소 : ${PlaceVO.placeAddress }</p>
 			<p>장소 설비 : ${PlaceVO.placeInfo }</p>
@@ -47,7 +55,7 @@
 		</div>
 		<div>
 			<p>결제 금액</p>
-			<input type="text" name="bookingPrice" value="1000">
+			<input type="text" name="bookingPrice" value="${PlaceVO.placeMoneyTime }">
 			<br>
 			
 			<input type="submit" value="결제하기">
