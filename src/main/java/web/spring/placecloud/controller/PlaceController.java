@@ -192,7 +192,7 @@ public class PlaceController {
     	if (memberVO != null) {
     		List<PlaceVO> list = placeService.getPlaceByCategory(placeCategory);
     		log.info("List : " + list);
-    		model.addAttribute("List", list);
+    		model.addAttribute("list", list);
     	}
     }
 }

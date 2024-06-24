@@ -93,6 +93,15 @@ public class ImageController {
         return "place/detail";
     }
     
+    @PostMapping("/update")
+    public String updatePOST(String uploadPath, String path, String imageName) {
+    	log.info("updatePost");
+    	path = imageName;
+    	
+    	ImageUploadUtil.deleteImage(uploadPath, path, imageName);
+    	return "place/detail";
+    }
+    
     // 첨부 파일 다운로드(GET)
     // 링크를 클릭하면 사용자가 다운로드하는 방식
     // 파일 리소스를 비동기로 전송하여 파일 다운로드
