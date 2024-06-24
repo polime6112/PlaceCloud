@@ -93,12 +93,19 @@ public class ImageController {
         return "place/detail";
     }
     
-    @PostMapping("/update")
-    public String updatePOST(String uploadPath, String path, String imageName) {
-    	log.info("updatePost");
-    	path = imageName;
+    @GetMapping("/delete")
+    public String deleteGET(Integer placeId, Model model) {
+    	log.info("deleteGet");
+    	log.info(placeId);
+    	ImageVO imageVO = imageService.getImageById(placeId);
+    	String imageChgName = imageVO.getImageChgName();
+    	String imagePath = imageVO.getImagePath();
     	
-    	ImageUploadUtil.deleteImage(uploadPath, path, imageName);
+    	ImageUploadUtil.deleteImage(uploadPath, imagePath, imageChgName);
+    	int imageDelete = imageService.delete(placeId);
+    	log.info(imageDelete + "행 삭제");
+    	PlaceVO placeVO = placeService.getPlaceById(placeId);
+    	model.addAttribute("placeVO", placeVO);
     	return "place/detail";
     }
     

@@ -86,9 +86,9 @@ public class ImageUploadUtil {
 	 * @param path		 파일이 저장된 경로
 	 * @param imageName  저장된 파일 이름
 	 */
-	public static void deleteImage(String uploadPath, String path, String imageName) {
+	public static void deleteImage(String uploadPath, String path, String imageChgName) {
 		// 삭제할 이미지의 전체 경로 생성
-		String fullPath = uploadPath + File.separator + path + File.separator + imageName;
+		String fullPath = uploadPath + File.separator + path + File.separator + imageChgName;
 		
 		// 이미지 객체 생성
 		File image = new File(fullPath);

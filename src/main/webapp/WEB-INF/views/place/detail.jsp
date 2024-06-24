@@ -103,8 +103,8 @@
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
 		<input type="text" id="memberName" value="${placeVO.memberEmail }">
 	</c:if>
-	<input type="hidden" id="placeId" value="${placeVO.placeId }">
-	<input type="hidden" id="memberEmail" value="${placeVO.memberEmail }">
+	<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
+	<input type="hidden" name="memberEmail" id="memberEmail" value="${placeVO.memberEmail }">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
 	<p>작성일 : ${placeCreateDate }</p>
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
@@ -118,6 +118,10 @@
 	<c:if test="${not empty imageVO }">
 		<img class="image" src="../image/display?imagePath=${imageVO.imagePath }&imageChgName=${imageVO.imageChgName}
 									&imageExtension=${imageVO.imageExtension}" alt="이미지 로딩 실패">
+		<form id="delete" action="../image/delete" method="GET">
+			<input type="text" name="placeId" id="placeId" value="${placeVO.placeId }">
+			<button>이미지 삭제</button>
+		</form>
 	</c:if>
 	<br>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
@@ -126,7 +130,9 @@
 	
 	<c:if test="${sessionScope.login.memberStatus == 'host' }">
 		<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
+		<c:if test="${empty imageVO }">
 		<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
+		</c:if>
 		<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
 	</c:if>
 </body>
