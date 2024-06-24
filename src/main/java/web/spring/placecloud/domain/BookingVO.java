@@ -28,4 +28,4 @@ public class BookingVO {
 	private String bookingPrice;
 	private Date bookingSysdate;
 
-} // end ReservationInfoVO
+} // end BookingVO
