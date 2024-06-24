@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.BookingVO;
+import web.spring.placecloud.domain.ImageVO;
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.PlaceVO;
 import web.spring.placecloud.service.BookingService;
+import web.spring.placecloud.service.ImageService;
 import web.spring.placecloud.service.PlaceService;
 import web.spring.placecloud.util.BpageMaker;
 import web.spring.placecloud.util.Bpagination;
@@ -30,7 +32,9 @@ public class BookingController {
 	private BookingService bookingService;
 	@Autowired
 	private PlaceService placeService;
-
+	@Autowired
+	private ImageService imageService;
+	
 	// 모든 예약 정보를 bookingList.jsp 페이지로 전송
 	@GetMapping("/bookingList")
 	public void bookingList(Model model, Bpagination bpagination, HttpSession session) {
@@ -59,8 +63,11 @@ public class BookingController {
 		log.info("bookingInsertGET()");
 		log.info("placeId : " + placeId);
 		PlaceVO placeVO = placeService.getPlaceById(placeId);
+		ImageVO imageVO = imageService.getImageById(placeId);
 		log.info("placeVO : " + placeVO);
+		log.info("imageVO : " + imageVO);
 		model.addAttribute("PlaceVO", placeVO);
+		model.addAttribute("ImageVO", imageVO);
 	}
 
 	// bookingInsert.jsp에서 전송받은 예약 정보를 저장

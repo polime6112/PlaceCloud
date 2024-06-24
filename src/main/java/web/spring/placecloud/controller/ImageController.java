@@ -90,7 +90,7 @@ public class ImageController {
         
         log.info("PlaceVO : " + placeVO);
     	model.addAttribute("placeVO", placeVO);
-        return "place/info";
+        return "place/detail";
     }
     
     // 첨부 파일 다운로드(GET)
