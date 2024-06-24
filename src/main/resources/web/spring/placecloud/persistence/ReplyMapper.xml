@@ -32,10 +32,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<update id="update">
-		<!-- 대댓글 수정 -->
-		UPDATE REPLY
-		SET REPLY_CONTENT = #{replyContent}
-		WHERE REPLY_ID = #{replyId}
+    	<!-- 대댓글 수정 -->
+    	UPDATE REPLY
+    	SET REPLY_CONTENT = #{replyContent}
+    	WHERE REPLY_ID = #{replyId}
 	</update>
 
 	<delete id="delete">
