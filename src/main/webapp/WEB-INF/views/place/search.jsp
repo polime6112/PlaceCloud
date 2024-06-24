@@ -64,7 +64,7 @@
     <br><br>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
     <div class="placeList">
-        <c:forEach var="placeVO" items="${placeVOList}">
+        <c:forEach var="placeVO" items="${list}">
             <c:if test="${placeVO.placeCategory == param.placeCategory}">
                 <div class="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
                     <div class="placeName">${placeVO.placeName}</div>

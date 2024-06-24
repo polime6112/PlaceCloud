@@ -190,9 +190,9 @@ public class PlaceController {
     	MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
     	
     	if (memberVO != null) {
-    		List<PlaceVO> placeVOList = placeService.getPlaceByCategory(placeCategory);
-    		log.info("PlaceVO : " + placeVOList);
-    		model.addAttribute("placeVOList", placeVOList);
+    		List<PlaceVO> list = placeService.getPlaceByCategory(placeCategory);
+    		log.info("List : " + list);
+    		model.addAttribute("List", list);
     	}
     }
 }
