@@ -12,9 +12,9 @@
 <body>
 	<h1>공간 예약</h1>
 		<div>
-			<input type="hidden" name="placeId" value="1">
+			<input type="hidden" name="placeId" value="${booking.placeId }">
 			<p>예약 공간</p>
-			<input type="text" name="placeName" value="파티룸">
+			<input type="text" name="placeName" readonly value="${booking.placeName }">
 		</div>
 	<form id="updateform" action="bookingUpdate" method="post">
 		<input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
