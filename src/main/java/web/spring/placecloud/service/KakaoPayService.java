@@ -64,8 +64,8 @@ public class KakaoPayService {
 		params.put("total_amount", bookingVO.getBookingPrice()); // 총 금액
 		params.put("tax_free_amount", "1"); // 비과세 금액
 		params.put("approval_url", "http://localhost:8080/placecloud/kakaoPaySuccess"); // 성공시 url (최대 255자)
-		params.put("cancel_url", "http://localhost:8080/placecloud/booking/bookingInsert"); // 취소시 url (최대 255자)
-		params.put("fail_url", "http://localhost:8080/placecloud/booking/bookingInsert"); // 실패시 url (최대 255자)
+		params.put("cancel_url", "http://localhost:8080/placecloud/kakaoPayCancel"); // 취소시 url (최대 255자)
+		params.put("fail_url", "http://localhost:8080/placecloud/kakaoPayFail"); // 실패시 url (최대 255자)
 		
 		log.info("params : " + params);
 		
@@ -93,7 +93,7 @@ public class KakaoPayService {
 		return "/Pay";
 	}
 	
-	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+	public KakaoPayApprovalVO kakaoPayInfo(BookingVO bookingVO ,String pg_token) {
 		log.info("kakaoPayInfo()");
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -109,10 +109,10 @@ public class KakaoPayService {
 		
 		params.put("cid", cid); // 가맹점 코드
 		params.put("tid", kakaoPayReadyVO.getTid()); // 결제 고유번호
-		params.put("partner_order_id", "1"); // 주문 번호
-		params.put("partner_user_id", "test@naver.com"); // 회원 아이디
+		params.put("partner_order_id", bookingVO.getPlaceId()); // 주문 번호
+		params.put("partner_user_id", bookingVO.getBookingUserEmail()); // 회원 아이디
 		params.put("pg_token", pg_token); // 결제 승인 요청을 인증하는 토큰
-		params.put("total_amount", "1000"); // 총 금액
+		params.put("total_amount", bookingVO.getBookingPrice()); // 총 금액
 		
 		HttpEntity<Map<String, String>> requestEntity = new HttpEntity<Map<String,String>>(params, httpHeaders);
 		

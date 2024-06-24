@@ -1,5 +1,8 @@
 package web.spring.placecloud.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +47,7 @@ public class KakaoPayController {
 	}
 	
 	@GetMapping("/kakaoPaySuccess")
-	public String kakaoPaySuccess(@RequestParam("pg_token")String pg_token, Model model, HttpSession session) {
+	public String kakaoPaySuccess(@RequestParam("pg_token")String pg_token, Model model, HttpSession session) throws IOException {
 		log.info("kakaoPay Success get.............");
 		log.info("kakaoPaySuccess pg_token : " + pg_token);
 		
@@ -56,11 +59,34 @@ public class KakaoPayController {
 		session.removeAttribute("bookingVO");
 		log.info("세션 삭제");
 		
-		model.addAttribute("kakaoPayInfo", kakaoPayService.kakaoPayInfo(pg_token));
+		model.addAttribute("kakaoPayInfo", kakaoPayService.kakaoPayInfo(bookingVO ,pg_token));
 		
-		
-		return "redirect:/booking/bookingList";
+		return "redirect:/booking/bookingSuccess";
 	}
 	
+	@GetMapping("/kakaoPayFail")
+	public String kakaoPayFail(Model model, HttpSession session) {
+		log.info("kakaoPayFail()");
+		
+		BookingVO bookingVO = (BookingVO) session.getAttribute("bookingVO");
+		log.info("bookingVO : " + bookingVO);
+		model.addAttribute("placeId", bookingVO.getPlaceId());
+		session.removeAttribute("bookingVO");
+		log.info("세션 삭제");
+		
+		return "redirect:/booking/bookingFail";
+	}
 	
+	@GetMapping("/kakaoPayCancel")
+	public String kakaoPayCancel(Model model, HttpSession session) {
+		log.info("kakaoPayFail()");
+		
+		BookingVO bookingVO = (BookingVO) session.getAttribute("bookingVO");
+		log.info("bookingVO : " + bookingVO);
+		model.addAttribute("bookingVO", bookingVO);
+		session.removeAttribute("bookingVO");
+		log.info("세션 삭제");
+		
+		return "redirect:/booking/bookingCancel";
+	}
 }

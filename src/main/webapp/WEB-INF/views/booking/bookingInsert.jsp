@@ -16,7 +16,7 @@
 		<div>
 			<input type="hidden" name="placeId" value="${PlaceVO.placeId }">
 			<p>예약 공간</p>
-			<input type="text" name="placeName" value="${PlaceVO.placeName }">
+			<input type="text" name="placeName" readonly value="${PlaceVO.placeName }">
 			<br><br>
 			<c:if test="${not empty ImageVO }">
 				<img class="image" src="../image/display?imagePath=${ImageVO.imagePath }&imageChgName=${ImageVO.imageChgName}
@@ -55,7 +55,7 @@
 		</div>
 		<div>
 			<p>결제 금액</p>
-			<input type="text" name="bookingPrice" value="${PlaceVO.placeMoneyTime }">
+			<input type="text" name="bookingPrice" readonly value="${PlaceVO.placeMoneyTime }">
 			<br>
 			
 			<input type="submit" value="결제하기">

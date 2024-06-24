@@ -117,5 +117,19 @@ public class BookingController {
 		log.info(result + "행 삭제");
 		return "redirect:/booking/bookingList";
 	}
-
+	
+	@GetMapping("/bookingSuccess")
+	public void bookingSuccess() {
+		log.info("bookingSuccess()");
+	}
+	
+	@GetMapping("/bookingFail")
+	public void bookingFail(Model model) {
+		log.info("bookingFail()");
+	}
+	
+	@GetMapping("/bookingCancel")
+	public void bookingCancel(Model model) {
+		log.info("bookingCancel()");
+	}
 }
