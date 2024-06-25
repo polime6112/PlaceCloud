@@ -36,7 +36,7 @@ public class BookingController {
 	private ImageService imageService;
 	
 	// 모든 예약 정보를 bookingList.jsp 페이지로 전송
-	@GetMapping("/bookingList")
+	@GetMapping("/list")
 	public void bookingList(Model model, Bpagination bpagination, HttpSession session) {
 		log.info("bookingList()");
 		MemberVO member = (MemberVO) session.getAttribute("login");
@@ -58,7 +58,7 @@ public class BookingController {
 	}
 
 	// bookingInsert.jsp 페이지 호출
-	@GetMapping("/bookingInsert")
+	@GetMapping("/insert")
 	public void bookingInsertGET(Integer placeId, Model model) {
 		log.info("bookingInsertGET()");
 		log.info("placeId : " + placeId);
@@ -71,18 +71,18 @@ public class BookingController {
 	}
 
 	// bookingInsert.jsp에서 전송받은 예약 정보를 저장
-	@PostMapping("/bookingInsert")
+	@PostMapping("/insert")
 	public String bookingInsertPOST(BookingVO bookingVO, RedirectAttributes reAttr) {
 		log.info("bookingInsertPOST()");
 		log.info("bookingVO = " + bookingVO.toString());
 		int result = bookingService.createBoard(bookingVO);
 		log.info(result + "행 등록");
-		return "redirect:/booking/bookingList";
+		return "redirect:/booking/list";
 	}
 
 	// bookingList.jsp에서 선택된 예약 정보 번호를 저장
 	// 전송된 데이터로 booking 데이터를 조회하고 bookingDetail.jsp 페이지로 전송
-	@GetMapping("/bookingDetail")
+	@GetMapping("/detail")
 	public void bookingDetail(Model model, Integer bookingId) {
 		log.info("bookingDetail()");
 		log.info("bookingId = " + bookingId);
@@ -93,7 +93,7 @@ public class BookingController {
 
 	// 예약 정보 번호를 전송받아 저장
 	// 예약 정보 데이터를 bookingUpdate.jsp로 전송
-	@GetMapping("/bookingUpdate")
+	@GetMapping("/update")
 	public void bookingUpdateGET(Model model, Integer bookingId) {
 		log.info("bookingUpdateGET()");
 		BookingVO bookingVO = bookingService.getBoardById(bookingId);
@@ -101,35 +101,21 @@ public class BookingController {
 	}
 
 	// bookingUpdate.jsp에서 수정한 데이터를 전송하여 예약 정보 데이터 수정
-	@PostMapping("/bookingUpdate")
+	@PostMapping("/update")
 	public String bookingUpdatePOST(BookingVO bookingVO, RedirectAttributes reAttr) {
 		log.info("bookingUpdatePOST()");
 		int result = bookingService.updateBoard(bookingVO);
 		log.info(result + "행 수정");
-		return "redirect:/booking/bookingDetail?bookingId=" + bookingVO.getBookingId();
+		return "redirect:/booking/detail?bookingId=" + bookingVO.getBookingId();
 	}
 
 	// bookingDetail.jsp에서 예약 정보 번호를 전송 받아 예약 정보 삭제
-	@PostMapping("/bookingDelete")
+	@PostMapping("/delete")
 	public String bookingDelete(Integer bookingId, RedirectAttributes reAttr) {
 		log.info("bookingDelete()");
 		int result = bookingService.deleteBoard(bookingId);
 		log.info(result + "행 삭제");
-		return "redirect:/booking/bookingList";
+		return "redirect:/booking/list";
 	}
 	
-	@GetMapping("/bookingSuccess")
-	public void bookingSuccess() {
-		log.info("bookingSuccess()");
-	}
-	
-	@GetMapping("/bookingFail")
-	public void bookingFail(Model model) {
-		log.info("bookingFail()");
-	}
-	
-	@GetMapping("/bookingCancel")
-	public void bookingCancel(Model model) {
-		log.info("bookingCancel()");
-	}
 }

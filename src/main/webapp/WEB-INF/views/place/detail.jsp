@@ -125,7 +125,7 @@
 	</c:if>
 	<br>
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
-		<a href="${pageContext.request.contextPath}/booking/bookingInsert?placeId=${placeVO.placeId}">예약 하기</a>
+		<a href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}">예약 하기</a>
 	</c:if>
 	
 	<c:if test="${sessionScope.login.memberStatus == 'host' }">

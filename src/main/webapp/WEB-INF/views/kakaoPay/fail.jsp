@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BookingSuccess</title>
+<title>Fail</title>
 </head>
 <body>
 	<script type="text/javascript">
-		alert('예약되었습니다!');
-		location.href='bookingList';
+		alert('결제에 실패했습니다!');
+		window.history.back();
 	</script>
 </body>
 </html>
