@@ -11,5 +11,5 @@ public interface ReviewService {
 	int updateReview(ReviewVO reviewVO); // 특정 이용후기 수정
 	int deleteReview(int reviewId); // 특정 이용후기 삭제
 	List<ReviewVO> getSearchPaging(Pagination pagination); // 이용후기 페이지 처리
-	int getSearchTotalCount(); // 이용후기 전체 수
+	int getSearchTotalCount(Pagination pagination); // 이용후기 전체 수
 }

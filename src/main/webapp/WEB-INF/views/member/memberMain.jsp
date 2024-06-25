@@ -18,7 +18,7 @@
 	</header>
 
 	<c:if test="${empty sessionScope.login.memberEmail }">
-		<a href="memberLogin">로그인</a>
+		<a href="login">로그인</a>
 	</c:if>
 	<c:if test="${not empty sessionScope.login.memberEmail }">
 		<a href="logout">로그아웃</a>

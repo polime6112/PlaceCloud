@@ -9,14 +9,19 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js">
 </script>
 <style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+	.logo {
+        text-align: center;
+        margin: 20px 0;
     }
-
+    .logo a {
+        font-size: 2em;
+        text-decoration: none;
+        color: #333;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
+    
     #memberForm {
         width: 600px; 
         padding: 40px; 
@@ -90,7 +95,7 @@
 		</div>
 	</header>
 
-    <form id="memberForm" action="memberJoin" method="post">
+    <form id="memberForm" action="join" method="post">
         <h3 class="css" style="text-align: center; font-size: 40px; font-weight:900; color: #706FFF;">회원가입</h3>
         
      	<!-- 이메일  -->

@@ -20,7 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewTitle" column="REVIEW_TITLE" />
 		<result property="reviewContent" column="REVIEW_CONTENT" />
 		<result property="memberEmail" column="MEMBER_EMAIL" />
-		<result property="reviewDateCreated" column="REVIEW_DATE_CREATED" />
+		<result property="reviewDateCreated"
+			column="REVIEW_DATE_CREATED" />
 	</resultMap>
 
 	<!-- <select>, <insert>, <update>, <delete> : SQL 쿼리 정의 태그 - 속성 id : Mapper 
@@ -63,33 +64,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchListByPagination" resultMap="reviewResultMap">
 		<!-- 페이지네이션된 이용후기 목록 조회 -->
 		SELECT * FROM (
-		SELECT ROW_NUMBER() OVER (ORDER BY REVIEW_ID DESC) AS
-		RN, REVIEW.*
-		FROM REVIEW
-		<choose>
-			<when test="type == 'reviewTitle' and keyword != null and keyword != ''">
-				WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
-			</when>
-			<when test="type == 'memberEmail' and keyword != null and keyword != ''">
-				WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
-			</when>
-		</choose>
+    		SELECT ROW_NUMBER() OVER (ORDER BY REVIEW_ID DESC) AS RN, REVIEW.*
+    		FROM REVIEW
+    		<choose>
+        		<when test="type == 'reviewTitle' and keyword != null and keyword != ''">
+            		WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
+        		</when>
+        		<when test="type == 'memberEmail' and keyword != null and keyword != ''">
+            		WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+        		</when>
+    		</choose>
 		)
-		WHERE RN BETWEEN #{start} AND #{end}
+		WHERE RN BETWEEN #{start} AND #{end}	
 	</select>
-	
+
 	<select id="searchTotalCount" resultType="Integer">
 		<!-- 총 이용후기 수 조회 -->
 		SELECT COUNT(*) AS TOTAL_COUNT
 		FROM REVIEW
 		<choose>
-			<when test="type == 'reviewTitle' and keyword != null and keyword != ''">
+			<when
+				test="type == 'reviewTitle' and keyword != null and keyword != ''">
 				WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'
 			</when>
-			<when test="type == 'memberEmail' and keyword != null and keyword != ''">
+			<when
+				test="type == 'memberEmail' and keyword != null and keyword != ''">
 				WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
 			</when>
 		</choose>
 	</select>
-	
+
 </mapper>

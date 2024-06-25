@@ -136,7 +136,7 @@
                         
                      	// 대댓글 작성 폼 
                         selectAllView += '<div id="replyForm' + feedback.feedbackId + '" style="display:none;">';
-                        selectAllView += '<textarea id="replyContent' + feedback.feedbackId + '" rows="3"></textarea><br>';
+                        selectAllView += '<textarea id="replyContent' + feedback.feedbackId + '" rows="3" cols="50"></textarea><br>';
                         selectAllView += '<button type="button" onclick="submitReply(' + feedback.feedbackId + ')">답글 등록</button>';
                         selectAllView += '</div>';
                         

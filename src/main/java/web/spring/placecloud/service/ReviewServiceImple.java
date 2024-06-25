@@ -61,9 +61,9 @@ public class ReviewServiceImple implements ReviewService {
 	
 	// 이용후기 전체 수
 	@Override
-	public int getSearchTotalCount() {
+	public int getSearchTotalCount(Pagination pagination) {
 		log.info("getSearchTotalCount()");
-		return reviewMapper.searchTotalCount();
+		return reviewMapper.searchTotalCount(pagination);
 	}
 
 

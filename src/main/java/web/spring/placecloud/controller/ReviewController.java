@@ -44,8 +44,9 @@ public class ReviewController {
             // 페이지네이션 정보를 생성
             PageMaker pageMaker = new PageMaker();
             pageMaker.setPagination(pagination);
-            pageMaker.setTotalCount(reviewService.getSearchTotalCount());
-
+            pageMaker.setTotalCount(reviewService.getSearchTotalCount(pagination));
+            
+            model.addAttribute("pagination", pagination);
             model.addAttribute("pageMaker", pageMaker); // 페이지네이션 정보를 모델에 추가
             model.addAttribute("reviewList", reviewList); // 이용후기 목록을 모델에 추가
             return "/review/list";

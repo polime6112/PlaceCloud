@@ -8,20 +8,18 @@
 <!-- jquery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <style type="text/css">
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-header {
-    margin-top: -100px;
-    margin-bottom: 150px;
-}
+.logo {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .logo a {
+        font-size: 2em;
+        text-decoration: none;
+        color: #333;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
 
 #loginForm {
     border: 1px solid #706FFF;
@@ -91,6 +89,7 @@ input[type="password"] {
             <a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
         </div>
     </header>
+    
     <form id="loginForm" class="form" action="${pageContext.request.contextPath }/member/memberLogin" method="post">
         <h1 style="text-align: center; font-size: 40px; font-weight:900; color: #706FFF;">로그인</h1>
         <input id="memberEmail" name="memberEmail" type="text" placeholder="이메일">
@@ -115,7 +114,7 @@ input[type="password"] {
             
             $("#joinBtn").click(function() {
                 console.log('signBtn');
-                location.href = "${pageContext.request.contextPath }/member/memberJoin";
+                location.href = "${pageContext.request.contextPath }/member/join";
             
             }); // end joinBtn.click()
         	

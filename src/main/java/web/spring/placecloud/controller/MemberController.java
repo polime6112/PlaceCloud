@@ -24,26 +24,26 @@ public class MemberController {
     private MemberService memberService;
 
     // 회원 가입 화면 이동
-    @GetMapping("memberJoin")
-    public void memberJoinGET() {
-        log.info("memberJoinGET()");
+    @GetMapping("join")
+    public void joinGET() {
+        log.info("joinGET()");
     } // end memberJoinGET()
 
     // 회원(게스트) 가입
-    @PostMapping("memberJoin")
-    public String memberJoinPOST(MemberVO memberVO, RedirectAttributes reAttr) {
-        log.info("memberJoinPOST()");
+    @PostMapping("join")
+    public String joinPOST(MemberVO memberVO, RedirectAttributes reAttr) {
+        log.info("joinPOST()");
         log.info("memberVO = " + memberVO.toString());
         log.info(memberVO.getMemberStatus());
         int result = memberService.addMember(memberVO);
         log.info(result + "회원 가입");
-        return "redirect:/member/memberLogin";
+        return "redirect:/member/login";
     } // memberJoinPOST()
 
     // 로그인 화면 이동
-    @GetMapping("memberLogin")
-    public void memberLoginGET() {
-        log.info("memberLoginGET()");
+    @GetMapping("login")
+    public void loginGET() {
+        log.info("loginGET()");
     } // memberLoginGET()
 
     // 메인 화면
@@ -67,7 +67,7 @@ public class MemberController {
             log.info("로그인 실패");
             session.setAttribute("login", null);
             reAttr.addFlashAttribute("loginFailMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
-            return "redirect:/member/memberLogin"; 
+            return "redirect:/member/login"; 
         }
     } // end loginCheck()
 
@@ -125,7 +125,7 @@ public class MemberController {
             return "/member/myPage";
         } else {
             log.info("세션 x");
-            return "redirect:/member/memberLogin";
+            return "redirect:/member/login";
         }
     } // end myPage()
 
@@ -145,7 +145,7 @@ public class MemberController {
             return "/member/updateInfo";
         } else {
             log.info("세션 x");
-            return "redirect:/member/memberLogin";
+            return "redirect:/member/login";
         }
     } // end updateInfoGET()
 
@@ -167,7 +167,7 @@ public class MemberController {
             return "/member/myPage";
         } else {
             log.info("세션 x");
-            return "redirect:/member/memberLogin";
+            return "redirect:/member/login";
         }
     }
 
@@ -180,10 +180,10 @@ public class MemberController {
         if (member != null) { // 사용자 정보가 null이 아닌지 확인
             String memberEmail = member.getMemberEmail();
             log.info(memberEmail + "이메일");
-            return "/member/memberRemove";
+            return "/member/remove";
         } else {
             log.info("세션 x");
-            return "redirect:/member/memberLogin";
+            return "redirect:/member/login";
         }
     }
 
@@ -202,7 +202,7 @@ public class MemberController {
             return "redirect:/member/memberMain";
         } else {
             log.info("세션 x");
-            return "redirect:/member/memberLogin";
+            return "redirect:/member/login";
         }
     }
 } // end MemberController

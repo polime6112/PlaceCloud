@@ -29,8 +29,8 @@ li {
 	<a href="register"><input type="button" value="글 작성"></a>
 	<form id="searchForm" action="list" method="get">
 		<select name="type" class="type-box">
-			<option value="reviewTitle" <c:out value='${param.type == "reviewTitle" ? "selected" : ""}'/>>제목</option>
-			<option value="memberEmail" <c:out value='${param.type == "memberEmail" ? "selected" : ""}'/>>작성자</option>
+			<option value="reviewTitle" ${pagination.type == 'reviewTitle'?'selected':'' }>제목</option>
+			<option value="memberEmail" ${pagination.type == 'memberEmail'?'selected':'' }>작성자</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어 입력">
     	<input type="submit" value="검색">

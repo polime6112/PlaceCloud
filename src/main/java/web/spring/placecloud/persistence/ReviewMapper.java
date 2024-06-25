@@ -16,5 +16,5 @@ public interface ReviewMapper {
 	int update(ReviewVO reviewVO); // 특정 이용후기 수정
 	int delete(int reviewId); // 특정 이용후기 삭제
 	List<ReviewVO> searchListByPagination(Pagination pagination); // 페이지네이션된 이용후기 목록 조회
-	int searchTotalCount(); // 총 이용후기 수 조회
+	int searchTotalCount(Pagination pagination); // 총 이용후기 수 조회
 }
