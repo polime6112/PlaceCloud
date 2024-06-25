@@ -74,10 +74,8 @@ body {
                 name="memberPhone" value="${member.memberPhone}" readonly><br>
         </form>
         <c:if test="${not empty profileVO }">
-	        <img class="image" src="../profile/display?profilePath=${profileVO.profilePath }
-	        							&profileChgName=${profileVO.profileChgName}
-	        							&profileExtension=${profileVO.profileExtension}"
-	        							alt="프로필 사진을 추가해주세요">
+	        <img class="image" src="../profile/display?profilePath=${profileVO.profilePath}&profileChgName=${profileVO.profileChgName}&profileExtension=${profileVO.profileExtension}"
+	        						 alt="프로필 사진을 추가해주세요">
 	        <form id="delete" action="../profile/delete" method="GET">
 	        	<input type="text" name="memberEmail" id="memberEmail" value="${member.memberEmail }">
 	        	<button>프로필 사진 삭제</button>

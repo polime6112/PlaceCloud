@@ -10,6 +10,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href="${pageContext.request.contextPath }/member/memberMain">To MemberMain</a>
+<a href="${pageContext.request.contextPath }/place/main">메인화면</a>
 </body>
 </html>

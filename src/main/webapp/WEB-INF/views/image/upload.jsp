@@ -11,7 +11,7 @@
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 	<br>

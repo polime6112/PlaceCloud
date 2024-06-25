@@ -5,7 +5,7 @@ import web.spring.placecloud.domain.ProfileVO;
 public interface ProfileService {
 	int upload(ProfileVO profileVO);
 	
-	ProfileVO getProfileById(int profileId);
+	ProfileVO getProfileByEmail(String memberEmail);
 	
-	int delete(int profileId);
+	int delete(String memberEmail);
 }

@@ -21,15 +21,15 @@ public class ProfileServiceImple implements ProfileService{
 	}
 
 	@Override
-	public ProfileVO getProfileById(int profileId) {
+	public ProfileVO getProfileByEmail(String memberEmail) {
 		log.info("getProfileById");
-		return profileMapper.selectByProfileId(profileId);
+		return profileMapper.selectByMemberEmail(memberEmail);
 	}
 
 	@Override
-	public int delete(int profileId) {
+	public int delete(String memberEmail) {
 		log.info("delete");
-		return profileMapper.deleteProfile(profileId);
+		return profileMapper.deleteProfile(memberEmail);
 	}
 	
 }

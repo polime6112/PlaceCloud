@@ -24,14 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{profileRealName}, #{profileChgName}, #{profileExtension})
 	</insert>
 
-	<select id="selectByProfileId" resultMap="profileResultMap">
+	<select id="selectByMemberEmail" resultMap="profileResultMap">
 		SELECT * FROM PROFILE
-		WHERE PROFILE_ID = #{profileId}
+		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 
 	<delete id="deleteProfile">
 		DELETE FROM PROFILE
-		WHERE PROFILE_ID = #{profileId}
+		WHERE MEMBER_EMAIL = #{memberEmail}
 	</delete>
 
 </mapper>
