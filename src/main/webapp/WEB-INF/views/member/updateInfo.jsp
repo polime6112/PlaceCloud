@@ -101,7 +101,6 @@
 			let memberPw = $('#memberPw').val();
 			// 비밀번호 정규 표현식(최소 8자에서 16자까지, 영문자, 숫자 및 특수 문자 포함)
 			let passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
-
 			
 			if(memberPw.trim() === '') { // 비밀번호 입력 되지 않을 경우 또는 공백만 입력된 경우
 				console.log('비밀번호 입력 x');
@@ -133,7 +132,7 @@
 			console.log('nameKeyup()');
 			let memberName = $('#memberName').val();
 			// 닉네임 정규 표현식(2자 이상 10자이하 영어 또는 한글 또는 숫자로 구성)
-			let nameRegex = /^[가-힣]{2,10}$/;
+			let nameRegex = /^[a-zA-Z가-힣0-9]{2,10}$/;
 			
 			if(memberName.trim() === '') { // 닉네임이 입력 되지 않은 경우 또는 공백만 입력된 경우
 		        console.log('닉네임 입력 x');
@@ -146,7 +145,7 @@
 
 		    if(!nameRegex.test(memberName)) { // 닉네임 정규 표현식 검사
 		        console.log('닉네임 형식');
-		        $('#nameValidMsg').html('닉네임은 2자 이상 10자 이하의 한글로만 작성되어야 합니다');
+		        $('#nameValidMsg').html('닉네임은 2자 이상 10자이하 영어 또는 한글 또는 숫자로 구성');
 		        $('#nameValidMsg').css("color", 'red');
 		        $('#nameValidMsg').css('display', 'inline-block');
 		        nameFlag = false;
@@ -193,7 +192,7 @@
 			console.log('phoneKeyup()');
 			let memberPhone = $('#memberPhone').val();
 			// 전화번호 정규 표현식
-			let phoneRegex = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+			let phoneRegex = /^010\d{4}\d{4}$/;
 			
 			if(memberPhone.trim() === '') { // 전화번호가 입력 되지 않은 경우 또는 공백만 입력된 경우
 				console.log('전화번호 입력 x');

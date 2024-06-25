@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.spring.placecloud.persistence.ProfileMapper">
+
+	<resultMap type="web.spring.placecloud.domain.ProfileVO" id="profileResultMap">
+
+		<id property="profileId" column="PROFILE_ID"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="profilePath" column="PROFILE_PATH"/>
+		<result property="profileRealName" column="PROFILE_REAL_NAME"/>
+		<result property="profileChgName" column="PROFILE_CHG_NAME"/>
+		<result property="profileExtension" column="PROFILE_EXTENSION"/>
+	</resultMap>
+
+	<insert id="uploadProfile">
+		INSERT INTO PROFILE
+		(PROFILE_ID, MEMBER_EMAIL, PROFILE_PATH, 
+		PROFILE_REAL_NAME, PROFILE_CHG_NAME, PROFILE_EXTENSION)
+		VALUES
+		(PROFILE_SEQ.NEXTVAL, #{memberEmail}, #{profilePath}, 
+		#{profileRealName}, #{profileChgName}, #{profileExtension})
+	</insert>
+
+	<select id="selectByProfileId" resultMap="profileResultMap">
+		SELECT * FROM PROFILE
+		WHERE PROFILE_ID = #{profileId}
+	</select>
+
+	<delete id="deleteProfile">
+		DELETE FROM PROFILE
+		WHERE PROFILE_ID = #{profileId}
+	</delete>
+
+</mapper>

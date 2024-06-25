@@ -22,6 +22,8 @@ public class Pagination {
 	public Pagination(int page, int pageSize) {
 		this.pageNum = page;
 		this.pageSize = pageSize;
+		this.keyword = "";
+		this.type = "";
 	}
 
 	// 선택된 페이지의 시작 글 일련번호(rn) - #{start}

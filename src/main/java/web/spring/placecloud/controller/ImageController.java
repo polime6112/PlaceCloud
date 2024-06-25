@@ -93,6 +93,22 @@ public class ImageController {
         return "place/detail";
     }
     
+    @GetMapping("/delete")
+    public String deleteGET(Integer placeId, Model model) {
+    	log.info("deleteGet");
+    	log.info(placeId);
+    	ImageVO imageVO = imageService.getImageById(placeId);
+    	String imageChgName = imageVO.getImageChgName();
+    	String imagePath = imageVO.getImagePath();
+    	
+    	ImageUploadUtil.deleteImage(uploadPath, imagePath, imageChgName);
+    	int imageDelete = imageService.delete(placeId);
+    	log.info(imageDelete + "행 삭제");
+    	PlaceVO placeVO = placeService.getPlaceById(placeId);
+    	model.addAttribute("placeVO", placeVO);
+    	return "place/detail";
+    }
+    
     // 첨부 파일 다운로드(GET)
     // 링크를 클릭하면 사용자가 다운로드하는 방식
     // 파일 리소스를 비동기로 전송하여 파일 다운로드

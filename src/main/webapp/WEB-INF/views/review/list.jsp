@@ -64,15 +64,15 @@ li {
 	<ul>
 		<!-- 이전 버튼 생성을 위한 조건문 -->
 		<c:if test="${pageMaker.isPrev() }">
-			<li class="css1"><a class="css2" href="list?pageNum=${pageMaker.startNum - 1}&type=${param.type}&keyword=${param.keyword}">이전</a></li>
+			<li class="css1"><a class="css2" href="list?type=${pagination.type }&keyword=${pagination.keyword }&pageNum=${pageMaker.startNum - 1}&pageSize=${pagination.pageSize}">이전</a></li>
 		</c:if>
 		<!-- 반복문으로 시작 번호부터 끝 번호까지 생성 -->
 		<c:forEach begin="${pageMaker.startNum }" end="${pageMaker.endNum }" var="num">
-			<li class="css1"><a class="css2" href="list?pageNum=${num }&type=${param.type}&keyword=${param.keyword}">${num }</a></li>
+			<li class="css1"><a class="css2" href="list?type=${pagination.type }&keyword=${pagination.keyword }&pageNum=${num }&pageSize=${pagination.pageSize }">${num }</a></li>
 		</c:forEach>
 		<!-- 다음 버튼 생성을 위한 조건문 -->
 		<c:if test="${pageMaker.isNext() }">
-			<li class="css1"><a class="css2" href="list?pageNum=${pageMaker.endNum + 1}&type=${param.type}&keyword=${param.keyword}">다음</a></li>
+			<li class="css1"><a class="css2" href="list?type=${pagination.type }&keyword=${pagination.keyword }&pageNum=${pageMaker.endNum + 1}&pageSize=${pagination.pageSize}">다음</a></li>
 		</c:if>
 	</ul>
 

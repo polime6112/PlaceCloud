@@ -16,7 +16,7 @@
 	</header>
 	<br>
 	<form id="upload" action="upload" method="post" enctype="multipart/form-data">
-		<input type="text" name="placeId" name="placeId" value="${placeVO.placeId }" readonly="readonly">
+		<input type="text" name="placeId" value="${placeVO.placeId }" readonly="readonly">
 		<input type="file" name="image"> <input type="submit" value="업로드">
 	</form>
 	<script>

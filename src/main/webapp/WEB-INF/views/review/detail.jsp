@@ -153,24 +153,25 @@
                 } else {
                     selectAllView += '--등록된 댓글이 없습니다.--';
                 }
+                // append 추가
                 $("#feedbackSelectAll").append(selectAllView);
             },
             error: function() {
                 alert('통신 실패');
             }
         });
-    }
+    } // end getFeedbackList()
     
  	// 대댓글 작성/리스트 폼 보이기/숨기기
     function toggleReply(feedbackId) {
- 		console.log('toggleReply()');
+        console.log('toggleReply()');
         var memberEmail = $('#memberEmail').val();
         var replyForm = $('#replyForm' + feedbackId);
         var replyList = $('#replyList' + feedbackId);
-        
+
         if(replyForm.is(':visible')) {
-        	replyForm.hide();
-        	replyList.hide();
+            replyForm.hide();
+            replyList.hide();
         } else {
             $.ajax({
                 type: 'post',
@@ -200,12 +201,12 @@
                                                 ('0' + replyDate.getMinutes()).slice(-2) + ':' +
                                                 ('0' + replyDate.getSeconds()).slice(-2);
 
-                            repliesView += '<div class="reply">';
+                            repliesView += '<div class="reply" id="reply' + reply.replyId + '">';
                             repliesView += '<p>&nbsp;&nbsp;' + reply.memberEmail + ' / ' + formattedDate + '</p>';
-                            repliesView += '<p>&nbsp;&nbsp;' + replaceContent + '</p>';
+                            repliesView += '<p id="replyContent' + reply.replyId + '">&nbsp;&nbsp;' + replaceContent + '</p>';
                             
                             if(memberEmail === reply.memberEmail) {
-                            	repliesView += '<button type="button" data-replyId="' + reply.replyId + '" class="mini token operator" onclick="updateReply(' + reply.replyId + ', \'' + replaceContent + '\')">수정</button>';
+                                repliesView += '<button type="button" onclick="showEditReply(' + reply.replyId + ', ' + feedbackId + ')">수정</button>';
                                 repliesView += '<button type="button" onclick="deleteReply(' + reply.replyId + ', ' + feedbackId + ')">삭제</button>';
                             }
                             
@@ -225,7 +226,63 @@
             });
         }
     } // end toggleReply()
- 	
+
+    // 대댓글 수정 창 보이기
+    function showEditReply(replyId, feedbackId) {
+        var replyContent = $('#replyContent' + replyId).text().trim();
+        
+        var editForm = '<div id="editReplyForm' + replyId + '">';
+        editForm += '<textarea id="editReplyContent' + replyId + '" rows="3" cols="50">' + replyContent + '</textarea>';
+        editForm += '<br>';
+        editForm += '<button type="button" onclick="saveReply(' + replyId + ', ' + feedbackId + ')">저장</button>';
+        editForm += '<button type="button" onclick="cancelEditReply(' + replyId + ')">취소</button>';
+        editForm += '</div>';
+
+        $('#reply' + replyId).append(editForm);
+    }
+
+    // 대댓글 수정 취소
+    function cancelEditReply(replyId) {
+        $('#editReplyForm' + replyId).remove();
+    }
+	
+ 	// 대댓글 수정
+    function saveReply(replyId, feedbackId) {
+        console.log('saveReply()');
+
+        var editReplyContent = $('#editReplyContent' + replyId).val();
+
+        if (editReplyContent == '') {
+            alert('내용을 입력해주세요');
+            return;
+        }
+
+        var obj = {
+            'replyId': replyId,
+            'replyContent': editReplyContent,
+            'feedbackId': feedbackId
+        };
+
+        $.ajax({
+            type: 'post',
+            url: '../reply/repliesUpdate',
+            data: JSON.stringify(obj),
+            contentType: 'application/json',
+            success: function(data) {
+                if (data === 'UpdateSuccess') {
+                    alert('답글이 수정되었습니다');
+                    toggleReply(feedbackId); 
+                } else {
+                    alert('답글 수정 실패');
+                }
+            },
+            error: function() {
+                alert('통신 실패');
+            }
+        }); // end ajax()
+        
+    } // end saveReply()
+    
  	// 대댓글 등록 함수
     function submitReply(feedbackId) {
         console.log('submitReply()');
@@ -251,8 +308,8 @@
             url: '../reply/repliesInsert',
             data: JSON.stringify(obj),
             contentType: 'application/json',
-            success: function(result) {
-                if (result === "InsertSuccess") {
+            success: function(data) {
+                if (data === "InsertSuccess") {
                     alert('답글이 등록되었습니다');
                     toggleReply(feedbackId); 
                     $('#replyContent' + feedbackId).val('');
@@ -266,47 +323,6 @@
         }); // end ajax()
         
     } // end submitReply()
-    
-    /* // 대댓글 수정
-    function updateReply(replyId, replyContent, feedbackId) {
-    	console.log('updateReply()');
-    	
-    	var replyId = $('#replyId').val();
-    	var replyContent = $('#replyContent' + feedbackId).val();
-    	
-    	 if (replyContent == '') {
-             alert('내용을 입력해주세요');
-             return;
-         }
-
-         var obj = {
-             'reviewId': reviewId,
-             'feedbackId': feedbackId,
-             'memberEmail': memberEmail,
-             'replyContent': replyContent
-         };
-
-         $.ajax({
-             type: 'post',
-             url: '../reply/repliesUpdate',
-             data: JSON.stringify(obj),
-             contentType: 'application/json',
-             success: function(result) {
-                 if (result === "UpdateSuccess") {
-                     alert('답글이 수정되었습니다');
-                     toggleReply(feedbackId); 
-                     $('#replyContent' + feedbackId).val('');
-                 } else {
-                     alert('답글 수정 실패');
-                 }
-             },
-             error: function() {
-                 alert('통신 실패');
-             }
-         }); // end ajax()
-         
-     
-    } // end updateReply() */
     
  	// 대댓글 삭제
     function deleteReply(replyId, feedbackId) {
@@ -425,7 +441,7 @@
         var obj = {
             "feedbackContent": updateContent,
             "feedbackId": feedbackId,
-            "reviewId": reviewId // reviewId 추가
+            "reviewId": reviewId 
         };
 
         $.ajax({

@@ -77,11 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	<!-- WHERE 검색 유형이 '제목'일 때 <if test="type == 'reviewTitle'"> REVIEW_TITLE 
-		LIKE '%' || #{keyword} || '%' </if> 검색 유형이 '작성자'일 때 <if test="type == 'memberEmail'"> 
-		MEMBER_EMAIL LIKE '%' || #{keyword} || '%' </if> 검색 조건이 없을 때 <if test="type 
-		== null or type == ''"> 1=1 </if> -->
-
+	
 	<select id="searchTotalCount" resultType="Integer">
 		<!-- 총 이용후기 수 조회 -->
 		SELECT COUNT(*) AS TOTAL_COUNT
@@ -95,9 +91,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 		</choose>
 	</select>
-	<!-- WHERE 검색 유형이 '제목'일 때 <if test="type == 'reviewTitle'"> REVIEW_TITLE 
-		LIKE '%' || #{keyword} || '%' </if> 검색 유형이 '작성자'일 때 <if test="type == 'memberEmail'"> 
-		MEMBER_EMAIL LIKE '%' || #{keyword} || '%' </if> 검색 조건이 없을 때 <if test="type 
-		== null or type == ''"> 1=1 </if> -->
-
+	
 </mapper>
