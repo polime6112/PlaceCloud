@@ -105,7 +105,7 @@
         <br><br>
         <div class="row">
             <div class="col-md-12">
-                <form class="booking-form" action="../booking/bookingList" method="get">
+                <form class="booking-form" action="../booking/list" method="get">
                     <input type="date" id="startDate" name="startDate" value="${bpagination.startDate }">
                      ~ 
                     <input type="date" id="endDate" name="endDate" value="${bpagination.endDate }">
@@ -130,7 +130,7 @@
                         <c:forEach var="bookingVO" items="${bookingList }">
                             <tr>
                                 <td>${bookingVO.bookingId }</td>
-                                <td><a href="../booking/bookingDetail?bookingId=${bookingVO.bookingId }">${bookingVO.placeName }</a></td>
+                                <td><a href="../booking/detail?bookingId=${bookingVO.bookingId }">${bookingVO.placeName }</a></td>
                                 <fmt:formatDate value="${bookingVO.bookingDate }" pattern="yyyy-MM-dd" var="bookingDate" />
                                 <td>${bookingDate }</td>
                             </tr>
@@ -139,13 +139,13 @@
                 </table>
                 <ul class="bpagination">
                     <c:if test="${bpageMaker.isPrev() }">
-                        <li class="page-item"><a class="page-link" href="bookingList?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.startNum - 1 }&pageSize=${bpagination.pageSize}">이전</a></li>
+                        <li class="page-item"><a class="page-link" href="list?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.startNum - 1 }&pageSize=${bpagination.pageSize}">이전</a></li>
                     </c:if>
                     <c:forEach begin="${bpageMaker.startNum }" end="${bpageMaker.endNum }" var="num">
-                        <li class="page-item"><a class="page-link" href="bookingList?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${num }&pageSize=${bpagination.pageSize}">${num }</a></li>
+                        <li class="page-item"><a class="page-link" href="list?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${num }&pageSize=${bpagination.pageSize}">${num }</a></li>
                     </c:forEach>
                     <c:if test="${bpageMaker.isNext() }">
-                        <li class="page-item"><a class="page-link" href="bookingList?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.endNum + 1 }&pageSize=${bpagination.pageSize}">다음</a></li>
+                        <li class="page-item"><a class="page-link" href="list?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.endNum + 1 }&pageSize=${bpagination.pageSize}">다음</a></li>
                     </c:if>
                 </ul>
             </div>
@@ -154,7 +154,7 @@
     <script type="text/javascript">
         function pageChange() {
             let pageSize = document.getElementById('pageSize').value;
-            location.href="bookingList?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.startNum }&pageSize=" + pageSize;
+            location.href="list?startDate=${bpagination.startDate }&endDate=${bpagination.endDate }&pageNum=${bpageMaker.startNum }&pageSize=" + pageSize;
         }
     </script>
 </body>
