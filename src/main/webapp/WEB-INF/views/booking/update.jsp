@@ -16,7 +16,7 @@
 			<p>예약 공간</p>
 			<input type="text" name="placeName" readonly value="${booking.placeName }">
 		</div>
-	<form id="updateform" action="bookingUpdate" method="post">
+	<form id="updateform" action="update" method="post">
 		<input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
 		<div>
 			<p>예약 날짜</p>
