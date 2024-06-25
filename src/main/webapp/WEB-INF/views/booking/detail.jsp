@@ -38,10 +38,10 @@
 		<p>결제 금액</p>
 		<p>${bookingVO.bookingPrice }원</p>
 	</div>
-	<button onclick="location.href='bookingList'">뒤로가기</button>
-	<button onclick="location.href='bookingUpdate?bookingId=${bookingVO.bookingId }'">수정하기</button>
+	<button onclick="location.href='list'">뒤로가기</button>
+	<button onclick="location.href='update?bookingId=${bookingVO.bookingId }'">수정하기</button>
 	<button id="deleteBooking">예약 취소</button>
-	<form id="deleteform" action="bookingDelete" method="post">
+	<form id="deleteform" action="delete" method="post">
 		<input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
 	</form>
 	

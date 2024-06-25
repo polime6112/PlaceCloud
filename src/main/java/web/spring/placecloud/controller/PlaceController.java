@@ -142,23 +142,15 @@ public class PlaceController {
     @GetMapping("/detail")
     public String detailGET(Integer placeId, Integer imageId, HttpSession httpSession, Model model) {
         log.info("detailGet");
-        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
         
-        if (memberVO != null) {
-        	String memberEmail = memberVO.getMemberEmail();
-        	PlaceVO placeVO = placeService.getPlaceById(placeId);
-        	ImageVO imageVO = imageService.getImageById(placeId); // placeId를 매개변수로 imageVO 값 불러오기
-        	log.info("Member Email: " + memberEmail);
-        	log.info("PlaceVO : " + placeVO);
-        	log.info("ImageVO : " + imageVO);
-        	model.addAttribute("placeVO", placeVO);
-        	model.addAttribute("imageVO", imageVO);
-        	model.addAttribute("uploadPath", uploadPath);
-        	return "place/detail";        	
-        } else {
-        	log.error("세션이 존재하지 않습니다.");
-        	return "redirect:/member/memberLogin";
-    	}
+        PlaceVO placeVO = placeService.getPlaceById(placeId);
+        ImageVO imageVO = imageService.getImageById(placeId); // placeId를 매개변수로 imageVO 값 불러오기
+        log.info("PlaceVO : " + placeVO);
+        log.info("ImageVO : " + imageVO);
+        model.addAttribute("placeVO", placeVO);
+        model.addAttribute("imageVO", imageVO);
+        model.addAttribute("uploadPath", uploadPath);
+        return "place/detail";        	
     }
     
     

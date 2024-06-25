@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <title>장소 상세정보</title>
 <style>
     body {
@@ -100,9 +101,7 @@
 	</c:if>
 	<br>
 	<br>
-	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
-		<input type="text" id="memberName" value="${placeVO.memberEmail }">
-	</c:if>
+	<input type="text" id="memberName" value="${placeVO.memberEmail }">	
 	<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
 	<input type="hidden" name="memberEmail" id="memberEmail" value="${placeVO.memberEmail }">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
@@ -124,16 +123,36 @@
 		</form>
 	</c:if>
 	<br>
-	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
-		<a href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}">예약 하기</a>
-	</c:if>
-	
-	<c:if test="${sessionScope.login.memberStatus == 'host' }">
-		<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
-		<c:if test="${empty imageVO }">
-		<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
+	<div>
+		<c:if test="${sessionScope.login.memberStatus != 'host' }">	
+			<button id="bookingBtn">예약 하기</button>
 		</c:if>
-		<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
-	</c:if>
+		
+		<c:if test="${sessionScope.login.memberStatus == 'host' }">
+			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
+			<c:if test="${empty imageVO }">
+			<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
+			</c:if>
+			<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
+		</c:if>
+	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#bookingBtn').click(function(){
+				if(${sessionScope.login.memberStatus == 'guest'}){
+					console.log("작동?");
+					location.href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}";
+				} else if(${sessionScope.login.memberStatus == null}){
+					console.log("작동?");
+					if(confirm('로그인 이후 예약이 가능합니다. 로그인 하시겠습니까?')){
+						console.log("작동?");
+						location.href="../member/login";
+					}
+				}
+			});
+		});
+	</script>
+	
 </body>
 </html>

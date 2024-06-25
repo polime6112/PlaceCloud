@@ -34,6 +34,7 @@
 			<br>
 			<p>예약 인원</p>
 			<input type="text" name="bookingPerson" required>
+			<span id="personValidMsg"></span>
 		</div>
 		<div>
 			<p>예약자</p>
@@ -58,10 +59,24 @@
 			<input type="text" name="bookingPrice" readonly value="${PlaceVO.placeMoneyTime }">
 			<br>
 			
-			<input type="submit" value="결제하기">
+			<button id="booking" type="submit" >결제하기</button>
 		</div>
 	</form>
 	
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			let personFlag = false; // 인원수 유효성 검사
+			
+			$('#booking').click(function(event){
+				event.preventDefault(); // 기본 동작 취소
+			})
+			
+		})
+		
+		
+		
+	</script>
 	
 	
 </body>
