@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BookingFail</title>
+<title>Cancel</title>
 </head>
 <body>
-	<% %>
 	<script type="text/javascript">
-		alert('결제에 실패했습니다!');
-		location.href="bookingInsert?placeId="${bookingVO.placeId};
+		alert('결제가 취소되었습니다!');
+		window.history.back();
 	</script>
 </body>
 </html>

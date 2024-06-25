@@ -33,20 +33,18 @@ public class PlaceController {
     private ImageService imageService;
     
     @GetMapping("/main")
-    public String mainGET(HttpSession httpSession, Model model) {
+	public void mainGET(/* HttpSession httpSession, */Model model) {
     	log.info("mainGet");
-    	MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
-    	
-    	if (memberVO != null) {
-    		List<PlaceVO> list = placeService.getAllPlace();
-    		log.info("List : " + list);
-    		model.addAttribute("list", list);
-    		log.info(memberVO.getMemberEmail());
-    		return "place/main";
-    	} else {
-    		log.error("세션이 존재하지 않습니다.");
-    		return "redirect:/member/memberLogin";
-    	}
+    	List<PlaceVO> list = placeService.getAllPlace();
+    	log.info("List : " + list);
+    	model.addAttribute("list", list);
+		/*
+		 * MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
+		 * 
+		 * if (memberVO != null) { log.info(memberVO.getMemberEmail()); return
+		 * "place/main"; } else { log.error("세션이 존재하지 않습니다."); return
+		 * "redirect:/member/memberLogin"; }
+		 */
     }
     
     @GetMapping("/myPlace")

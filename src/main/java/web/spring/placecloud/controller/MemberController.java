@@ -62,7 +62,7 @@ public class MemberController {
             log.info("로그인 성공");
             session.setAttribute("login", login);
             session.setMaxInactiveInterval(6000); // 100분
-            return "redirect:/member/memberMain";
+            return "redirect:/place/main";
         } else {
             log.info("로그인 실패");
             session.setAttribute("login", null);
@@ -76,7 +76,7 @@ public class MemberController {
     public String logout(HttpSession session) {
         log.info("logout()");
         session.invalidate();
-        return "redirect:/member/memberMain";
+        return "redirect:/place/main";
     } // end logout()
 
     // 이메일 중복 체크

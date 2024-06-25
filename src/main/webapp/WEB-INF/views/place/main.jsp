@@ -83,25 +83,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
 $(document).ready(function() {
-/*     // 이미지를 동적으로 추가하는 함수
-    function addImageToPlaceCard(placeId, imagePath, imageChgName, imageExtension) {
-        // 이미지 요소 생성
-        let img = document.createElement('img');
-        img.className = 'placeImage';
-        img.src = '../image/display?attachPath=' + encodeURIComponent(imagePath) +
-                   '&attachChgName=' + encodeURIComponent(imageChgName) +
-                   '&attachExtension=' + encodeURIComponent(imageExtension);
-        // 이미지를 추가할 장소 카드 요소 가져오기
-        let placeCard = document.getElementById('placeCard_' + placeId);
-        // 장소 카드에 이미지 요소 추가
-        placeCard.appendChild(img);
-    }
-    
-    // JSP에서 forEach로 생성된 각 placeCard에 이미지 추가하기
-    <c:forEach var="imageVO" items="${imageVO}">
-        addImageToPlaceCard(${imageVO.placeId}, '${imageVO.imagePath}', '${imageVO.imageChgName}', '${imageVO.imageExtension}');
-    </c:forEach> */
-    
     // 버튼 클릭 시 카테고리 값을 URL 파라미터로 전달
     $('.btn-keyword').on('click', function() {
         let category = $(this).find('.category').text();
@@ -113,10 +94,25 @@ $(document).ready(function() {
 <body>
     <header>
         <div class="logo">
-            <a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
         </div>
     </header>
     <br><br>
+    <c:if test="${empty sessionScope.login.memberEmail }">
+		<a href="../member/memberLogin">로그인</a>
+	</c:if>
+	<c:if test="${not empty sessionScope.login.memberEmail }">
+		<a href="../member/logout">로그아웃</a>
+		<a href="../member/myPage">마이페이지</a>
+		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
+			<a href="${pageContext.request.contextPath}/place/main">장소 보기</a>
+			<a href="${pageContext.request.contextPath}/booking/bookingList">예약 목록</a>
+			<a href="${pageContext.request.contextPath}/review/list">리뷰</a>
+		</c:if>
+		<c:if test="${sessionScope.login.memberStatus == 'host' }">
+			<a href="${pageContext.request.contextPath}/place/myPlace?memberEmail=${sessionScope.login.memberEmail}">내가 등록한 장소들</a>		
+		</c:if>
+	</c:if>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
     <div class="placeList">
         <div class="wrap-btn">

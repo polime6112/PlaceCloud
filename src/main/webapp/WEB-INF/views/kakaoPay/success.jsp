@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BookingCancel</title>
+<title>Success</title>
 </head>
 <body>
-	<input type="hidden" name="placeId" value="${bookingVO.placeId }">
 	<script type="text/javascript">
-		alert('결제가 취소되었습니다!');
-		location.href="bookingInsert?placeId="${placeId};
+		alert('예약되었습니다!');
+		location.href='../booking/list';
 	</script>
 </body>
 </html>

@@ -8,7 +8,7 @@ import web.spring.placecloud.domain.ProfileVO;
 public interface ProfileMapper {
 	int uploadProfile(ProfileVO profileVO);
 	
-	ProfileVO selectByProfileId(int profileId);
+	ProfileVO selectByMemberEmail(String memberEmail);
 	
-	int deleteProfile(int profileId);
+	int deleteProfile(String memberEmail);
 }
