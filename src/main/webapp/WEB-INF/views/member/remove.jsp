@@ -9,70 +9,80 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
 
-    form {
-        width: 500px; /* 너비를 늘림 */
-        padding: 30px; /* 패딩을 늘림 */
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        text-align: center; /* 가운데 정렬 */
-    }
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
 
-    #errorGuide {
-        color: gray;
-    }
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
 
-    #guideMsg {
-        color: red;
-        margin-top: 10px;
-    }
+form {
+	width: 500px; /* 너비를 늘림 */
+	padding: 30px; /* 패딩을 늘림 */
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	text-align: center; /* 가운데 정렬 */
+	margin: 100px auto;
+}
 
-    #goBackBtn {
-        background-color: black;
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-        margin-right: 10px;
-        transition: background-color 0.3s ease;
-    }
+#errorGuide {
+	color: gray;
+}
 
-    #goBackBtn:hover {
-        background-color: #333;
-    }
+#guideMsg {
+	color: red;
+	margin-top: 10px;
+}
 
-    #removeBtn {
-        background-color: purple;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
+#goBackBtn {
+	background-color: black;
+	color: white;
+	padding: 10px 20px;
+	text-decoration: none;
+	border: none;
+	border-radius: 5px;
+	margin-right: 10px;
+	transition: background-color 0.3s ease;
+}
 
-    #removeBtn:hover {
-        background-color: #6a5acd;
-    }
-    
-    
-	input[type="checkbox"] {
-    transform: scale(1.5); 
-	}
+#goBackBtn:hover {
+	background-color: #333;
+}
+
+#removeBtn {
+	background-color: purple;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+#removeBtn:hover {
+	background-color: #6a5acd;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+}
 </style>
 </head>
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 	

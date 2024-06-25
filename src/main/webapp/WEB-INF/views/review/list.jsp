@@ -8,20 +8,23 @@
 <meta charset="UTF-8">
 <title>이용후기 게시판</title>
 <style>
-ul {
-	list-style-type: none;
+.logo {
 	text-align: center;
+	margin: 20px 0;
 }
 
-li {
-	display: inline-block;
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
 }
+
 </style>
 </head>
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 

@@ -39,6 +39,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM FEEDBACK
 		WHERE FEEDBACK_ID = #{feedbackId}
 	</delete>
-
-
+	
 </mapper>

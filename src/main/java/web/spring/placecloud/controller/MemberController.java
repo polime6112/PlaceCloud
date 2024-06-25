@@ -46,12 +46,6 @@ public class MemberController {
         log.info("loginGET()");
     } // memberLoginGET()
 
-    // 메인 화면
-    @GetMapping("memberMain")
-    public void main() {
-        log.info("main()");
-    } // end main()
-
     // 로그인 체크
     @PostMapping("memberLogin")
     public String loginCheck(MemberVO memberVO, HttpSession session, RedirectAttributes reAttr) {

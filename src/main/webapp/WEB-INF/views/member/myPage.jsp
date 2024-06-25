@@ -8,62 +8,105 @@
 <title>마이 페이지</title>
 <!-- jquery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<style>
+<style type="text/css">
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+
 body {
-    background-color: #f6f6f6;
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
 }
 
 #myInfoContainer {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    width: fit-content;
-    margin: auto;
-    margin-top: 50px;
+	border: 1px solid #706FFF;
+	width: 40%;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+	margin: 100px auto;
 }
 
-#myInfo {
-    text-align: right;
-    margin-bottom: 20px;
+h1 {
+	text-align: center;
+	font-size: 40px;
+	font-weight: 900;
+	color: #706FFF;
 }
 
-#myInfo label {
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    width: 100px;
+label {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+	text-align: left;
 }
 
-#myInfo input[type="text"] {
-    display: inline-block;
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    background-color: transparent;
-    width: 200px;
+input[type="text"] {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	box-sizing: border-box;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #f9f9f9;
+	text-align: left;
 }
 
-#updateForm, #deleteForm {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 20px;
+button, input[type="submit"] {
+	width: 100%;
+	background-color: #FFD700;
+	color: black;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 15px;
+	font-family: Arial, sans-serif;
 }
+
+button:hover, input[type="submit"]:hover {
+	background-color: #e6c300;
+}
+
+.image {
+	display: block;
+	margin: 20px auto;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+}
+
+form {
+	margin-top: 20px;
+	text-align: left;
+}
+
 </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
         </div>
     </header>
 
-    <h1 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">마이페이지</h1>
   
     <div id="myInfoContainer">
         <form id="myInfo">
+    		<h1 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">마이페이지</h1>
             <label for="email">이메일:</label> <input type="text" id="memberEmail"
                 name="memberEmail" value="${member.memberEmail}" readonly><br>
 

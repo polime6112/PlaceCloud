@@ -7,6 +7,19 @@
 <meta charset="UTF-8">
 <title>프로필 이미지 등록</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<style type="text/css">
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+</style>
+
 </head>
 <body>
 	<header>

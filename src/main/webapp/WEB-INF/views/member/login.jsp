@@ -9,75 +9,71 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <style type="text/css">
 .logo {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .logo a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #333;
-    }
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-#loginForm {
-    border: 1px solid #706FFF;
-    width: 40%;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    position: relative;
+	text-align: center;
+	margin: 20px 0;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    box-sizing: border-box;
-    font-size: 16px;
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+#loginForm {
+	border: 1px solid #706FFF;
+	width: 40%;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	position: relative;
+	margin: 200px auto;
+}
+
+input[type="text"], input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	box-sizing: border-box;
+	font-size: 16px;
 }
 
 #loginBtn {
-    width: 100%;
-    background-color: #FFD700;
-    color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
+	width: 100%;
+	background-color: #FFD700;
+	color: black;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 15px;
+	font-family: Arial, sans-serif;
 }
 
 #join {
-    text-align: center;
-    margin-top: 20px;
+	text-align: center;
+	margin-top: 20px;
 }
 
-#joinBtn p {
-    display: inline;
-    margin-right: 10px;
-    font-family: Arial, sans-serif;
+#joinBtn {
+	border: none;
+	background: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #706FFF;
+	font-family: Arial, sans-serif;
+	margin-left: 10px;
 }
 
-#joinBtn button {
-    border: none;
-    background: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    text-decoration: underline;
-    color: #706FFF;
-    display: inline;
-    margin-left: 10px;
-    font-family: Arial, sans-serif;
-}
-
-#joinBtn button:hover {
-    color: #404040;
+#joinBtn:hover {
+	color: #404040;
+	text-decoration: underline;
 }
 
 </style>
@@ -86,7 +82,7 @@ input[type="password"] {
 <body>
     <header>
         <div class="logo">
-            <a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
         </div>
     </header>
     
@@ -98,8 +94,7 @@ input[type="password"] {
         <button id="loginBtn" type="submit">이메일로 로그인</button>
         
         <div id="join">
-            <p>아직 회원이 아니신가요?</p>
-            <button id="joinBtn" type="button">회원가입</button>
+            <span>아직 회원이 아니신가요?</span><button id="joinBtn" type="button">회원가입</button>
         </div>
               
     </form>

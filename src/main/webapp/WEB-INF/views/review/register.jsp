@@ -6,6 +6,23 @@
 <meta charset="UTF-8">
 <title>리뷰 작성</title>
 <style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
 
 header {
 	background-color: #f2f2f2;
@@ -24,7 +41,7 @@ header {
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 

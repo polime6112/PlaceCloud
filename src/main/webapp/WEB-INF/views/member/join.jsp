@@ -8,90 +8,87 @@
 <!-- jquery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js">
 </script>
-<style>
-	.logo {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .logo a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #333;
-    }
-    body {
-        font-family: Arial, sans-serif;
-    }
-    
-    #memberForm {
-        width: 600px; 
-        padding: 40px; 
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+<style type="text/css">
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
 
-   .join {
-   		width: calc(100% - 20px);
-    	margin-top: 10px;
-    	padding: 10px;
-    	font-size: 16px;
-    }
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
 
-    #email,
-    #password,
-    #confirmPw,
-    #nickname,
-    #phone,
-    #status,
-    #terms {
-        margin-bottom: 15px;
-    }
+body {
+	font-family: Arial, sans-serif;
+}
 
-	#button {
-    	display: flex;
-    	justify-content: space-between;
-    	margin-top: 20px; 
-	}
+#memberForm {
+	width: 600px;
+	padding: 40px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: 100px auto;
+}
 
-	#goBackBtn {
-    	width: 48%; 
-    	background-color: #ccc; 
-    	color: #000000;
-    	border: none;
-    	padding: 15px 20px;
-    	cursor: pointer;
-    	border-radius: 5px;
-    	font-size: 16px;
-    	text-align: center;
-    	text-decoration: none;
-    	transition: background-color 0.3s ease;
-	}
+.join {
+	width: calc(100% - 20px);
+	margin-top: 10px;
+	padding: 10px;
+	font-size: 16px;
+}
 
-	#goBackBtn:hover {
-    	background-color: #999; 
-	}
+#email, #password, #confirmPw, #nickname, #phone, #status, #terms {
+	margin-bottom: 15px;
+}
 
-	#joinBtn {
-    	width: 48%; 
-    	background-color: #ffc107; 
-    	color: #000;
-    	border: none;
-    	padding: 15px 20px;
-    	cursor: pointer;
-    	border-radius: 5px;
-    	font-size: 16px;
-    	text-align: center;
-    	transition: background-color 0.3s ease;
-	}
+#button {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+}
 
-	#joinBtn:hover {
-    	background-color: #ffca28; 
-	}
+#goBackBtn {
+	width: 48%;
+	background-color: #ccc;
+	color: #000000;
+	border: none;
+	padding: 15px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+}
+
+#goBackBtn:hover {
+	background-color: #999;
+}
+
+#joinBtn {
+	width: 48%;
+	background-color: #ffc107;
+	color: #000;
+	border: none;
+	padding: 15px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	text-align: center;
+	transition: background-color 0.3s ease;
+}
+
+#joinBtn:hover {
+	background-color: #ffca28;
+}
 </style>
 </head>
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 
@@ -130,7 +127,7 @@
         
         <!-- 회원 구분 -->
         <div id="status">
-        		<input type="radio" id="guest" name="memberStatus" value="guest">게스트
+        		<input type="radio" id="guest" name="memberStatus" value="guest" checked>게스트
         		<input type="radio" id="host" name="memberStatus" value="host">호스트
         </div>
         

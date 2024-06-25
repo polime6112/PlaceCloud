@@ -6,11 +6,97 @@
 <title>회원 정보 수정</title>
 <!-- jQuery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+
+#updateInfo {
+	border: 1px solid #706FFF;
+	width: 40%;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+	margin: 100px auto;
+}
+
+h1 {
+	text-align: center;
+	font-size: 40px;
+	font-weight: 900;
+	color: #706FFF;
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+	text-align: left;
+}
+
+input[type="text"], input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	box-sizing: border-box;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #f9f9f9;
+	text-align: left;
+}
+
+#button {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+}
+
+#button a, #saveBtn {
+	padding: 10px 20px;
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#goBackBtn {
+	background-color: #FFA500; 
+}
+
+#saveBtn {
+	background-color: #4CAF50; 
+}
+
+#goBackBtn:hover, #saveBtn:hover {
+	opacity: 0.8;
+}
+
+</style>
 </head>
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 

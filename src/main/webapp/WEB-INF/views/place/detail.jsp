@@ -91,7 +91,7 @@
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 	<br>
@@ -124,6 +124,7 @@
 		</form>
 	</c:if>
 	<br>
+	
 	<c:if test="${sessionScope.login.memberStatus == 'guest' }">
 		<a href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}">예약 하기</a>
 	</c:if>

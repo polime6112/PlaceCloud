@@ -9,6 +9,17 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js">
 </script>
 <style>
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
@@ -58,7 +69,7 @@ button:hover {
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
 	<h1>정보 수정하기</h1>

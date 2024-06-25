@@ -5,6 +5,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+</style>
 <title>내가 등록한 장소들</title>
 <style>
     .placeList {
@@ -37,7 +56,7 @@
 <body>
 	<header>
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }/member/memberMain">PlaceCloud</a>
+			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
     <h2>${sessionScope.login.memberName}의 페이지</h2>
