@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.ProfileVO;
 import web.spring.placecloud.service.MemberService;
+import web.spring.placecloud.service.ProfileService;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -23,6 +24,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+    
+    @Autowired
+    private ProfileService profileService;
 
     // 회원 가입 화면 이동
     @GetMapping("join")
@@ -106,7 +110,7 @@ public class MemberController {
 
     // 마이페이지 이동
     @GetMapping("myPage")
-    public String myPage(HttpSession session, Model model, ProfileVO profileVO) {
+    public String myPage(HttpSession session, Model model) {
         log.info("myPage()");
         MemberVO member = (MemberVO) session.getAttribute("login");
 
@@ -115,6 +119,7 @@ public class MemberController {
             log.info(memberEmail + "이메일");
             log.info("세션 o");
             MemberVO vo = memberService.getMemberByEmail(memberEmail);
+            ProfileVO profileVO = profileService.getProfileByEmail(memberEmail);
             log.info(vo.toString());
             model.addAttribute("member", vo);
             model.addAttribute("profileVO", profileVO);
@@ -195,7 +200,7 @@ public class MemberController {
             int result = memberService.removeMember(memberEmail);
             log.info(result + "회원 탈퇴");
             session.invalidate();
-            return "redirect:/member/memberMain";
+            return "redirect:/place/main";
         } else {
             log.info("세션 x");
             return "redirect:/member/login";
