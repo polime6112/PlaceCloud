@@ -10,8 +10,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
@@ -90,7 +87,7 @@ public class ImageController {
         
         log.info("PlaceVO : " + placeVO);
     	model.addAttribute("placeVO", placeVO);
-        return "place/detail";
+        return "host/detail";
     }
     
     @GetMapping("/delete")
@@ -106,37 +103,7 @@ public class ImageController {
     	log.info(imageDelete + "행 삭제");
     	PlaceVO placeVO = placeService.getPlaceById(placeId);
     	model.addAttribute("placeVO", placeVO);
-    	return "place/detail";
-    }
-    
-    // 첨부 파일 다운로드(GET)
-    // 링크를 클릭하면 사용자가 다운로드하는 방식
-    // 파일 리소스를 비동기로 전송하여 파일 다운로드
-    @GetMapping(value ="/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    @ResponseBody
-    public ResponseEntity<Resource> download(int placeId) throws IOException {
-    	log.info("download()");
-    	
-    	// imageId로 상세 정보 조회
-    	ImageVO imageVO = imageService.getImageById(placeId);
-    	String imagePath = imageVO.getImagePath();
-    	String imageChgName = imageVO.getImageChgName();
-    	String imageExtension = imageVO.getImageExtension();
-    	String imageRealName = imageVO.getImageRealName();
-    	
-    	// 서버에 저장된 파일 정보 생성
-    	String resourcePath = uploadPath + File.separator + imagePath + File.separator
-    			+ imageChgName;
-    	// 파일 리소스 생성
-    	Resource resource = new FileSystemResource(resourcePath);
-    	// 다운로드할 파일 이름을 헤더에 설정
-    	HttpHeaders headers = new HttpHeaders();
-    	String imageName = new String(imageRealName.getBytes("UTF-8"), "ISO-8859-1");
-    	log.info("imageName : " + imageName);
-    	log.info("imageExtension : " + imageExtension);
-    	headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + imageName + "." + imageExtension);
-    	
-    	return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+    	return "host/detail";
     }
     
     // 전송받은 파일 경로 및 파일 이름, 확장자로 
@@ -155,7 +122,6 @@ public class ImageController {
           }
           Path path = Paths.get(savedPath);
           byte[] imageBytes = Files.readAllBytes(path);
-
 
           Path extensionPath = Paths.get("." + imageExtension);
           // 이미지의 MIME 타입 확인하여 적절한 Content-Type 지정

@@ -65,7 +65,7 @@ body {
     <hr>
     <div class="placeList">
 	    <c:forEach var="place" items="${List}">
-	        <div class="placeCard" onclick="location.href='../place/detail?placeId=' + ${place.placeId}">
+	        <div class="placeCard" onclick="location.href='../host/detail?placeId=' + ${place.placeId}">
 	            <div class="placeName">${place.placeName}</div>
 	            <div class="placeCategory">${place.placeCategory}</div>
 	        </div>
