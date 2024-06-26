@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.MemberVO;
+import web.spring.placecloud.domain.ProfileVO;
 import web.spring.placecloud.service.MemberService;
 
 @Controller
@@ -105,7 +106,7 @@ public class MemberController {
 
     // 마이페이지 이동
     @GetMapping("myPage")
-    public String myPage(HttpSession session, Model model) {
+    public String myPage(HttpSession session, Model model, ProfileVO profileVO) {
         log.info("myPage()");
         MemberVO member = (MemberVO) session.getAttribute("login");
 
@@ -116,6 +117,7 @@ public class MemberController {
             MemberVO vo = memberService.getMemberByEmail(memberEmail);
             log.info(vo.toString());
             model.addAttribute("member", vo);
+            model.addAttribute("profileVO", profileVO);
             return "/member/myPage";
         } else {
             log.info("세션 x");

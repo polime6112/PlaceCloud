@@ -112,7 +112,8 @@ public class ProfileController {
 		ResponseEntity<byte[]> entity = null;
 		try {
 			// 파일을 읽어와서 byte 배열로 변환
-			String savedPath = uploadPath + File.separator + profilePath + File.separator + profileChgName;
+			String savedPath = uploadPath + File.separator 
+					+ profilePath + File.separator + profileChgName;
 			if (profileChgName.startsWith("t_")) { // 섬네일 파일에는 확장자 추가
 				savedPath += "." + profileExtension;
 			}

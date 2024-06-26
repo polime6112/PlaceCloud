@@ -76,7 +76,7 @@ button:hover {
 	<form id="register" action="register" method="POST">
 		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
 		<label for="placeName">장소 이름</label>
-		<input type="text" id="placeName" name="placeName" required>
+		<input type="text" id="placeName" name="placeName" maxlength="30" required>
 		<label for="placeCategory">카테고리</label>
 		<select id="placeCategory" name="placeCategory">
 			<option value="옵션을 선택해주세요">옵션을 선택해주세요.</option>
@@ -84,12 +84,12 @@ button:hover {
 			<option value="회의실">회의실</option>
 			<option value="녹음실">녹음실</option>
 			<option value="스튜디오">스튜디오</option>
-			<option value="운동시설">운동시설</option>
+			<option value="공연장">공연장</option>
 		</select>
 		<label for="placeContext">장소 설명</label>
-		<input type="text" id="placeContext" name="placeContext" required>
+		<input type="text" id="placeContext" name="placeContext" maxlength="20" required>
 		<label for="placeAddress">주소 입력</label>
-		<input type="text" id="placeAddress" name="placeAddress" required>
+		<input type="text" id="placeAddress" name="placeAddress" maxlength="50" required>
 		<label for="placeWarning">주의사항</label>
 		<input type="text" id="placeWarning" name="placeWarning" required>
 		<label for="placeInfo">장소 설비</label>

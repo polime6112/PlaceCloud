@@ -120,7 +120,7 @@ form {
 	        <img class="image" src="../profile/display?profilePath=${profileVO.profilePath}&profileChgName=${profileVO.profileChgName}&profileExtension=${profileVO.profileExtension}"
 	        						 alt="프로필 사진을 추가해주세요">
 	        <form id="delete" action="../profile/delete" method="GET">
-	        	<input type="text" name="memberEmail" id="memberEmail" value="${member.memberEmail }">
+	        	<input type="text" name="memberEmail" id="memberEmail" value="${member.memberEmail }" readonly>
 	        	<button>프로필 사진 삭제</button>
 	        </form>
         </c:if>
