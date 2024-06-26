@@ -76,30 +76,28 @@ button:hover {
 	<form id="update" action="update" method="POST" >
 		<input type="text" id="placeId" name="placeId" value="${placeVO.placeId}">
 		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
-		<label for="placeName">장소 이름</label> 
-		<input type="text" id="placeName" name="placeName" required>
-		<label for="placeCategory">카테고리</label> 
+		<label for="placeName">장소 이름</label>
+		<input type="text" id="placeName" name="placeName" maxlength="30" required>
+		<label for="placeCategory">카테고리</label>
 		<select id="placeCategory" name="placeCategory">
 			<option value="옵션을 선택해주세요">옵션을 선택해주세요.</option>
 			<option value="파티룸">파티룸</option>
 			<option value="회의실">회의실</option>
-			<option value="연습실">연습실</option>
+			<option value="녹음실">녹음실</option>
 			<option value="스튜디오">스튜디오</option>
-			<option value="운동시설">운동시설</option>
 			<option value="공연장">공연장</option>
 		</select>
-		<br>
-		<br> 
-		<label for="placeContext">장소 설명</label> 
-		<input type="text" id="placeContext" name="placeContext" required>
-		<label for="placeAddress">주소 입력</label> 
-		<input type="text" id="placeAddress" name="placeAddress" required>
-		<label for="placeWarning">주의사항</label> 
-		<input type="text" id="placeWarning" name="placeWarning" required>
-		<label for="placeInfo">장소 설비</label> 
-		<input type="text" id="placeInfo" name="placeInfo" required>
-		<label for="placeMoneyTime">시간당 가격(원/시간)</label> 
+		<label for="placeContext">장소 설명</label>
+		<textarea rows="4" cols="20" id="placeContext" name="placeContext" maxlength="100" required></textarea>
+		<label for="placeAddress">주소 입력</label>
+		<input type="text" id="placeAddress" name="placeAddress" maxlength="50" required>
+		<label for="placeWarning">주의사항</label>
+		<textarea rows="4" cols="20" id="placeWarning" name="placeWarning" maxlength="100" required></textarea>
+		<label for="placeInfo">장소 설비</label>
+		<textarea rows="4" cols="20" id="placeInfo" name="placeInfo" maxlength="100" required></textarea>
+		<label for="placeMoneyTime">시간당 가격(원/시간)</label>
 		<input type="number" id="placeMoneyTime" name="placeMoneyTime" required>
+		<br><br>
 		<input type="submit" value="수정">
 	</form>
 </body>

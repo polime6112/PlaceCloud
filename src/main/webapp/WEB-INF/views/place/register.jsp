@@ -87,13 +87,13 @@ button:hover {
 			<option value="공연장">공연장</option>
 		</select>
 		<label for="placeContext">장소 설명</label>
-		<input type="text" id="placeContext" name="placeContext" maxlength="20" required>
+		<textarea rows="4" cols="20" id="placeContext" name="placeContext" maxlength="100" required></textarea>
 		<label for="placeAddress">주소 입력</label>
 		<input type="text" id="placeAddress" name="placeAddress" maxlength="50" required>
 		<label for="placeWarning">주의사항</label>
-		<input type="text" id="placeWarning" name="placeWarning" required>
+		<textarea rows="4" cols="20" id="placeWarning" name="placeWarning" maxlength="100" required></textarea>
 		<label for="placeInfo">장소 설비</label>
-		<input type="text" id="placeInfo" name="placeInfo" required>
+		<textarea rows="4" cols="20" id="placeInfo" name="placeInfo" maxlength="100" required></textarea>
 		<label for="placeMoneyTime">시간당 가격(원/시간)</label>
 		<input type="number" id="placeMoneyTime" name="placeMoneyTime" required>
 		<br><br>
