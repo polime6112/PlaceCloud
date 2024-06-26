@@ -108,8 +108,6 @@ $(document).ready(function() {
 		<a href="../member/logout">로그아웃</a>
 		<a href="../member/myPage">마이페이지</a>
 		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
-			<a href="${pageContext.request.contextPath}/booking/bookingList">예약 목록</a>
-			<a href="${pageContext.request.contextPath}/review/list">리뷰</a>
 		</c:if>
 		<c:if test="${sessionScope.login.memberStatus == 'host' }">
 			<a href="${pageContext.request.contextPath}/place/myPlace?memberEmail=${sessionScope.login.memberEmail}">내가 등록한 장소들</a>		

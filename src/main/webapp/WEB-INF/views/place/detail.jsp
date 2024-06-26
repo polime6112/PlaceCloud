@@ -127,7 +127,7 @@
 		<c:if test="${sessionScope.login.memberStatus != 'host' }">	
 			<button id="bookingBtn">예약 하기</button>
 		</c:if>
-		
+		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
 		<c:if test="${sessionScope.login.memberStatus == 'host' }">
 			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
 			<c:if test="${empty imageVO }">
