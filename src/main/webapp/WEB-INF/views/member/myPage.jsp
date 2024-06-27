@@ -130,6 +130,8 @@ form {
 			</button>
 		</c:if>
 		
+		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
+		
         <form id="updateForm" action="updateInfo" method="get">
             <input type="submit" value="정보 변경">
         </form>
