@@ -97,6 +97,10 @@ h2 {
     padding-top: 10px;
     margin-top: 10px;
 }
+
+textarea {
+    resize: none;
+  }
 </style>
 <title>${reviewVO.reviewTitle }</title>
 </head>
