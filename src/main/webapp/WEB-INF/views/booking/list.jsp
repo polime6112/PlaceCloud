@@ -9,6 +9,13 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <title>My bookings</title>
+<script type="text/javascript">
+        // 페이지가 로드되면 실행되는 JavaScript 코드
+        window.onload = function() {
+            // 주소창 URL을 변경하는 예제
+            history.pushState({}, 'Booking', '/placecloud/booking/list');
+        };
+</script>
 <style>
 .logo {
 	text-align: center;
@@ -208,8 +215,8 @@
 			if(startdate !== "" || enddate !== "") {
 				document.getElementById('endDate').setAttribute('min', startdate);
 				document.getElementById('startDate').setAttribute('max', enddate);	
-			}
-			
+			} 
+						
 			$('#startDate').change(function() {
 				setDateMax();
 			})

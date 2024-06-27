@@ -101,6 +101,7 @@ h1 {
 	color: #706FFF;
 }
 </style>
+
 </head>
 <header>
 	<div class="logo">
@@ -385,6 +386,7 @@ h1 {
 
 			} // end phoneError()
 		}) // end document
+		
 	</script>
 
 </body>
