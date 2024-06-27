@@ -127,29 +127,29 @@ h1 {
 				<p>주의 사항 : ${PlaceVO.placeWarning }</p>
 			</div>
 			<div>
-				<p>예약 날짜</p>
+				<p>예약 날짜(필수)</p>
 				<input id="date" type="date" name="bookingDate" required> 
 				<span id="dateErrorMsg"></span> <br>
-				<p>예약 인원</p>
+				<p>예약 인원(필수)</p>
 				<input id="person" type="text" name="bookingPerson" maxlength="3" required>
 				<span id="personErrorMsg"></span>
 			</div>
 			<div>
-				<p>예약자</p>
+				<p>예약자(필수)</p>
 				<input id="name" type="text" name="bookingUserName" required>
 				<span id="nameErrorMsg"></span> <br>
-				<p>전화번호</p>
+				<p>전화번호(필수)</p>
 				<input id="phone" type="text" name="bookingUserPhone" maxlength="11"
 					required value="${sessionScope.login.memberPhone }"> 
 					<span id="phoneErrorMsg"></span> <br>
 				<p>이메일</p>
 				<input id="email" type="email" name="bookingUserEmail" readonly
 					value="${sessionScope.login.memberEmail }"> <br>
-				<p>사용 목적</p>
+				<p>사용 목적(선택)</p>
 				<textarea cols="120" name="bookingPerpose"
 					placeholder="공간의 사용 목적을 입력 (최대 100자)" maxlength="100"></textarea>
 				<br>
-				<p>요청 사항</p>
+				<p>요청 사항(선택)</p>
 				<textarea rows="20" cols="120" name="bookingContent"
 					placeholder="남기고 싶은 말을 적어주세요.(최대 500자)" maxlength="500"></textarea>
 			</div>
