@@ -25,7 +25,9 @@
 body {
 	font-family: Arial, sans-serif;
 }
-
+textarea {
+        resize: none;
+}
 #insertbody {
 	border: 2px solid #706FFF; /* 테두리 두께와 색상 설정 */
 	width: 80%; /* 원하는 너비로 조정, 필요에 따라 변경 */

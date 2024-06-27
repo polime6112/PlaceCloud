@@ -61,6 +61,9 @@ button {
     font-size: 15px;
     font-family: Arial, sans-serif;
 }
+textarea {
+        resize: none;
+}
 
 #backBtn {
     background-color: #f44336;

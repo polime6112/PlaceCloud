@@ -152,21 +152,21 @@
 			<div class="col-md-12">
 				<form class="booking-form" action="../booking/list" method="get">
 					<input type="date" id="startDate" name="startDate" value="${bpagination.startDate }">
-					 ~ 
+					~&nbsp;
 					<input type="date" id="endDate" name="endDate" value="${bpagination.endDate }">
 					<input type="submit" value="검색"> <select class="pageSize"
 						id="pageSize" name="pageSize" onChange="pageChange()">
-						<option value="5"
-							<c:if test="${bpagination.pageSize == 5 }">selected</c:if>>5줄
+						<option value="6"
+							<c:if test="${bpagination.pageSize == 6 }">selected</c:if>>6개
 							보기</option>
-						<option value="10"
-							<c:if test="${bpagination.pageSize == 10 }">selected</c:if>>10줄
+						<option value="12"
+							<c:if test="${bpagination.pageSize == 12 }">selected</c:if>>12개
 							보기</option>
-						<option value="15"
-							<c:if test="${bpagination.pageSize == 15 }">selected</c:if>>15줄
+						<option value="18"
+							<c:if test="${bpagination.pageSize == 18 }">selected</c:if>>18개
 							보기</option>
-						<option value="20"
-							<c:if test="${bpagination.pageSize == 20 }">selected</c:if>>20줄
+						<option value="24"
+							<c:if test="${bpagination.pageSize == 24 }">selected</c:if>>24개
 							보기</option>
 					</select>
 				</form>
@@ -202,6 +202,13 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			let startdate = $('#startDate').val();
+			let enddate = $('#endDate').val();
+			
+			if(startdate !== "" || enddate !== "") {
+				document.getElementById('endDate').setAttribute('min', startdate);
+				document.getElementById('startDate').setAttribute('max', enddate);	
+			}
 			
 			$('#startDate').change(function() {
 				setDateMax();
