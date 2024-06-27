@@ -87,7 +87,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<<<<<<< HEAD
 <header>
     <div class="logo">
         <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
@@ -110,8 +109,6 @@ $(document).ready(function() {
     </c:if>
 </c:if>
 <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
-
-=======
     <header>
         <div class="logo">
             <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
@@ -133,7 +130,6 @@ $(document).ready(function() {
 		</c:if>
 	</c:if>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
 <div class="container">
     <div class="wrap-btn">
         <button class="btn-keyword">
@@ -157,10 +153,6 @@ $(document).ready(function() {
             <div class="category">공연장</div>
         </button>
     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
     <div class="placeList">
         <c:forEach var="placeVO" items="${list}">
             <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
