@@ -62,7 +62,7 @@ public class ReplyController {
 				return "InsertFail";
 			}
 		} else {
-			return "redirect:/member/memberMain";
+			return "redirect:/place/main";
 		}
 	} // end repliesInsert()
 	

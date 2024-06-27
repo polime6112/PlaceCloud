@@ -22,7 +22,7 @@ public class ProfileServiceImple implements ProfileService{
 
 	@Override
 	public ProfileVO getProfileByEmail(String memberEmail) {
-		log.info("getProfileById");
+		log.info("getProfileByEmail");
 		return profileMapper.selectByMemberEmail(memberEmail);
 	}
 

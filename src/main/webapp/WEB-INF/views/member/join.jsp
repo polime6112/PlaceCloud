@@ -360,7 +360,7 @@ body {
 
 		    if(!nameRegex.test(memberName)) { // 닉네임 정규 표현식 검사
 		        console.log('닉네임 형식');
-		        $('#nameValidMsg').html('닉네임 형식에 맞게 작성해주세요');
+		        $('#nameValidMsg').html('2자 이상 10자이하 영어 또는 한글 또는 숫자로 구성');
 		        $('#nameValidMsg').css('color', 'red');               
 		        $('#nameValidMsg').css('display', 'inline-block');
 		        nameFlag = false;

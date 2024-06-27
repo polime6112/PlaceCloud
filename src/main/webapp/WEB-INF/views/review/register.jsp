@@ -45,11 +45,12 @@ header {
 		</div>
 	</header>
 
-	<h2 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">리뷰 작성</h2>
-	<form action="register" method="post">
+	<h2 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">글 작성</h2>
+	<form action="../review/register" method="post">
+		<input type="hidden" name="placeId" id="placeId" value="${placeId }">
 		<div>
 			<span>제목 : </span>
-			<input type="text" name="reviewTitle" placeholder="리뷰 제목" maxlength="20" required>
+			<input type="text" name="reviewTitle" placeholder="제목" maxlength="20" required>
 		</div>
 		<div>
 			<span>작성자 : </span>
@@ -57,7 +58,7 @@ header {
 		</div>
 		<div>
 			<span>내용 : </span>
-			<textarea rows="20" cols="120" name="reviewContent" placeholder="리뷰 내용" maxlength="300" required></textarea>
+			<textarea rows="20" cols="120" name="reviewContent" placeholder="내용" maxlength="50" required></textarea>
 		</div>
 		<div>
 			<input type="submit" value="리뷰 등록">

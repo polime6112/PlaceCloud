@@ -8,6 +8,96 @@
 <!-- jquery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <meta charset="UTF-8">
+<style type="text/css">
+.logo {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.logo a {
+	font-size: 2em;
+	text-decoration: none;
+	color: #333;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    color: #706FFF;
+}
+
+.review-details {
+    margin-bottom: 10px;
+}
+
+.review-content textarea {
+    width: 100%;
+    resize: none;
+}
+
+.button-group {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #706FFF;
+    color: white;
+    cursor: pointer;
+}
+
+.button-group button:hover {
+    background-color: #5a54ff;
+}
+
+#feedbackSelectAll {
+    list-style-type: none;
+    padding: 0;
+}
+
+#feedbackSelectAll li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.feedback {
+    margin-bottom: 10px;
+}
+
+.reply-list {
+    padding-left: 20px;
+}
+
+.reply {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+</style>
 <title>${reviewVO.reviewTitle }</title>
 </head>
 <body>
@@ -17,10 +107,11 @@
         </div>
     </header>
 
-    <h2 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">이용 후기 보기</h2>
+    <h2 style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기 보기</h2>
     
     <div>
         <span>이용 후기 번호 : ${reviewVO.reviewId }</span>
+        <input type="hidden" id="placeId" value="${reviewVO.placeId }">
         <input type="hidden" id="reviewId" value="${reviewVO.reviewId}">
     </div>
     
@@ -42,13 +133,13 @@
         <textarea rows="20" cols="120" readonly>${reviewVO.reviewContent }</textarea>
     </div>
    
-    <button onclick="location.href='list'">이용 후기 목록</button>
+    <button onclick="location.href='../review/list?placeId=${reviewVO.placeId}'">목록</button>
     <c:if test="${sessionScope.login != null && sessionScope.login.memberEmail == reviewVO.memberEmail}">
-        <button onclick="location.href='edit?reviewId=${reviewVO.reviewId}'">이용 후기 수정</button>
-        <button id="deleteReview">이용 후기 삭제</button>
+        <button onclick="location.href='edit?reviewId=${reviewVO.reviewId}'">수정</button>
+        <button id="deleteReview">삭제</button>
     </c:if>
     <hr>
-    <c:if test="${sessionScope.login != null}">
+    
         <div>
         	<ul id="feedbackSelectAll">
         	
@@ -60,20 +151,18 @@
         	<input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
             <p>
                 <label>댓글 등록</label><br>
-                <textarea id="feedbackContent" name="feedbackContent" rows="5" cols="80" placeholder="댓글을 입력하세요" maxlength="300"></textarea>
+                <textarea id="feedbackContent" name="feedbackContent" rows="5" cols="80" placeholder="댓글을 입력하세요" maxlength="50"></textarea>
             </p>
-            <div class="Comment1">
-                <label>댓글 작성자</label>
-                <input type="text" name="memberEmail" id="memberEmail" value="${sessionScope.login.memberEmail}" readonly><br>
-            </div>
+            
             <div class="Comment2">
                 <button name="feedbackBtn" id="feedbackBtn" type="submit">댓글 작성</button>   	   	   	
             </div>        
         </div>
-    </c:if>
+
    
     <form id="deleteForm" action="deleteReview" method="post">
         <input type="hidden" name="reviewId" value="${reviewVO.reviewId }">
+        <input type="hidden" name="placeId" value="${reviewVO.placeId }">
     </form>
    
     <div id="feedbackList"></div>
@@ -102,12 +191,7 @@
                 if (data.length > 0) {
                     $.each(data, function(index, feedback) {
                         var replaceContent = feedback.feedbackContent;
-                        replaceContent = replaceContent.replaceAll("&", "&amp;");
-                        replaceContent = replaceContent.replaceAll("\n", " ");
-                        replaceContent = replaceContent.replaceAll("'", " ");
-                        replaceContent = replaceContent.replaceAll("<", "&lt;");
-                        replaceContent = replaceContent.replaceAll(">", "&gt;");
-                        replaceContent = replaceContent.replaceAll("\"", "&quot;");
+                       
                         
                         // 날짜 이상하게 보여서 formatte
                         var feedbackDate = new Date(feedback.feedbackDateCreated);
@@ -136,7 +220,7 @@
                         
                      	// 대댓글 작성 폼 
                         selectAllView += '<div id="replyForm' + feedback.feedbackId + '" style="display:none;">';
-                        selectAllView += '<textarea id="replyContent' + feedback.feedbackId + '" rows="3" cols="50"></textarea><br>';
+                        selectAllView += '<textarea id="replyContent' + feedback.feedbackId + '" rows="3" cols="50" maxlength="50"></textarea><br>';
                         selectAllView += '<button type="button" onclick="submitReply(' + feedback.feedbackId + ')">답글 등록</button>';
                         selectAllView += '</div>';
                         
@@ -186,12 +270,7 @@
                     if (data.length > 0) {
                         $.each(data, function(index, reply) {
                             var replaceContent = reply.replyContent;
-                            replaceContent = replaceContent.replaceAll("&", "&amp;");
-                            replaceContent = replaceContent.replaceAll("\n", " ");
-                            replaceContent = replaceContent.replaceAll("'", " ");
-                            replaceContent = replaceContent.replaceAll("<", "&lt;");
-                            replaceContent = replaceContent.replaceAll(">", "&gt;");
-                            replaceContent = replaceContent.replaceAll("\"", "&quot;");
+                            
                             
                             var replyDate = new Date(reply.replyDateCreated);
                             var formattedDate = replyDate.getFullYear() + '-' +
@@ -232,7 +311,7 @@
         var replyContent = $('#replyContent' + replyId).text().trim();
         
         var editForm = '<div id="editReplyForm' + replyId + '">';
-        editForm += '<textarea id="editReplyContent' + replyId + '" rows="3" cols="50">' + replyContent + '</textarea>';
+        editForm += '<textarea id="editReplyContent' + replyId + '" rows="3" cols="50" maxlength="50">' + replyContent + '</textarea>';
         editForm += '<br>';
         editForm += '<button type="button" onclick="saveReply(' + replyId + ', ' + feedbackId + ')">저장</button>';
         editForm += '<button type="button" onclick="cancelEditReply(' + replyId + ')">취소</button>';
@@ -361,11 +440,14 @@
         var reviewId = $('#reviewId').val();
         var memberEmail = $('#memberEmail').val();
         var feedbackContent = $('#feedbackContent').val();
-
-        if (feedbackContent == '') {
+		
+        if(${sessionScope.login != null}){
+	        if (feedbackContent == '') {
             alert("내용을 입력하세요");
             return;
+        	
         }
+       }
 
         var obj = {
             'reviewId': reviewId,
@@ -384,7 +466,9 @@
                     $('#feedbackContent').val('');
                     getFeedbackList();
                 } else {
-                    alert('댓글 등록 실패');
+                	if(${sessionScope.login != null}) {                		
+                    	alert('댓글 등록 실패');
+                	}
                 }
             },
             error: function() {
@@ -409,7 +493,7 @@
         updateFeedbackView += '<p>&nbsp;&nbsp;' + memberEmail + ' / ' + feedbackDateCreated + '</p>';
         updateFeedbackView += '<p> <label>&nbsp;&nbsp;댓글 수정</label> <br>';
         updateFeedbackView += '<input type="hidden" id="feedbackId" name="feedbackId" value="' + feedbackId + '">';
-        updateFeedbackView += '<textarea style="white-space:pre" id="updateContent' + feedbackId + '" class="mini2" rows="5" cols="80" name="updateContent' + feedbackId + '" maxlength="300" placeholder="' + feedbackContent + '" autofocus>';
+        updateFeedbackView += '<textarea style="white-space:pre" id="updateContent' + feedbackId + '" class="mini2" rows="5" cols="80" maxlength="50" name="updateContent' + feedbackId + '" maxlength="300" placeholder="' + feedbackContent + '" autofocus>';
         updateFeedbackView += feedbackContent; 
         updateFeedbackView += '</textarea></p>';
         updateFeedbackView += '<div class="row">';
@@ -520,6 +604,16 @@
             
         }); // end deleteReview.click()
         
+        // 로그인 하지 않은 사용자는 댓글 작성 x
+        $('#feedbackBtn').click(function(){
+			if(${sessionScope.login.memberStatus == null}){
+				console.log("작동?");
+				if(confirm('로그인 이후 댓글 작성이 가능합니다. 로그인 하시겠습니까?')){
+					console.log("작동?");
+					location.href="../member/login";
+				}
+			}
+		});
     }); // end document()
 
     </script>

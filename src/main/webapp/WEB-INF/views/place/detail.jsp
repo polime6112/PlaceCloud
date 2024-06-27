@@ -108,7 +108,7 @@
 	<p>작성일 : ${placeCreateDate }</p>
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
 	<br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
-	<br> 장소 설명 <input type="text" id="placeContext" value="${placeVO.placeContext }" readonly><br>
+	<br> 장소 설명<br><br> <textarea rows="4" cols="20" id="placeContext" readonly>${placeVO.placeContext }</textarea><br>
 	<br> 주소 <input type="text" id="placeAddress" value="${placeVO.placeAddress }" readonly><br>
 	<br> 주의사항<br><br> <textarea rows="4" cols="20" id="placeWarning" readonly>${placeVO.placeWarning }</textarea><br>
 	<br> 장소 설비<br><br> <textarea rows="4" cols="20" id="placeInfo" readonly>${placeVO.placeInfo }</textarea><br>
@@ -118,7 +118,7 @@
 		<img class="image" src="../image/display?imagePath=${imageVO.imagePath }&imageChgName=${imageVO.imageChgName}
 									&imageExtension=${imageVO.imageExtension}" alt="이미지 로딩 실패">
 		<form id="delete" action="../image/delete" method="GET">
-			<input type="text" name="placeId" id="placeId" value="${placeVO.placeId }">
+			<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
 			<button>이미지 삭제</button>
 		</form>
 	</c:if>
@@ -127,7 +127,7 @@
 		<c:if test="${sessionScope.login.memberStatus != 'host' }">	
 			<button id="bookingBtn">예약 하기</button>
 		</c:if>
-		
+		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
 		<c:if test="${sessionScope.login.memberStatus == 'host' }">
 			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
 			<c:if test="${empty imageVO }">
