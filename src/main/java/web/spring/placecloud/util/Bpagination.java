@@ -20,7 +20,7 @@ public class Bpagination {
 
 	public Bpagination() {
 		this.pageNum = 1; // 기본 페이지 번호 설정
-		this.pageSize = 5; // 기본 페이지 사이즈 설정
+		this.pageSize = 6; // 기본 페이지 사이즈 설정
 		this.startDate = ""; // 기본 시작 날짜 설정
 		this.endDate = ""; // 기본 끝 날짜 설정
 	}
