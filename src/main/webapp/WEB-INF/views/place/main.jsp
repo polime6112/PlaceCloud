@@ -132,7 +132,6 @@ $(document).ready(function() {
             <div class="category">공연장</div>
         </button>
     </div>
-
     <div class="placeList">
         <c:forEach var="placeVO" items="${list}">
             <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
