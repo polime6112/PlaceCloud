@@ -87,6 +87,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 <header>
     <div class="logo">
         <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
@@ -110,6 +111,29 @@ $(document).ready(function() {
 </c:if>
 <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
 
+=======
+    <header>
+        <div class="logo">
+            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
+        </div>
+    </header>
+    
+    <br><br>
+    <c:if test="${empty sessionScope.login.memberEmail }">
+		<a href="${pageContext.request.contextPath}/member/login">로그인</a>
+	</c:if>
+	
+	<c:if test="${not empty sessionScope.login.memberEmail }">
+		<a href="../member/logout">로그아웃</a>
+		<a href="../member/myPage">마이페이지</a>
+		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
+		</c:if>
+		<c:if test="${sessionScope.login.memberStatus == 'host' }">
+			<a href="${pageContext.request.contextPath}/place/myPlace?memberEmail=${sessionScope.login.memberEmail}">내가 등록한 장소들</a>		
+		</c:if>
+	</c:if>
+    <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
+>>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
 <div class="container">
     <div class="wrap-btn">
         <button class="btn-keyword">
@@ -133,7 +157,10 @@ $(document).ready(function() {
             <div class="category">공연장</div>
         </button>
     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
     <div class="placeList">
         <c:forEach var="placeVO" items="${list}">
             <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">

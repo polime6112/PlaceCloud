@@ -191,12 +191,7 @@ h2 {
                 if (data.length > 0) {
                     $.each(data, function(index, feedback) {
                         var replaceContent = feedback.feedbackContent;
-                        replaceContent = replaceContent.replaceAll("&", "&amp;");
-                        replaceContent = replaceContent.replaceAll("\n", " ");
-                        replaceContent = replaceContent.replaceAll("'", " ");
-                        replaceContent = replaceContent.replaceAll("<", "&lt;");
-                        replaceContent = replaceContent.replaceAll(">", "&gt;");
-                        replaceContent = replaceContent.replaceAll("\"", "&quot;");
+                       
                         
                         // 날짜 이상하게 보여서 formatte
                         var feedbackDate = new Date(feedback.feedbackDateCreated);
@@ -275,12 +270,7 @@ h2 {
                     if (data.length > 0) {
                         $.each(data, function(index, reply) {
                             var replaceContent = reply.replyContent;
-                            replaceContent = replaceContent.replaceAll("&", "&amp;");
-                            replaceContent = replaceContent.replaceAll("\n", " ");
-                            replaceContent = replaceContent.replaceAll("'", " ");
-                            replaceContent = replaceContent.replaceAll("<", "&lt;");
-                            replaceContent = replaceContent.replaceAll(">", "&gt;");
-                            replaceContent = replaceContent.replaceAll("\"", "&quot;");
+                            
                             
                             var replyDate = new Date(reply.replyDateCreated);
                             var formattedDate = replyDate.getFullYear() + '-' +
