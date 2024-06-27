@@ -209,9 +209,9 @@
 			
 			function setDateMax() {
 				console.log('setDateMax()');
-				// 시작일 필드의 값을 가져옵니다
+				// 시작일의 값을 가져옴
 				let startdate = $('#startDate').val();
-				// 종료일의 최소값을 시작일로 설정합니다
+				// 종료일의 최소값을 시작일로 설정
 				document.getElementById('endDate').setAttribute('min', startdate);	
 			}
 			
@@ -221,9 +221,9 @@
 			
 			function setDateMin() {
 				console.log('setDateMin()');
-				// 종료일 필드의 값을 가져옵니다
+				// 종료일의 값을 가져옴
 				let enddate = $('#endDate').val();
-				// 시작일의 최대값을 종료일로 설정합니다
+				// 시작일의 최대값을 종료일로 설정
 				document.getElementById('startDate').setAttribute('max', enddate);	
 			}
 			
