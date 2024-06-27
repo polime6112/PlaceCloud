@@ -117,10 +117,12 @@
 	<c:if test="${not empty imageVO }">
 		<img class="image" src="../image/display?imagePath=${imageVO.imagePath }&imageChgName=${imageVO.imageChgName}
 									&imageExtension=${imageVO.imageExtension}" alt="이미지 로딩 실패">
-		<form id="delete" action="../image/delete" method="GET">
-			<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
-			<button>이미지 삭제</button>
-		</form>
+		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
+			<form id="delete" action="../image/delete" method="GET">
+				<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
+				<button>이미지 삭제</button>
+			</form>
+		</c:if>
 	</c:if>
 	<br>
 	<div>
