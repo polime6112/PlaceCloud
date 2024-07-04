@@ -159,6 +159,7 @@
 				}
 			});
 			
+			// 관심 장소 등록 여부 검사
 			function getLike() {
 				let memberEmail = $('#memberEmail').val();
 				let placeId = $('#placeId').val();
