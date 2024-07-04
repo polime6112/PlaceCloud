@@ -129,7 +129,7 @@ form {
 			프로필 사진 등록
 			</button>
 		</c:if>
-		
+		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
 		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
 		
         <form id="updateForm" action="updateInfo" method="get">
