@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.spring.placecloud.persistence.LikeMapper">
+
+	<resultMap type="web.spring.placecloud.domain.LikeVO" id="likeResultMap">
+		<id property="likeId" column="LIKE_ID" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="placeId" column="PLACE_ID" />
+		<result property="placeName" column="PLACE_NAME" />
+	</resultMap>
+	
+	<insert id="insert"><!-- 관심 장소 설정 -->
+		INSERT INTO LIKELIST
+		(LIKE_ID, MEMBER_EMAIL, PLACE_ID, PLACE_NAME)
+		VALUES
+		(LIKELIST_SEQ.NEXTVAL, #{memberEmail}, #{placeId}, #{placeName})
+	</insert>
+	
+	<select id="selectList" resultMap="likeResultMap"><!-- 관심 장소 전체 조회 -->
+		SELECT * FROM LIKELIST ORDER BY LIKE_ID DESC
+	</select>
+	
+	<select id="selectOne" resultMap="likeResultMap"><!-- 관심 장소 조회 -->
+		SELECT * FROM LIKELIST
+		WHERE MEMBER_EMAIL = #{memberEmail} AND PLACE_ID = #{placeId}
+	</select>
+	
+	<delete id="delete"><!-- 관심 장소 해제 -->
+		DELETE LIKELIST
+		WHERE MEMBER_EMAIL = #{memberEmail} AND PLACE_ID = #{placeId}
+	</delete>
+	
+	
+</mapper>
