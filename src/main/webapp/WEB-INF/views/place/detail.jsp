@@ -188,7 +188,7 @@
 			} // end getLike()
 			
 			
-			
+			// 찜 하기 버튼
 			$('#likePlace').on('click', '.likeBtn_insert', function(){
 				console.log(this);
 				if(${sessionScope.login.memberStatus == 'guest'}){
@@ -229,6 +229,7 @@
 				
 			}); // end likeBtn_insert.on
 			
+			// 찜 삭제 버튼
 			$('#likePlace').on('click', '.likeBtn_delete', function(){
 				console.log(this);
 				let memberEmail = $('#memberEmail').val();
