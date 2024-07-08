@@ -21,4 +21,4 @@ public interface BookingMapper {
 	int selectTotalCount(Bpagination bpagination);
 	
 	
-} // end ReservationInfoMapper
+} // end BookingMapper

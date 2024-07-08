@@ -103,7 +103,7 @@
 	<br>
 	<input type="text" id="memberName" value="${placeVO.memberEmail }">	
 	<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
-	<input type="hidden" name="memberEmail" id="memberEmail" value="${placeVO.memberEmail }">
+	<input type="hidden" name="memberEmail" id="memberEmail" value="${sessionScope.login.memberEmail}">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
 	<p>작성일 : ${placeCreateDate }</p>
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
@@ -128,6 +128,7 @@
 	<div>
 		<c:if test="${sessionScope.login.memberStatus != 'host' }">	
 			<button id="bookingBtn">예약 하기</button>
+			<div id="likePlace"></div>
 		</c:if>
 		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
 		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
@@ -141,6 +142,10 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
+			if(${sessionScope.login.memberStatus != 'host'}){
+				getLike();
+			}
+			
 			$('#bookingBtn').click(function(){
 				if(${sessionScope.login.memberStatus == 'guest'}){
 					console.log("작동?");
@@ -153,7 +158,99 @@
 					}
 				}
 			});
-		});
+			
+			// 관심 장소 등록 여부 검사
+			function getLike() {
+				let memberEmail = $('#memberEmail').val();
+				let placeId = $('#placeId').val();
+				console.log("memberEmail : " + memberEmail + " / placeId : " + placeId);
+				
+				let url = '../like/selectOne/' + memberEmail + '/' + placeId;
+				console.log("url : " + url);
+				$('#likePlace').html('<button class="likeBtn_insert">찜 하기</button>');
+				if(memberEmail != '') {
+					$.getJSON(
+						url,
+						function(data) {
+							console.log("data : " + data);
+								
+							let likeData = '';
+								
+							if(data != '') {
+								likeData = '<button class="likeBtn_delete">찜 취소</button>';
+							} else {
+								
+							}
+							$('#likePlace').html(likeData);
+						} // end function()
+					); // end getJSON()
+				}
+			} // end getLike()
+			
+			
+			// 찜 하기 버튼
+			$('#likePlace').on('click', '.likeBtn_insert', function(){
+				console.log(this);
+				if(${sessionScope.login.memberStatus == 'guest'}){
+					let memberEmail = $('#memberEmail').val();
+					let placeId = $('#placeId').val();
+					let placeName = $('#placeName').val();
+					
+					let likeObj = {
+							'memberEmail' : memberEmail,
+							'placeId' : placeId,
+							'placeName' : placeName
+					}
+					console.log(likeObj);
+					console.log("작동?");
+					// ajax 송수신
+					$.ajax({
+						type : 'POST',
+						url : '../like/insert',
+						headers : {
+							'Content-Type' : 'application/json'
+						},
+						data : JSON.stringify(likeObj),
+						success : function(result) {
+							console.log(result);
+							if(result == 1) {
+								getLike();
+							}
+						}
+					}); 
+				} else if(${sessionScope.login.memberStatus == null}){
+					console.log("작동?");
+					if(confirm('로그인 이후 예약이 가능합니다. 로그인 하시겠습니까?')){
+						console.log("작동?");
+						location.href="../member/login";
+					}
+				}
+				
+				
+			}); // end likeBtn_insert.on
+			
+			// 찜 삭제 버튼
+			$('#likePlace').on('click', '.likeBtn_delete', function(){
+				console.log(this);
+				let memberEmail = $('#memberEmail').val();
+				let placeId = $('#placeId').val();
+				
+				$.ajax({
+					type : 'DELETE',
+					url : '../like/' + memberEmail + '/' + placeId,
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					success : function(result) {
+						console.log(result);
+						if(result == 1) {
+							getLike();
+						}
+					}
+				}) 
+			}); // end likeBtn_delete.on
+			
+		}); // end document()
 	</script>
 	
 </body>
