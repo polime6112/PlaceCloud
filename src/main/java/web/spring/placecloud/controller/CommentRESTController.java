@@ -6,39 +6,37 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.log4j.Log4j;
-import web.spring.placecloud.domain.FeedbackVO;
+import web.spring.placecloud.domain.CommentVO;
 import web.spring.placecloud.domain.MemberVO;
-import web.spring.placecloud.service.FeedbackService;
+import web.spring.placecloud.service.CommentService;
 
-@Controller
-@RequestMapping(value = "/feedback")
+@RestController
+@RequestMapping(value = "/comment")
 @Log4j
-public class FeedbackController {
+public class CommentRESTController {
     
     @Autowired
-    private FeedbackService feedbackService;
+    private CommentService commentService;
     
     // 댓글 등록
-    @PostMapping("feedbackInsert")
-    @ResponseBody
-    public String feedbackInsert(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
-        log.info("feedbackInsert()");
+    @PostMapping("commentInsert")
+    public String commentInsert(@RequestBody CommentVO commentVO, HttpSession session) {
+        log.info("commentInsert()");
         
         MemberVO member = (MemberVO) session.getAttribute("login");
         if (member != null) {
             String memberEmail = member.getMemberEmail();
-            feedbackVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
+            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
 
-            int result = feedbackService.createFeedback(feedbackVO);
+            int result = commentService.createComment(commentVO);
             log.info(result + "성공");
             
             if (result > 0) {
@@ -52,34 +50,32 @@ public class FeedbackController {
     } // end feedbackInsert()
     
     // 댓글 리스트
-    @PostMapping("feedbackAllList")
-    @ResponseBody
-    public List<FeedbackVO> feedbackAllList(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
-        log.info("feedbackAllList()");
+    @PostMapping("commentAllList")
+    public List<CommentVO> commentAllList(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
+        log.info("commentAllList()");
         
         int reviewId = requestData.get("reviewId");
         log.info("reviewId = " + reviewId);
         
-        List<FeedbackVO> feedback = feedbackService.getAllFeedback(reviewId);
-        model.addAttribute("feedback", feedback);
-        return feedback;
+        List<CommentVO> comment = commentService.getAllComment(reviewId);
+        model.addAttribute("comment", comment);
+        return comment;
         
     } // end feedbackAllList()
     
     // 댓글 수정
-    @PostMapping("feedbackUpdate")
-    @ResponseBody
-    public String feedbackUpdate(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
-    	log.info("feedbackUpdate()");
+    @PostMapping("commentUpdate")
+    public String commentUpdate(@RequestBody CommentVO commentVO, HttpSession session) {
+    	log.info("coommentUpdate()");
     	
     	MemberVO member = (MemberVO) session.getAttribute("login");
     	
     	if(member != null) {
     		String memberEmail = member.getMemberEmail();
     		log.info(memberEmail + " 이메일");
-            feedbackVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
+            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
             
-            int result = feedbackService.updateFeedback(feedbackVO);
+            int result = commentService.updateComment(commentVO);
             log.info(result + " 성공");
             
             if(result > 0) {
@@ -95,21 +91,20 @@ public class FeedbackController {
     } // end feedbackUpdate()
     
     // 댓글 삭제
-    @PostMapping("feedbackDelete")
-    @ResponseBody
-    public String feedbackDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {
-    	log.info("feedbackDelete()");
+    @PostMapping("commentDelete")
+    public String commentDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {
+    	log.info("commentDelete()");
     	
     	MemberVO member = (MemberVO) session.getAttribute("login");
-    	Integer feedbackId = requestData.get("feedbackId");
+    	Integer commentId = requestData.get("commentId");
     	
     	if(member != null) {
     		String memberEmail = member.getMemberEmail();
     		log.info(memberEmail + " 이메일");
-    		FeedbackVO feedbackVO = new FeedbackVO();
-            feedbackVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
+    		CommentVO commentVO = new CommentVO();
+            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
             
-            int result = feedbackService.deleteFeedback(feedbackId);
+            int result = commentService.deleteComment(commentId);
             log.info(result + "성공");
             
             if(result > 0) {

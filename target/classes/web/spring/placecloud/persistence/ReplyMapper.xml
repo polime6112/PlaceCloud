@@ -3,51 +3,46 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="web.spring.placecloud.persistence.ReplyMapper">
+<mapper namespace="web.spring.placecloud.persistence.ReplyMapper">
 
-	<resultMap type="web.spring.placecloud.domain.ReplyVO" id="replyResultMap">
+    <resultMap type="web.spring.placecloud.domain.ReplyVO" id="replyResultMap">
+        <id property="replyId" column="REPLY_ID" />
+        <result property="commentId" column="COMMENT_ID" />
+        <result property="memberEmail" column="MEMBER_EMAIL" />
+        <result property="replyContent" column="REPLY_CONTENT" />
+        <result property="replyDateCreated" column="REPLY_DATE_CREATED" />
+    </resultMap>
 
-		<id property="replyId" column="REPLY_ID" />
-		<result property="feedbackId" column="FEEDBACK_ID" />
-		<result property="reviewId" column="REVIEW_ID" />
-		<result property="memberEmail" column="MEMBER_EMAIL" />
-		<result property="replyContent" column="REPLY_CONTENT" />
-		<result property="replyDateCreated" column="REPLY_DATE_CREATED" />
-	</resultMap>
+    <insert id="insert">
+        <!-- 대댓글 작성 -->
+        INSERT INTO REPLY (REPLY_ID, COMMENT_ID, MEMBER_EMAIL, REPLY_CONTENT, REPLY_DATE_CREATED)
+        VALUES (REPLY_SEQ.NEXTVAL, #{commentId}, #{memberEmail}, #{replyContent}, SYSDATE)
+    </insert>
 
-	<insert id="insert">
-		<!-- 대댓글 작성 -->
-		INSERT INTO REPLY (REPLY_ID, FEEDBACK_ID, REVIEW_ID, MEMBER_EMAIL,
-		REPLY_CONTENT, REPLY_DATE_CREATED)
-		VALUES (REPLY_SEQ.NEXTVAL,
-		#{feedbackId}, #{reviewId}, #{memberEmail}, #{replyContent}, SYSDATE)
-	</insert>
+    <select id="selectListByCommentId" resultMap="replyResultMap">
+        <!-- 대댓글 목록 조회 -->
+        SELECT * FROM REPLY
+        WHERE COMMENT_ID = #{commentId}
+        ORDER BY REPLY_DATE_CREATED ASC
+    </select>
 
-	<select id="selectListByFeedbackId" resultMap="replyResultMap">
-		<!-- 대댓글 목록 조회 -->
-		SELECT * FROM REPLY
-		WHERE FEEDBACK_ID = #{feedbackId}
-		ORDER BY
-		REPLY_DATE_CREATED ASC
-	</select>
+    <update id="update">
+        <!-- 대댓글 수정 -->
+        UPDATE REPLY
+        SET REPLY_CONTENT = #{replyContent}
+        WHERE REPLY_ID = #{replyId}
+    </update>
 
-	<update id="update">
-    	<!-- 대댓글 수정 -->
-    	UPDATE REPLY
-    	SET REPLY_CONTENT = #{replyContent}
-    	WHERE REPLY_ID = #{replyId}
-	</update>
-
-	<delete id="delete">
-		<!-- 대댓글 삭제 -->
-		DELETE FROM REPLY
-		WHERE REPLY_ID = #{replyId}
-	</delete>
-	
-	<delete id="deleteByFeedbackId">
-    	<!-- 댓글 삭제에 따른 대댓글 삭제 -->
-    	DELETE FROM REPLY
-    	WHERE FEEDBACK_ID = #{feedbackId}
-	</delete>
+    <delete id="delete">
+        <!-- 대댓글 삭제 -->
+        DELETE FROM REPLY
+        WHERE REPLY_ID = #{replyId}
+    </delete>
+    
+    <delete id="deleteByCommentId">
+        <!-- 댓글 삭제에 따른 대댓글 삭제 -->
+        DELETE FROM REPLY
+        WHERE COMMENT_ID = #{commentId}
+    </delete>
 
 </mapper>
