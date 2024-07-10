@@ -129,18 +129,13 @@
 			<div id="likePlace"></div>
 		</c:if>
 		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
-<<<<<<< HEAD
-		<c:if test="${sessionScope.login.memberStatus == 'host' }">
-			<br> <button name="update" onclick="location.href='../host/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
-			<br> <button name="delete" onclick="location.href='../host/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
-=======
 		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
 			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
 			<c:if test="${empty imageVO }">
 			<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
 			</c:if>
 			<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
+
 		</c:if>
 	</div>
 	

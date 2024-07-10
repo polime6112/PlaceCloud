@@ -120,16 +120,12 @@ form {
 	        <img class="image" src="../profile/display?profilePath=${memberVO.profilePath}&profileChgName=${memberVO.profileChgName}&profileExtension=${memberVO.profileExtension}"
 	        						 alt="프로필 사진을 추가해주세요">
         </c:if>
-<<<<<<< HEAD
-		
-=======
 		<c:if test="${empty profileVO }">
 			<button name="upload" onclick="location.href='../profile/upload?memberEmail=${member.memberEmail}'">
 			프로필 사진 등록
 			</button>
 		</c:if>
 		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
 		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
 		
         <form id="updateForm" action="updateInfo" method="get">
