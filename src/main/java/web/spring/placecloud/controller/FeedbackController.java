@@ -6,20 +6,21 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+//import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.FeedbackVO;
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.service.FeedbackService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/feedback")
 @Log4j
 public class FeedbackController {
@@ -29,7 +30,7 @@ public class FeedbackController {
     
     // 댓글 등록
     @PostMapping("feedbackInsert")
-    @ResponseBody
+//    @ResponseBody
     public String feedbackInsert(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
         log.info("feedbackInsert()");
         
@@ -47,13 +48,13 @@ public class FeedbackController {
                 return "InsertFail";
             }
         } else {
-            return "redirect:/member/memberMain";
+            return "redirect:/member/main";
         }
     } // end feedbackInsert()
     
     // 댓글 리스트
     @PostMapping("feedbackAllList")
-    @ResponseBody
+//    @ResponseBody
     public List<FeedbackVO> feedbackAllList(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
         log.info("feedbackAllList()");
         
@@ -68,7 +69,7 @@ public class FeedbackController {
     
     // 댓글 수정
     @PostMapping("feedbackUpdate")
-    @ResponseBody
+//    @ResponseBody
     public String feedbackUpdate(@RequestBody FeedbackVO feedbackVO, HttpSession session) {
     	log.info("feedbackUpdate()");
     	
@@ -89,14 +90,14 @@ public class FeedbackController {
             }
     	} else {
     		log.info("세션 x");
-            return "redirect:/member/memberMain";
+            return "redirect:/member/main";
     	}
     	
     } // end feedbackUpdate()
     
     // 댓글 삭제
     @PostMapping("feedbackDelete")
-    @ResponseBody
+//    @ResponseBody
     public String feedbackDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {
     	log.info("feedbackDelete()");
     	
@@ -119,7 +120,7 @@ public class FeedbackController {
             }
     	} else {
     		log.info("세션 x");
-            return "redirect:/member/memberMain";
+            return "redirect:/member/main";
     	}
     }
     

@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="memberName" column="MEMBER_NAME"/>
       <result property="memberPhone" column="MEMBER_PHONE"/>
       <result property="memberStatus" column="MEMBER_STATUS"/>
+      <result property="profileId" column="PROFILE_ID"/>
+      <result property="profilePath" column="PROFILE_PATH"/>
+      <result property="profileRealName" column="PROFILE_REAL_NAME"/>
+      <result property="profileChgName" column="PROFILE_CHG_NAME"/>
+      <result property="profileExtension" column="PROFILE_EXTENSION"/>
     </resultMap>
    
    <!-- 
@@ -39,7 +44,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="memberJoin">
     	<!-- 회원 등록  -->
-    	INSERT INTO MEMBER VALUES (#{memberEmail}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberStatus})
+    	INSERT INTO MEMBER VALUES (#{memberEmail}, #{memberPw}, #{memberName}, #{memberPhone},
+    	 #{memberStatus}, PROFILE_SEQ.NEXTVAL, #{profilePath}, #{profileRealName}, #{profileChgName},
+    	 #{profileExtension})
     </insert>
     
     <!--
@@ -56,7 +63,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       	UPDATE MEMBER SET
       	MEMBER_PW = #{memberPw},
       	MEMBER_NAME = #{memberName},
-      	MEMBER_PHONE = #{memberPhone}
+      	MEMBER_PHONE = #{memberPhone},
+      	PROFILE_PATH = #{profilePath},
+      	PROFILE_REAL_NAME = #{profileRealName},
+      	PROFILE_CHG_NAME = #{profileChgName},
+      	PROFILE_EXTENSION = #{profileExtension}
       	WHERE MEMBER_EMAIL = #{memberEmail}
       </update>
       

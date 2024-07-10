@@ -2,6 +2,8 @@ package web.spring.placecloud.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,8 +48,29 @@ public class ProfileUploadUtil {
 	 * 
 	 * @return 장소 번호 형식의 폴더 이름
 	 */
-	public static String makePath(String memberEmail) {
-		return memberEmail;
+	public static String makePath() {
+		Calendar calendar = Calendar.getInstance();
+        
+        String yearPath = String.valueOf(calendar.get(Calendar.YEAR));
+        log.info("yearPath: " + yearPath);
+        
+        String monthPath = yearPath
+                + File.separator
+                + new DecimalFormat("00")
+                    .format(calendar.get(Calendar.MONTH) + 1);
+        log.info("monthPath: " + monthPath);
+        
+        
+        String datePath = monthPath
+                + File.separator
+                + new DecimalFormat("00")
+                    .format(calendar.get(Calendar.DATE));
+        
+        String path = "profile" + "/" + datePath.replace(File.separatorChar, '/');
+        
+        log.info("Path: " + path);
+        
+        return path;
 	}
 	
 	/**
@@ -57,9 +80,9 @@ public class ProfileUploadUtil {
 	 * @param profile 	 업로드된 프로필
 	 * @param uuid 		 UUID
 	 */
-	public static void saveProfile(String uploadPath, MultipartFile profile, String uuid, String memberEmail) {
+	public static void saveProfile(String uploadPath, MultipartFile profile, String uuid) {
 		
-		File realUploadPath = new File(uploadPath, makePath(memberEmail));
+		File realUploadPath = new File(uploadPath, makePath());
 		if (!realUploadPath.exists()) {
 			realUploadPath.mkdirs();
 			log.info(realUploadPath.getPath() + " successfully created.");

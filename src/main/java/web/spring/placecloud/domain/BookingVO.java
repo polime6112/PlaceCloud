@@ -18,14 +18,14 @@ public class BookingVO {
 	private String placeId;
 	private String placeName;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date bookingDate;
+	private Date bookingDate; // 예약 날짜
 	private int bookingPerson;
-	private String bookingUserName;
-	private String bookingUserPhone;
-	private String bookingUserEmail;
+	private String bookingUserName; // 생략가능 (외래키)
+	private String bookingUserPhone; // 생략가능 (외래키)
+	private String bookingUserEmail; // 생략가능 (외래키)
 	private String bookingPerpose;
 	private String bookingContent;
-	private String bookingPrice;
-	private Date bookingSysdate;
+	private String bookingPrice; 
+	private Date bookingSysdate; // 예약이 들어간 날짜
 
 } // end BookingVO

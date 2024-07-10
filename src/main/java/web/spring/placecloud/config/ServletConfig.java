@@ -36,7 +36,7 @@ public class ServletConfig implements WebMvcConfigurer {
    // 파일을 저장할 경로 bean 생성
    @Bean
    public String uploadPath() {
-      return "C:\\upload\\placecloud";
+      return "C://upload//placecloud";
    }
    
    // MultipartResolver bean 생성

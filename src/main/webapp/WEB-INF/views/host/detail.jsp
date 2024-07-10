@@ -42,6 +42,9 @@
         font-size: 16px;
         background-color: #f9f9f9;
     }
+    textarea {
+    	resize: none;
+    }
     .container p {
         font-size: 14px;
         color: #666;
@@ -96,12 +99,11 @@
 		</div>
 	</header>
 	<br>
-	<c:if test="${sessionScope.login.memberStatus == 'host' }">
-		<button name="myPlace" onclick="location.href='../place/myPlace?memberEmail=${sessionScope.login.memberEmail}'">등록한 장소들</button>
+	<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
+		<button name="myPlace" onclick="location.href='../host/myPlace?memberEmail=${sessionScope.login.memberEmail}'">등록한 장소들</button>
 	</c:if>
 	<br>
-	<br>
-	<input type="text" id="memberName" value="${placeVO.memberEmail }">	
+	<br>	
 	<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
 	<input type="hidden" name="memberEmail" id="memberEmail" value="${placeVO.memberEmail }">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
@@ -114,22 +116,15 @@
 	<br> 장소 설비<br><br> <textarea rows="4" cols="20" id="placeInfo" readonly>${placeVO.placeInfo }</textarea><br>
 	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
 	<br>
-	<c:if test="${not empty imageVO }">
-		<img class="image" src="../image/display?imagePath=${imageVO.imagePath }&imageChgName=${imageVO.imageChgName}
-									&imageExtension=${imageVO.imageExtension}" alt="이미지 로딩 실패">
-		<form id="delete" action="../image/delete" method="GET">
-			<input type="text" name="placeId" id="placeId" value="${placeVO.placeId }">
-			<button>이미지 삭제</button>
-		</form>
+	<c:if test="${not empty placeVO }">
+		<img class="image" src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName}
+									&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
 	</c:if>
 	<br>
 	<div>
 		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
-			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
-			<c:if test="${empty imageVO }">
-			<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
-			</c:if>
-			<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
+			<br> <button name="update" onclick="location.href='../host/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
+			<br> <button name="delete" onclick="location.href='../host/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
 		</c:if>
 	</div>
 </body>

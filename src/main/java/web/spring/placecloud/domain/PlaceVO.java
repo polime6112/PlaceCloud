@@ -22,4 +22,9 @@ public class PlaceVO {
 	private int placeMoneyTime;
 	private String memberEmail;
 	private Date placeCreateDate;
+	private int imageId;
+	private String imagePath;
+	private String imageRealName;
+	private String imageChgName;
+	private String imageExtension;
 }

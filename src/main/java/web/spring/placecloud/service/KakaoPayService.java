@@ -63,9 +63,9 @@ public class KakaoPayService {
 		params.put("quantity", "1"); // 상품 수량
 		params.put("total_amount", bookingVO.getBookingPrice()); // 총 금액
 		params.put("tax_free_amount", "1"); // 비과세 금액
-		params.put("approval_url", "http://localhost:8080/placecloud/kakaoPaySuccess"); // 성공시 url (최대 255자)
-		params.put("cancel_url", "http://localhost:8080/placecloud/kakaoPayCancel"); // 취소시 url (최대 255자)
-		params.put("fail_url", "http://localhost:8080/placecloud/kakaoPayFail"); // 실패시 url (최대 255자)
+		params.put("approval_url", "http://192.168.0.127:8080/placecloud/kakaoPaySuccess"); // 성공시 url (최대 255자)
+		params.put("cancel_url", "http://192.168.0.127:8080/placecloud/kakaoPayCancel"); // 취소시 url (최대 255자)
+		params.put("fail_url", "http://192.168.0.127:8080/placecloud/kakaoPayFail"); // 실패시 url (최대 255자)
 		
 		log.info("params : " + params);
 		

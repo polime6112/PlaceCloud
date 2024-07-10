@@ -164,5 +164,4 @@ public class BookingController {
 			return "redirect:/event/needLogin";
 		}
 	}
-	
 }

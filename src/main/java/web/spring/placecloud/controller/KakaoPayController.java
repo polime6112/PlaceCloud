@@ -21,18 +21,16 @@ import web.spring.placecloud.service.KakaoPayService;
 @Log4j
 public class KakaoPayController {
 	
-	
 	@Autowired
 	private BookingService bookingService;
 	
 	@Setter(onMethod_ = @Autowired)
 	private KakaoPayService kakaoPayService;
 	
-	@GetMapping("/kakaoPay")
-	public void kakaoPayGet() {
-		log.info("kakaoPayGet()");
-		
-	}
+//	@GetMapping("/kakaoPay")
+//	public void kakaoPayGet() {
+//		log.info("kakaoPayGet()");
+//	}
 	
 	@PostMapping("/kakaoPay")
 	public String kakaoPay(BookingVO bookingVO, HttpSession session) {
@@ -40,7 +38,6 @@ public class KakaoPayController {
 		log.info("bookingVO : " + bookingVO.toString());
 		
 		return "redirect:" + kakaoPayService.kakaoPayReady(bookingVO, session);
-	
 	}
 	
 	@GetMapping("/kakaoPaySuccess")

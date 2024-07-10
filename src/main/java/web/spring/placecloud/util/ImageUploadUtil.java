@@ -2,11 +2,14 @@ package web.spring.placecloud.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Log4j
 public class ImageUploadUtil {
@@ -39,7 +42,7 @@ public class ImageUploadUtil {
 		// '.' 이후의 문자열을 확장자로 추출
 		String extension = imageName.substring(dotIndex + 1);
 		
-		return extension;
+		return extension.toLowerCase();
 	}
 	
 	/**
@@ -47,8 +50,29 @@ public class ImageUploadUtil {
 	 * 
 	 * @return 날짜 형식의 폴더 이름
 	 */
-	public static String makePath(int placeId) {
-		return Integer.toString(placeId);
+	public static String makePath() {
+		Calendar calendar = Calendar.getInstance();
+        
+        String yearPath = String.valueOf(calendar.get(Calendar.YEAR));
+        log.info("yearPath: " + yearPath);
+        
+        String monthPath = yearPath
+                + File.separator
+                + new DecimalFormat("00")
+                    .format(calendar.get(Calendar.MONTH) + 1);
+        log.info("monthPath: " + monthPath);
+        
+        
+        String datePath = monthPath
+                + File.separator
+                + new DecimalFormat("00")
+                    .format(calendar.get(Calendar.DATE));
+        
+        String path = datePath.replace(File.separatorChar, '/');
+        
+        log.info("Path: " + path);
+        
+        return path;
 	}
 	
 	/**
@@ -56,11 +80,11 @@ public class ImageUploadUtil {
 	 * 
 	 * @param uploadPath 이미지 업로드 경로	
 	 * @param image 	 업로드된 이미지
-	 * @param uuid 		 UUID
+	 * @param chgName	 UUID
 	 */
-	public static void saveImage(String uploadPath, MultipartFile image, String uuid, int placeId) {
+	public static void saveImage(String uploadPath, MultipartFile image, String chgName) {
 		
-		File realUploadPath = new File(uploadPath, makePath(placeId));
+		File realUploadPath = new File(uploadPath, makePath());
 		if (!realUploadPath.exists()) {
 			realUploadPath.mkdirs();
 			log.info(realUploadPath.getPath() + " successfully created.");
@@ -68,7 +92,10 @@ public class ImageUploadUtil {
 			log.info(realUploadPath.getPath() + " already exists.");
 		}
 		
-		File saveImage = new File(realUploadPath, uuid);
+		log.info("realUploadPath : " + realUploadPath);
+		log.info("chgName : " + chgName);
+		File saveImage = new File(realUploadPath, chgName);
+		log.info("saveImage : " + saveImage);
 		try {
 			image.transferTo(saveImage);
 			log.info("file upload success");
@@ -104,4 +131,50 @@ public class ImageUploadUtil {
 			System.out.println(fullPath + " image not found.");
 		}
 	}
+	
+	/**
+     * 이미지 파일인지 확인
+     * 
+     * @param file 전송된 파일 객체
+     * @return 파일이면 true
+     */
+    public static boolean isImageFile(MultipartFile image) {
+        if (image == null || image.isEmpty()) {
+            return false;
+        }
+
+        // ContentType 정보 참조
+        String contentType = image.getContentType();
+
+        // Content Type이 "image/"로 시작하는지 확인
+        return contentType != null && contentType.startsWith("image/");
+    }
+    
+    /**
+     * 원본 이미지로 섬네일 파일을 생성
+     * 
+     * @param uploadPath 업로드된 파일의 기본 경로
+     * @param path 업로드된 파일의 상세 경로
+     * @param chgName 변경된 파일명
+     * @param extension 파일 확장자
+     */
+    public static void createThumbnail(String uploadPath, String path, 
+    		String chgName, String extension) {
+    	String realUploadPath = uploadPath + File.separator + path;
+    	String thumbnailName = "t_" + chgName; // 섬네일 파일 이름
+    	
+    	// 섬네일 파일 저장 경로 및 이름
+    	File destPath = new File(realUploadPath, thumbnailName); 
+    	// 원본 파일 저장 경로 및 이름
+        File savePath = new File(realUploadPath, chgName); 
+    	try {
+			Thumbnails.of(savePath)
+			          .size(100, 100) // 썸네일 크기 지정
+			          .outputFormat(extension) // 확장자 설정
+			          .toFile(destPath); // 저장될 경로와 이름
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }

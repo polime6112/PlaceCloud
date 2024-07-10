@@ -18,15 +18,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="placeMoneyTime" column="PLACE_MONEY_TIME"/>
 		<result property="memberEmail" column="MEMBER_EMAIL"/>
 		<result property="placeCreateDate" column="PLACE_CREATE_DATE"/>
+		<result property="imageId" column="IMAGE_ID"/>
+		<result property="imagePath" column="IMAGE_PATH"/>
+		<result property="imageRealName" column="IMAGE_REAL_NAME"/>
+		<result property="imageChgName" column="IMAGE_CHG_NAME"/>
+		<result property="imageExtension" column="IMAGE_EXTENSION"/>
 	</resultMap>
 
 	<insert id="insert">
 		INSERT INTO PLACE
 		(PLACE_ID, PLACE_NAME, PLACE_CATEGORY, PLACE_CONTEXT, PLACE_ADDRESS, 
-		PLACE_INFO, PLACE_WARNING, PLACE_MONEY_TIME, MEMBER_EMAIL, PLACE_CREATE_DATE)
+		PLACE_INFO, PLACE_WARNING, PLACE_MONEY_TIME, MEMBER_EMAIL, PLACE_CREATE_DATE,
+		IMAGE_ID, IMAGE_PATH, IMAGE_REAL_NAME, IMAGE_CHG_NAME, IMAGE_EXTENSION)
 		VALUES
 		(PLACE_SEQ.NEXTVAL, #{placeName}, #{placeCategory}, #{placeContext}, #{placeAddress}, #{placeWarning}, 
-		#{placeInfo}, #{placeMoneyTime}, #{memberEmail}, SYSDATE)
+		#{placeInfo}, #{placeMoneyTime}, #{memberEmail}, SYSDATE, IMAGE_SEQ.NEXTVAL, #{imagePath},
+		#{imageRealName}, #{imageChgName}, #{imageExtension})
 	</insert>
 	
 	<select id="selectAllPlace" resultMap="placeResultMap">
@@ -53,7 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		PLACE_ADDRESS = #{placeAddress},
 		PLACE_WARNING = #{placeWarning},
 		PLACE_INFO = #{placeInfo},
-		PLACE_MONEY_TIME = #{placeMoneyTime}
+		PLACE_MONEY_TIME = #{placeMoneyTime},
+		IMAGE_PATH = #{imagePath}, 
+		IMAGE_REAL_NAME = #{imageRealName},
+		IMAGE_CHG_NAME = #{imageChgName},
+		IMAGE_EXTENSION = #{imageExtension}
 		WHERE PLACE_ID = #{placeId}
 	</update>
 

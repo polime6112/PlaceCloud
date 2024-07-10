@@ -33,7 +33,7 @@
 	</form>
 	<script>
 		$(document).ready(function() {
-			// 차단할 확장자 정규식 (exe, sh, php, jsp, aspx, zip, alz)
+			// 허용할 확장자 정규식 (jpg, jpeg, png, gif)
 			var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
 
 			// 파일 전송 form validation
@@ -48,8 +48,8 @@
 					return;
 				}
 
-				if (!allowedExtensions.exec(imageName)) { // 차단된 확장자인 경우
-					alert("이 확장자의 이미지는 첨부할 수 없습니다.");
+				if (!allowedExtensions.exec(imageName)) { // 허용된 확장자가 아닌 경우
+					alert("이 확장자의 파일은 첨부할 수 없습니다.");
 					event.preventDefault();
 					return;
 				}

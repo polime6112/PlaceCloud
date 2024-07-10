@@ -86,7 +86,7 @@ input[type="text"], input[type="password"] {
         </div>
     </header>
     
-    <form id="loginForm" class="form" action="${pageContext.request.contextPath }/member/memberLogin" method="post">
+    <form id="loginForm" class="form" action="${pageContext.request.contextPath }/member/login" method="post">
         <h1 style="text-align: center; font-size: 40px; font-weight:900; color: #706FFF;">로그인</h1>
         <input id="memberEmail" name="memberEmail" type="text" placeholder="이메일">
         <input id="memberPw" name="memberPw" type="password" placeholder="비밀번호">

@@ -13,9 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.MemberVO;
-import web.spring.placecloud.domain.ProfileVO;
 import web.spring.placecloud.service.MemberService;
-import web.spring.placecloud.service.ProfileService;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -24,9 +22,6 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
-    
-    @Autowired
-    private ProfileService profileService;
 
     // 회원 가입 화면 이동
     @GetMapping("join")
@@ -52,19 +47,17 @@ public class MemberController {
     } // memberLoginGET()
 
     // 로그인 체크
-    @PostMapping("memberLogin")
-    public String loginCheck(MemberVO memberVO, HttpSession session, RedirectAttributes reAttr) {
+    @PostMapping("login")
+    public String loginCheck(MemberVO memberVO, HttpSession httpSession, RedirectAttributes reAttr) {
         log.info("loginCheck()");
         MemberVO login = memberService.loginCheck(memberVO);
+        httpSession.setAttribute("login", login);
        
         if (login != null) {
             log.info("로그인 성공");
-            session.setAttribute("login", login);
-            session.setMaxInactiveInterval(6000); // 100분
             return "redirect:/place/main";
         } else {
             log.info("로그인 실패");
-            session.setAttribute("login", null);
             reAttr.addFlashAttribute("loginFailMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
             return "redirect:/member/login"; 
         }
@@ -119,10 +112,8 @@ public class MemberController {
             log.info(memberEmail + "이메일");
             log.info("세션 o");
             MemberVO vo = memberService.getMemberByEmail(memberEmail);
-            ProfileVO profileVO = profileService.getProfileByEmail(memberEmail);
             log.info(vo.toString());
             model.addAttribute("member", vo);
-            model.addAttribute("profileVO", profileVO);
             return "/member/myPage";
         } else {
             log.info("세션 x");
