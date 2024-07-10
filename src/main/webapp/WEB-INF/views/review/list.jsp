@@ -172,18 +172,10 @@ table th {
     <script type="text/javascript">
         $(document).ready(function(){
             $('#createBtn').click(function(){
-                if(${sessionScope.login.memberStatus != null}){
-                    console.log("작동?");
-                    location.href="${pageContext.request.contextPath}/review/register?placeId=${placeId}";
-                } else if(${sessionScope.login.memberStatus == null}){
-                    console.log("작동?");
-                    if(confirm('로그인 이후 글 작성이 가능합니다. 로그인 하시겠습니까?')){
-                        console.log("작동?");
-                        location.href="../member/login";
-                    }
-                }
-            });
-        });
+                location.href="${pageContext.request.contextPath}/review/register?placeId=${placeId}";
+                
+            }); // end createBtn.click()
+        }); // end document()
     </script>
 
 </body>

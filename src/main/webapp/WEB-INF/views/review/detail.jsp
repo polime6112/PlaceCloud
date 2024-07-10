@@ -151,7 +151,7 @@ textarea {
 	<hr>
 	<div id="writeComment">
 		<input type="hidden" id="reviewId" value="${reviewVO.reviewId}">
-		<input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
+		<input type="hidden" id="memberEmail" value="${reviewVO.memberEmail}">
 		<p>
 			<label>댓글 등록</label><br>
 			<textarea id="commentContent" name="commentContent" rows="5"
@@ -215,13 +215,11 @@ textarea {
                         selectAllView += '<p>&nbsp;&nbsp;' + formattedDate + '</p>';
 						
                         // 댓글 작성한 이메일과 로그인한 이메일이 같으면
-                        if (memberEmail === comment.memberEmail) {
-                            selectAllView += '<div class="row">';
-                            selectAllView += '<div class="col-12">';
-                            // 수정 및 삭제 버튼
-                            selectAllView += '<button type="button" data-commentId="' + comment.commentId + '" class="mini token operator" onclick="updateAndDeleteCommentBtn(' + comment.commentId + ', \'' + formattedDate + '\', \'' + replaceContent + '\', \'' + comment.memberEmail + '\')" id="updateComment">수정 및 삭제</button>';
-                            selectAllView += '</div></div>';
-                        }
+                        selectAllView += '<div class="row">';
+                        selectAllView += '<div class="col-12">';
+                        // 수정 및 삭제 버튼
+                        selectAllView += '<button type="button" data-commentId="' + comment.commentId + '" class="mini token operator" onclick="updateAndDeleteCommentBtn(' + comment.commentId + ', \'' + formattedDate + '\', \'' + replaceContent + '\', \'' + comment.memberEmail + '\')" id="updateComment">수정 및 삭제</button>';
+                        selectAllView += '</div></div>';
                         
                      	// 대댓글 작성 폼 
                         selectAllView += '<div id="replyForm' + comment.commentId + '" style="display:none;">';
@@ -444,14 +442,12 @@ textarea {
         var memberEmail = $('#memberEmail').val();
         var commentContent = $('#commentContent').val();
 		
-        if(${sessionScope.login != null}){
-	        if (commentContent == '') {
-            alert("내용을 입력하세요");
+        
+	    if (commentContent == '') {
+        	alert("내용을 입력하세요");
             return;
-        	
-        }
-       }
-
+        	}
+	    
         var obj = {
             'reviewId': reviewId,
             'memberEmail': memberEmail,
@@ -469,9 +465,7 @@ textarea {
                     $('#commentContent').val('');
                     getCommentList();
                 } else {
-                	if(${sessionScope.login != null}) {                		
-                    	alert('댓글 등록 실패');
-                	}
+                	alert('댓글 등록 실패');
                 }
             },
             error: function() {
@@ -607,17 +601,6 @@ textarea {
             
         }); // end deleteReview.click()
         
-        // 로그인 하지 않은 사용자는 댓글 작성 x
-        $('#commentBtn').click(function(){
-			if(${sessionScope.login.memberStatus == null}){
-				console.log("작동?");
-				if(confirm('로그인 이후 댓글 작성이 가능합니다. 로그인 하시겠습니까?')){
-					console.log("작동?");
-					location.href="../member/login";
-				}
-			}
-		}); // end commentBtn()
-		
     }); // end document()
 
     </script>

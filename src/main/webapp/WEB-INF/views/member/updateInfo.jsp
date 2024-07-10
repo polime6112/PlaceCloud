@@ -135,6 +135,10 @@ input[type="text"], input[type="password"] {
    			<a href="#" id="goBackBtn">뒤로가기</a>
 	        <button type="submit" id="saveBtn">저장하기</button>		
 		</div>
+		
+		<!-- CSRF 토큰 -->
+	    <!-- <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+   		-->
     </form>
     
     <script type="text/javascript">

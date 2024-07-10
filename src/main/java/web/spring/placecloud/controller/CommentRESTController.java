@@ -3,7 +3,6 @@ package web.spring.placecloud.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.CommentVO;
-import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.service.CommentService;
 
 @RestController
@@ -28,30 +26,23 @@ public class CommentRESTController {
     
     // 댓글 등록
     @PostMapping("commentInsert")
-    public String commentInsert(@RequestBody CommentVO commentVO, HttpSession session) {
+    public String commentInsert(@RequestBody CommentVO commentVO) {
         log.info("commentInsert()");
         
-        MemberVO member = (MemberVO) session.getAttribute("login");
-        if (member != null) {
-            String memberEmail = member.getMemberEmail();
-            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
-
-            int result = commentService.createComment(commentVO);
-            log.info(result + "성공");
+        int result = commentService.createComment(commentVO);
+        log.info(result + "성공");
             
-            if (result > 0) {
-                return "InsertSuccess";
-            } else {
-                return "InsertFail";
-            }
-        } else {
-            return "redirect:/member/memberMain";
-        }
-    } // end feedbackInsert()
+		if (result > 0) {
+			return "InsertSuccess";
+		} else {
+			return "InsertFail";
+		}
+       
+    } // end commentInsert()
     
     // 댓글 리스트
     @PostMapping("commentAllList")
-    public List<CommentVO> commentAllList(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
+    public List<CommentVO> commentAllList(@RequestBody Map<String, Integer> requestData, Model model) {
         log.info("commentAllList()");
         
         int reviewId = requestData.get("reviewId");
@@ -61,62 +52,40 @@ public class CommentRESTController {
         model.addAttribute("comment", comment);
         return comment;
         
-    } // end feedbackAllList()
+    } // end commentAllList()
     
     // 댓글 수정
     @PostMapping("commentUpdate")
-    public String commentUpdate(@RequestBody CommentVO commentVO, HttpSession session) {
+    public String commentUpdate(@RequestBody CommentVO commentVO) {
     	log.info("coommentUpdate()");
     	
-    	MemberVO member = (MemberVO) session.getAttribute("login");
-    	
-    	if(member != null) {
-    		String memberEmail = member.getMemberEmail();
-    		log.info(memberEmail + " 이메일");
-            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
+    	int result = commentService.updateComment(commentVO);
+        log.info(result + " 성공");
             
-            int result = commentService.updateComment(commentVO);
-            log.info(result + " 성공");
-            
-            if(result > 0) {
-            	return "UpdateSuccess"; 
-            } else {
-            	return "UpdateFail"; 
-            }
-    	} else {
-    		log.info("세션 x");
-            return "redirect:/member/memberMain";
-    	}
-    	
-    } // end feedbackUpdate()
+		if (result > 0) {
+			return "UpdateSuccess";
+		} else {
+			return "UpdateFail";
+		}
+
+    } // end commentUpdate()
     
     // 댓글 삭제
     @PostMapping("commentDelete")
-    public String commentDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {
+    public String commentDelete(@RequestBody Map<String, Integer> requestData) {
     	log.info("commentDelete()");
-    	
-    	MemberVO member = (MemberVO) session.getAttribute("login");
+   
     	Integer commentId = requestData.get("commentId");
     	
-    	if(member != null) {
-    		String memberEmail = member.getMemberEmail();
-    		log.info(memberEmail + " 이메일");
-    		CommentVO commentVO = new CommentVO();
-            commentVO.setMemberEmail(memberEmail); // 세션의 이메일을 피드백에 설정
+    	int result = commentService.deleteComment(commentId);
+        log.info(result + "성공");
             
-            int result = commentService.deleteComment(commentId);
-            log.info(result + "성공");
-            
-            if(result > 0) {
-            	return "DeleteSuccess";
-            } else {
-            	return "DeleteFail";
+        if(result > 0) {
+        	return "DeleteSuccess";
+        } else {
+        	return "DeleteFail";
             }
-    	} else {
-    		log.info("세션 x");
-            return "redirect:/member/memberMain";
-    	}
-    }
-    
-         
-} // end FeedbackController
+    	
+    } // end commentDelete()
+           
+} // end CommentRESTController

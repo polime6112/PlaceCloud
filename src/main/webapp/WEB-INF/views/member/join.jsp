@@ -136,6 +136,10 @@ body {
    			<a href="#" id="goBackBtn">뒤로가기</a>
     		<button type="submit" id="joinBtn">회원가입</button>
 		</div>
+		
+		<!-- 스프링 시큐리티를 사용하면 모든 post 전송에 csrf 토큰을 추가해야 함 --> 
+      	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+      	
     </form>
     
 	<script type="text/javascript">

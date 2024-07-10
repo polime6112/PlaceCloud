@@ -105,6 +105,10 @@ input[type="checkbox"] {
         
         <a href="#" id="goBackBtn">뒤로가기</a>
         <button type="submit" id="removeBtn">서비스 탈퇴</button>
+        
+        <!-- CSRF 토큰 -->
+	    <!-- <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+   		-->
     </form>
 </body>
 	<script type="text/javascript">
