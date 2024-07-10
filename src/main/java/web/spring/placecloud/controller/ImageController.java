@@ -5,106 +5,78 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.UUID;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.ImageVO;
-import web.spring.placecloud.domain.MemberVO;
-import web.spring.placecloud.domain.PlaceVO;
-import web.spring.placecloud.service.ImageService;
-import web.spring.placecloud.service.PlaceService;
 import web.spring.placecloud.util.ImageUploadUtil;
 
-@Controller
+@RestController
 @RequestMapping(value ="/image")
 @Log4j
 public class ImageController {
     
     @Autowired
     // ServletConfig에 @Bean으로 설정된 uploadPath() 객체 사용
-    private String uploadPath;
+    private String uploadPath; 
     
-    @Autowired
-    private PlaceService placeService;
-    
-    @Autowired
-    private ImageService imageService; 
-    
-    @GetMapping("/upload")
-    public String uploadGET(Model model, HttpSession httpSession, PlaceVO placeVO) {
-        log.info("uploadGet");
-        MemberVO memberVO = (MemberVO) httpSession.getAttribute("login");
-        log.info("MemberVO : " + memberVO);
-
-        if (memberVO != null) {
-            String memberEmail = memberVO.getMemberEmail();
-            log.info("Member Email : " + memberEmail);
-            model.addAttribute("placeVO", placeVO);
-            return "image/upload";
-        } else {
-            log.error("세션이 존재하지 않습니다.");
-            return "redirect:/member/memberLogin";
-        }
-    }
-    
-    @PostMapping("/upload")
-    public String uploadPOST(ImageVO imageVO, Integer placeId, Model model) {
-        log.info("uploadPost");
-        log.info("ImageVO : " + imageVO);
-        MultipartFile image = imageVO.getImage();
-        
-        // UUID 생성
-        String imageName = UUID.randomUUID().toString();
-        // 이미지 저장
-        ImageUploadUtil.saveImage(uploadPath, image, imageName, placeId);
-        
-        // 이미지 경로 설정
-        imageVO.setImagePath(ImageUploadUtil.makePath(placeId));
-        // 이미지 실제 이름 설정
-        imageVO.setImageRealName(ImageUploadUtil.subName(image.getOriginalFilename()));
-        // 이미지 변경 이름(UUID) 설정
-        imageVO.setImageChgName(imageName);
-        // 이미지 확장자 설정
-        imageVO.setImageExtension(ImageUploadUtil.subExtension(image.getOriginalFilename()));
-        // 이미지가 들어가는 장소 번호 
-        imageVO.setPlaceId(placeId);
-        log.info(imageService.upload(imageVO) + "행 등록");
-        PlaceVO placeVO = placeService.getPlaceById(placeId);
-        
-        log.info("PlaceVO : " + placeVO);
-    	model.addAttribute("placeVO", placeVO);
-        return "host/detail";
-    }
-    
-    @GetMapping("/delete")
-    public String deleteGET(Integer placeId, Model model) {
-    	log.info("deleteGet");
-    	log.info(placeId);
-    	ImageVO imageVO = imageService.getImageById(placeId);
-    	String imageChgName = imageVO.getImageChgName();
-    	String imagePath = imageVO.getImagePath();
+    @PostMapping
+    public ResponseEntity<ArrayList<ImageVO>> uploadPOST(MultipartFile files) {
+    	log.info("uploadPost");
+    	ArrayList<ImageVO> list = new ArrayList<>();
     	
-    	ImageUploadUtil.deleteImage(uploadPath, imagePath, imageChgName);
-    	int imageDelete = imageService.delete(placeId);
-    	log.info(imageDelete + "행 삭제");
-    	PlaceVO placeVO = placeService.getPlaceById(placeId);
-    	model.addAttribute("placeVO", placeVO);
-    	return "host/detail";
+    	// UUID 생성
+		String chgName = UUID.randomUUID().toString();
+    	// 이미지 저장
+    	ImageUploadUtil.saveImage(uploadPath, files, chgName);
+    	log.info(uploadPath);
+    	log.info(files);
+    	log.info(chgName);
+    	
+    	String path = ImageUploadUtil.makePath();
+    	String extension = ImageUploadUtil.subExtension(files.getOriginalFilename());
+    	
+    	ImageUploadUtil.createThumbnail(uploadPath, path, chgName, extension);
+    	
+    	ImageVO imageVO = new ImageVO();
+    	// 파일 경로 설정
+    	imageVO.setImagePath(path);
+    	// 파일 실제 이름 설정
+    	imageVO.setImageRealName(ImageUploadUtil.subName(files.getOriginalFilename()));
+    	// 파일 변경 이름(UUID) 설정
+    	imageVO.setImageChgName(chgName);
+    	// 파일 확장자 설정
+    	imageVO.setImageExtension(extension);
+    	
+    	list.add(imageVO);
+    	log.info(list);
+    	return new ResponseEntity<ArrayList<ImageVO>> (list, HttpStatus.OK);
     }
+	
+    @PostMapping("/delete") 
+	public ResponseEntity<Integer> deletePOST(String imagePath, String imageChgName, String imageExtension) {
+    	log.info("deletePost"); 
+    	log.info(imageChgName);
+	  	ImageUploadUtil.deleteImage(uploadPath, imagePath, imageChgName);
+	  
+	  	String thumbnailName = "t_" + imageChgName + "." + imageExtension;
+	  	ImageUploadUtil.deleteImage(uploadPath, imagePath, thumbnailName);
+	  
+	  	return new ResponseEntity<Integer>(1, HttpStatus.OK); 
+	}
+	 
     
     // 전송받은 파일 경로 및 파일 이름, 확장자로 
     // 이미지 파일을 호출

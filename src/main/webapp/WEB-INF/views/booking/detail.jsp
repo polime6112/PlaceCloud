@@ -143,7 +143,7 @@ h1 {
             <button id="backBtn" onclick="location.href='list'">뒤로가기</button>
             <button id="updateBtn" onclick="location.href='update?bookingId=${bookingVO.bookingId }'">수정하기</button>
             <button id="deleteBtn">예약 취소</button>
-            <form id="deleteform" action="delete" method="post">
+            <form id="deleteform" action="delete" method="get">
                 <input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
             </form>
         </div>

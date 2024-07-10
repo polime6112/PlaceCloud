@@ -116,13 +116,9 @@ form {
             <label for="phone">전화번호:</label> <input type="text" id="memberPhone"
                 name="memberPhone" value="${member.memberPhone}" readonly><br>
         </form>
-        <c:if test="${not empty profileVO }">
-	        <img class="image" src="../profile/display?profilePath=${profileVO.profilePath}&profileChgName=${profileVO.profileChgName}&profileExtension=${profileVO.profileExtension}"
+        <c:if test="${not empty memberVO }">
+	        <img class="image" src="../profile/display?profilePath=${memberVO.profilePath}&profileChgName=${memberVO.profileChgName}&profileExtension=${memberVO.profileExtension}"
 	        						 alt="프로필 사진을 추가해주세요">
-	        <form id="delete" action="../profile/delete" method="GET">
-	        	<input type="hidden" name="memberEmail" id="memberEmail" value="${member.memberEmail }" readonly>
-	        	<button>프로필 사진 삭제</button>
-	        </form>
         </c:if>
 		<c:if test="${empty profileVO }">
 			<button name="upload" onclick="location.href='../profile/upload?memberEmail=${member.memberEmail}'">

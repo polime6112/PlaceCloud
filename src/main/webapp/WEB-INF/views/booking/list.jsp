@@ -181,7 +181,7 @@
 				<div class="booking-list">
 					<c:forEach var="bookingVO" items="${bookingList }">
 						<div class="booking-item">
-							<p>ID: ${bookingVO.bookingId }</p>
+							<p>예약 번호 : ${bookingVO.bookingId }</p>
 							<a href="../booking/detail?bookingId=${bookingVO.bookingId }">${bookingVO.placeName }</a>
 							<fmt:formatDate value="${bookingVO.bookingDate }"
 								pattern="yyyy-MM-dd" var="bookingDate" />

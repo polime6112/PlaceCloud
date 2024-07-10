@@ -23,10 +23,7 @@ body {
 	text-decoration: none;
 	color: #333;
 }
-</style>
-<title>내가 등록한 장소들</title>
-<style>
-    .placeList {
+.placeList {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 16px;
@@ -50,6 +47,7 @@ body {
         color: gray;
     }
 </style>
+<title>내가 등록한 장소들</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js">
 </script>
 </head>
@@ -61,7 +59,7 @@ body {
 	</header>
     <h2>${sessionScope.login.memberName}의 페이지</h2>
     <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
-    <button name="register" onclick="location.href='../place/register'">장소 등록하기</button><br><br>
+    <button name="register" onclick="location.href='../host/register'">장소 등록하기</button><br><br>
     <hr>
     <div class="placeList">
 	    <c:forEach var="place" items="${List}">

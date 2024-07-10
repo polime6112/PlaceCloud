@@ -17,4 +17,9 @@ public class MemberVO {
 	private String memberName; // MEMBER_NAME(닉네임)
 	private String memberPhone; // MEMBER_PHONE(전화번호)
 	private String memberStatus; // MEMBER_STATUS(상태)
+	private int profileId;
+	private String profilePath;
+	private String profileRealName;
+	private String profileChgName;
+	private String profileExtension;
 }

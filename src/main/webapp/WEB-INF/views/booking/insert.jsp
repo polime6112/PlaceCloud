@@ -111,7 +111,7 @@ h1 {
 <body>
 	<h1>공간 예약</h1>
 	<div id="insertbody">
-		<form id="insertform" action="../kakaoPay" method="post">
+		<form id="insertform" action="../ready" method="get">
 			<div>
 				<input type="hidden" name="placeId" value="${PlaceVO.placeId }">
 				<p>예약 공간</p>

@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping(value = "/kakaoPay")
 @Log4j
-public class KakaoPayResultController {
+public class PayResultController {
 	
 	@GetMapping("/success")
 	public void success() {
