@@ -141,14 +141,7 @@ body {
 			<h2>선택한 이미지 파일 :</h2>
 			<div class="profile-list"></div>
 		</div>
-<<<<<<< HEAD
 		
-		<!-- 스프링 시큐리티를 사용하면 모든 post 전송에 csrf 토큰을 추가해야 함 --> 
-      	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-      	
-    </form>
-    
-=======
 
 		<div class="profileVOImg-list"></div>
 
@@ -158,8 +151,7 @@ body {
 			<button id="joinBtn">회원가입</button>
 		</div>
 	</form>
-   
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
+  
 	<script type="text/javascript">
 
 	$(document).ready(function(){
@@ -385,7 +377,8 @@ body {
 	        
 	        // 모든 유효성 검사 플래그가 true인지 확인
 	        if(emailFlag && passwordFlag && nameFlag && phoneFlag) {
-	            // 모든 조건이 true면 회원가입 수행	           
+	            // 모든 조건이 true면 회원가입 수행
+	        	$("#memberForm").submit();
 	        } else {
 	            // 유효성 검사 실패 시 메시지 출력
 	            if(!emailFlag) {

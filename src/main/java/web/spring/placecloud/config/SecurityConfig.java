@@ -23,14 +23,15 @@ import web.spring.placecloud.service.CustomUserDetailsService;
 // prePostEnabled = true : @PreAuthorize(메서드 접근제한 제어) 및 @PostAuthorize(메서드 실행된후 결과에 대한 접근 권한)
 // 와 같은 표현식을 메서드 수준에서 사용할 수 있게 설정
 
-//WebSecurityConfigurerAdapter를 상속하여 보안 기능을 구성
+// WebSecurityConfigurerAdapter를 상속하여 보안 기능을 구성
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
 	// HttpSecurity 객체를 통해 HTTP 보안 기능을 구성
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		
+		httpSecurity.authorizeRequests()
+		.antMatchers("/board/register").access("hasRole('ROLE_MEMBER')");
 		
 		// antMatchers(pattern) : 특정 url 패턴에 맞는 경로 매핑
 		// permitAll() : 모든 사용자 접근
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		httpSecurity.logout().logoutUrl("/auth/logout") // logout url 설정
 			.logoutSuccessUrl("/place/main") // 로그아웃 성공 시 이동할 url 설정
 			.invalidateHttpSession(true); // 세션 무효화
+		
+		
+		httpSecurity.csrf().disable();
 		
 		// header 정보에 xssProtection 기능 설정
 		// httpSecurity.headers().xssProtection().block(true);

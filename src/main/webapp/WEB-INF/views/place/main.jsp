@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,8 +96,23 @@ $(document).ready(function() {
     </header>
     
     <br><br>
+    	<div class="header-section">
+			<!-- 로그아웃 상태 -->
+			<sec:authorize access="isAnonymous()">
+			    <a href="../member/join">회원 가입</a>
+			    <a href="../auth/login">로그인</a>
+		    </sec:authorize>
+		    <!-- 로그인 상태 -->
+		    <sec:authorize access="isAuthenticated()">
+		        <p><a href="../member/info"><sec:authentication property="principal.username"/></a>님</p>
+		        <form action="../auth/logout" method="post">
+		            <input type="submit" value="로그아웃">
+		        </form>
+		    </sec:authorize>
+		</div>
+    
     <c:if test="${empty sessionScope.login.memberEmail }">
-	<a href="${pageContext.request.contextPath}/member/login">로그인</a>
+	<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
 	</c:if>
 	<c:if test="${not empty sessionScope.login.memberEmail }">
 		<a href="../member/logout">로그아웃</a>

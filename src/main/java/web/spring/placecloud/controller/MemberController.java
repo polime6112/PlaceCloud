@@ -3,6 +3,7 @@ package web.spring.placecloud.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 회원 가입 화면 이동
     @GetMapping("join")
@@ -34,9 +38,10 @@ public class MemberController {
     public String joinPOST(MemberVO memberVO, RedirectAttributes reAttr) {
         log.info("joinPOST()");
         log.info("memberVO = " + memberVO.toString());
+        memberVO.setMemberPw(passwordEncoder.encode(memberVO.getMemberPw()));
         int result = memberService.addMember(memberVO);
         log.info(result + "회원 가입");
-        return "redirect:/member/login";
+        return "redirect:/auth/login";
     } // memberJoinPOST()
 
     // 로그아웃
