@@ -3,7 +3,6 @@ package web.spring.placecloud.controller;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
@@ -20,112 +19,74 @@ import web.spring.placecloud.service.CommentService;
 @RequestMapping(value = "/comment")
 @Log4j
 public class CommentRESTController {
-    
-    @Autowired
-    private CommentService commentService;
-    
-    // 댓글 등록
-    @PostMapping("commentInsert")
-    public String commentInsert(@RequestBody CommentVO commentVO) {
-        log.info("commentInsert()");
-        
-        int result = commentService.createComment(commentVO);
-        log.info(result + "성공");
-            
-<<<<<<< HEAD
+
+	@Autowired
+	private CommentService commentService;
+
+	// 댓글 등록
+	@PostMapping("commentInsert")
+	public String commentInsert(@RequestBody CommentVO commentVO) {
+		log.info("commentInsert()");
+
+		int result = commentService.createComment(commentVO);
+		log.info(result + "성공");
+
 		if (result > 0) {
 			return "InsertSuccess";
 		} else {
 			return "InsertFail";
 		}
-=======
-      if (result > 0) {
-         return "InsertSuccess";
-      } else {
-         return "InsertFail";
-      }
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
-       
-    } // end commentInsert()
-    
-    // 댓글 리스트
-    @PostMapping("commentAllList")
-    public List<CommentVO> commentAllList(@RequestBody Map<String, Integer> requestData, Model model) {
-        log.info("commentAllList()");
-        
-        int reviewId = requestData.get("reviewId");
-        log.info("reviewId = " + reviewId);
-        
-        List<CommentVO> comment = commentService.getAllComment(reviewId);
-        model.addAttribute("comment", comment);
-        return comment;
-        
-    } // end commentAllList()
-    
-    // 댓글 수정
-    @PostMapping("commentUpdate")
+
+	} // end commentInsert()
+
+	// 댓글 리스트
+	@PostMapping("commentAllList")
+	public List<CommentVO> commentAllList(@RequestBody Map<String, Integer> requestData, Model model) {
+		log.info("commentAllList()");
+
+		int reviewId = requestData.get("reviewId");
+		log.info("reviewId = " + reviewId);
+
+		List<CommentVO> comment = commentService.getAllComment(reviewId);
+		model.addAttribute("comment", comment);
+		return comment;
+
+	} // end commentAllList()
+
+	// 댓글 수정
+	@PostMapping("commentUpdate")
     public String commentUpdate(@RequestBody CommentVO commentVO) {
-<<<<<<< HEAD
-    	log.info("coommentUpdate()");
-    	
-    	int result = commentService.updateComment(commentVO);
-=======
+
        log.info("coommentUpdate()");
        
        int result = commentService.updateComment(commentVO);
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
         log.info(result + " 성공");
             
-<<<<<<< HEAD
-		if (result > 0) {
-			return "UpdateSuccess";
-		} else {
-			return "UpdateFail";
-		}
-=======
       if (result > 0) {
          return "UpdateSuccess";
       } else {
          return "UpdateFail";
       }
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
 
     } // end commentUpdate()
-    
-    // 댓글 삭제
-    @PostMapping("commentDelete")
+
+	// 댓글 삭제
+	@PostMapping("commentDelete")
     public String commentDelete(@RequestBody Map<String, Integer> requestData) {
-<<<<<<< HEAD
-    	log.info("commentDelete()");
-   
-    	Integer commentId = requestData.get("commentId");
-    	
-    	int result = commentService.deleteComment(commentId);
-=======
+
        log.info("commentDelete()");
    
        Integer commentId = requestData.get("commentId");
        
        int result = commentService.deleteComment(commentId);
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
+
         log.info(result + "성공");
             
         if(result > 0) {
-<<<<<<< HEAD
-        	return "DeleteSuccess";
-        } else {
-        	return "DeleteFail";
-=======
            return "DeleteSuccess";
         } else {
            return "DeleteFail";
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
-            }
-<<<<<<< HEAD
-    	
-=======
-       
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
+        }
     } // end commentDelete()
-           
+
 } // end CommentRESTController

@@ -38,34 +38,7 @@ public class MemberController {
         log.info(result + "회원 가입");
         return "redirect:/member/login";
     } // memberJoinPOST()
-<<<<<<< HEAD
-   
-=======
 
-    // 로그인 화면 이동
-    @GetMapping("login")
-    public void loginGET() {
-        log.info("loginGET()");
-    } // memberLoginGET()
-
-    // 로그인 체크
-    @PostMapping("login")
-    public String loginCheck(MemberVO memberVO, HttpSession httpSession, RedirectAttributes reAttr) {
-        log.info("loginCheck()");
-        MemberVO login = memberService.loginCheck(memberVO);
-        httpSession.setAttribute("login", login);
-       
-        if (login != null) {
-            log.info("로그인 성공");
-            return "redirect:/place/main";
-        } else {
-            log.info("로그인 실패");
-            reAttr.addFlashAttribute("loginFailMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
-            return "redirect:/member/login"; 
-        }
-    } // end loginCheck()
-
->>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
     // 로그아웃
     @RequestMapping("logout")
     public String logout(HttpSession session) {
