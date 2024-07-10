@@ -68,9 +68,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT ROW_NUMBER() OVER (ORDER BY BOOKING_SYSDATE DESC) AS RN, BOOKING.* 
 		FROM BOOKING 
 		WHERE BOOKING_USEREMAIL = #{userEmail} 
-		<if test="startDate != '' and endDate != ''">
-			AND (BOOKING_DATE BETWEEN #{startDate} AND #{endDate})
-		</if>
+		<choose>
+			<when test="startDate != '' and endDate == ''">
+				AND (BOOKING_DATE <![CDATA[>=]]> #{startDate})
+			</when>
+			<when test="startDate == '' and endDate != ''">
+				AND (BOOKING_DATE <![CDATA[<=]]> #{endDate})
+			</when>
+			<when test="startDate != '' and endDate != ''">
+				AND (BOOKING_DATE BETWEEN #{startDate} AND #{endDate})
+			</when>
+			<otherwise></otherwise>
+		</choose>
 		)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -78,9 +87,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectTotalCount" resultType="Integer"> <!-- 예약 정보 전체 개수 -->
 		SELECT COUNT(*) TOTAL_COUNT FROM BOOKING
 		WHERE BOOKING_USEREMAIL = #{userEmail} 
-		<if test="startDate != '' and endDate != ''">
-			AND (BOOKING_DATE BETWEEN #{startDate} AND #{endDate})
-		</if>
+		<choose>
+			<when test="startDate != '' and endDate == ''">
+				AND (BOOKING_DATE <![CDATA[>=]]> #{startDate})
+			</when>
+			<when test="startDate == '' and endDate != ''">
+				AND (BOOKING_DATE <![CDATA[<=]]> #{endDate})
+			</when>
+			<when test="startDate != '' and endDate != ''">
+				AND (BOOKING_DATE BETWEEN #{startDate} AND #{endDate})
+			</when>
+			<otherwise></otherwise>
+		</choose>
 	</select>
 	
 </mapper>

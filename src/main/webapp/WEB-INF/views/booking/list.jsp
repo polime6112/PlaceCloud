@@ -9,6 +9,13 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <title>My bookings</title>
+<script type="text/javascript">
+        // 페이지가 로드되면 실행되는 JavaScript 코드
+        window.onload = function() {
+            // 주소창 URL을 변경하는 예제
+            history.pushState({}, 'Booking', '/placecloud/booking/list');
+        };
+</script>
 <style>
 .logo {
 	text-align: center;
@@ -144,7 +151,7 @@
 </header>
 <body>
 	<div class="container">
-		<h1>${sessionScope.login.memberName }님의예약목록</h1>
+		<h1>${sessionScope.login.memberName }님의 예약목록</h1>
 		<button class="userInfo"
 			onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
 		<br> <br>
@@ -152,21 +159,21 @@
 			<div class="col-md-12">
 				<form class="booking-form" action="../booking/list" method="get">
 					<input type="date" id="startDate" name="startDate" value="${bpagination.startDate }">
-					 ~ 
+					~&nbsp;
 					<input type="date" id="endDate" name="endDate" value="${bpagination.endDate }">
 					<input type="submit" value="검색"> <select class="pageSize"
 						id="pageSize" name="pageSize" onChange="pageChange()">
-						<option value="5"
-							<c:if test="${bpagination.pageSize == 5 }">selected</c:if>>5줄
+						<option value="6"
+							<c:if test="${bpagination.pageSize == 6 }">selected</c:if>>6개
 							보기</option>
-						<option value="10"
-							<c:if test="${bpagination.pageSize == 10 }">selected</c:if>>10줄
+						<option value="12"
+							<c:if test="${bpagination.pageSize == 12 }">selected</c:if>>12개
 							보기</option>
-						<option value="15"
-							<c:if test="${bpagination.pageSize == 15 }">selected</c:if>>15줄
+						<option value="18"
+							<c:if test="${bpagination.pageSize == 18 }">selected</c:if>>18개
 							보기</option>
-						<option value="20"
-							<c:if test="${bpagination.pageSize == 20 }">selected</c:if>>20줄
+						<option value="24"
+							<c:if test="${bpagination.pageSize == 24 }">selected</c:if>>24개
 							보기</option>
 					</select>
 				</form>
@@ -174,7 +181,7 @@
 				<div class="booking-list">
 					<c:forEach var="bookingVO" items="${bookingList }">
 						<div class="booking-item">
-							<p>ID: ${bookingVO.bookingId }</p>
+							<p>예약 번호 : ${bookingVO.bookingId }</p>
 							<a href="../booking/detail?bookingId=${bookingVO.bookingId }">${bookingVO.placeName }</a>
 							<fmt:formatDate value="${bookingVO.bookingDate }"
 								pattern="yyyy-MM-dd" var="bookingDate" />
@@ -202,7 +209,14 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			let startdate = $('#startDate').val();
+			let enddate = $('#endDate').val();
 			
+			if(startdate !== "" || enddate !== "") {
+				document.getElementById('endDate').setAttribute('min', startdate);
+				document.getElementById('startDate').setAttribute('max', enddate);	
+			} 
+						
 			$('#startDate').change(function() {
 				setDateMax();
 			})

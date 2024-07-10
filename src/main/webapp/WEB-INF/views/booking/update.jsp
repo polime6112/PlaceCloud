@@ -23,7 +23,9 @@
 body {
 	font-family: Arial, sans-serif;
 }
-
+textarea {
+        resize: none;
+}
 #updatebody {
 	border: 2px solid #706FFF;
 	width: 80%;

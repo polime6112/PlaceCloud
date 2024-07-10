@@ -27,7 +27,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
     
-    // 이용 후기 게시판 메인 페이지 이동
+    // 게시판 메인 페이지 이동
     @GetMapping("list")
     public void review(Integer placeId, Model model, Pagination pagination) {
         log.info("review()");
@@ -49,7 +49,7 @@ public class ReviewController {
             
     } // end review()
     
-    // 이용후기 작성 페이지 이동
+    // 게시판 작성 페이지 이동
     @GetMapping("register")
     public void registerGET(Integer placeId, Model model) {
         log.info("registerGET()");
@@ -58,7 +58,7 @@ public class ReviewController {
 		 
     } // end registerGET()
     
-    // 이용후기 작성
+    // 게시판 작성
     @PostMapping("register")
     public String registerPOST(ReviewVO reviewVO, HttpSession session, RedirectAttributes reAttr, Integer placeId) {
         log.info("registerPOST()");

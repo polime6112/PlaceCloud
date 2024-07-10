@@ -30,6 +30,7 @@ public class ReplyRESTController {
 	public List<ReplyVO> getReplies(@RequestBody Map<String, Integer> requestData, HttpSession session, Model model) {
 		log.info("getReplies()");
 		
+<<<<<<< HEAD
 		int feedbackId = requestData.get("feedbackId");
 		log.info("feedbackId = " + feedbackId);
 		
@@ -112,6 +113,90 @@ public class ReplyRESTController {
 		} else {
 			log.info("세션 x");
 			return "redirect:/member/main";
+=======
+		int commentId = requestData.get("commentId");
+		log.info("commentId = " + commentId);
+		
+		List<ReplyVO> reply = replyService.getReply(commentId);
+		model.addAttribute("reply", reply);
+		
+		return reply;
+	
+	} // end getReplies()
+	
+	// 대댓글 등록
+	@PostMapping("repliesInsert")
+	public String repliesInsert(@RequestBody ReplyVO replyVO, HttpSession session) {
+		log.info("repliesInsert()");
+		
+		MemberVO member = (MemberVO) session.getAttribute("login");
+		if(member != null) {
+			String memberEmail = member.getMemberEmail();
+			replyVO.setMemberEmail(memberEmail);
+			
+			int result = replyService.createReply(replyVO);
+			log.info(result + "성공");
+			
+			if (result > 0) {
+				return "InsertSuccess";
+			} else {
+				return "InsertFail";
+			}
+		} else {
+			return "redirect:/place/main";
+		}
+	} // end repliesInsert()
+	
+	// 대댓글 수정
+	@PostMapping("repliesUpdate")
+	public String repliesUpdate(@RequestBody ReplyVO replyVO, HttpSession session) {
+		log.info("repliesUpdate()");
+		
+		MemberVO member = (MemberVO) session.getAttribute("login");
+		
+		if(member != null) {
+			String memberEmail = member.getMemberEmail();
+			replyVO.setMemberEmail(memberEmail);
+			
+			int result = replyService.updateReply(replyVO);
+			log.info(result + "성공");
+			
+			if(result > 0) {
+				return "UpdateSuccess";
+			} else {
+				return "UpdateFail";
+			}
+		} else {
+			return "redirect:/member/memberMain";
+		}
+		
+	} // end repliesUpdate()
+	
+	// 대댓글 삭제
+	@PostMapping("repliesDelete")
+	public String repliesDelete(@RequestBody Map<String, Integer> requestData, HttpSession session) {
+		log.info("repliesDelete()");
+		
+		MemberVO member = (MemberVO) session.getAttribute("login");
+		int replyId = requestData.get("replyId");
+		
+		if(member != null) {
+			String memberEmail = member.getMemberEmail();
+			ReplyVO replyVO = new ReplyVO();
+			replyVO.setMemberEmail(memberEmail);
+			
+			int result = replyService.deleteReply(replyId);
+			log.info(result + "성공");
+			
+			if(result > 0) {
+				return "DeleteSuccess";
+			} else {
+				return "DeleteFail";
+			}
+		} else {
+			log.info("세션 x");
+			return "redirect:/member/memberMain";
+>>>>>>> branch 'master' of https://github.com/polime6112/PlaceCloud.git
 		}
 		
 	} // end repliesDelete()

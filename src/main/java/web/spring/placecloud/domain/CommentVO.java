@@ -13,10 +13,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FeedbackVO {
-	private int feedbackId; // 댓글 번호
+public class CommentVO {
+	private int commentId; // 댓글 번호
 	private int reviewId; // 이용후기 번호
 	private String memberEmail; // 회원 이메일
-	private String feedbackContent; // 댓글 내용
-	private Date feedbackDateCreated; // 댓글 생성 날짜
+	private String commentContent; // 댓글 내용
+	private Date commentDateCreated; // 댓글 생성 날짜
 }

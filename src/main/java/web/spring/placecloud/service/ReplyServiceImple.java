@@ -27,9 +27,9 @@ public class ReplyServiceImple implements ReplyService {
 	
 	// 특정 댓글에 대한 대댓글 조회
 	@Override
-	public List<ReplyVO> getReply(int feedbackId) {
+	public List<ReplyVO> getReply(int commentId) {
 		log.info("getReply()");
-		return replyMapper.selectListByFeedbackId(feedbackId);
+		return replyMapper.selectListByCommentId(commentId);
 	}
 	
 	// 대댓글 수정
@@ -52,9 +52,9 @@ public class ReplyServiceImple implements ReplyService {
 	
 	// 댓글 삭제에 따른 대댓글 삭제
 	@Override
-	public int deleteReplyByFeedback(int feedbackId) {
+	public int deleteReplyByComment(int commentId) {
 		log.info("deleteReplyByFeedback()");
-		return replyMapper.deleteByFeedbackId(feedbackId);
+		return replyMapper.deleteByCommentId(commentId);
 	}
 
 }
