@@ -159,8 +159,10 @@ h1 {
 		// 현재 날짜를 'YYYY-MM-DD' 형식으로 변환 (로컬 시간 기준)
 		const offset = today.getTimezoneOffset() * 60000; // 밀리초 단위의 타임존 오프셋 계산
 		const localToday = new Date(today.getTime() - offset).toISOString().split('T')[0];
+		const selectedDate = $('#date').val();
 		// input 요소의 min 속성(최소값)에 현재 날짜를 설정
 		document.getElementById('date').setAttribute('min', localToday);
+		
 		
 		$(document).ready(function() {
 			// 뒤로가기 버튼 클릭 시 이전 페이지로 이동

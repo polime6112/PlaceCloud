@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,16 +137,17 @@ h1 {
 				<span id="personErrorMsg"></span>
 			</div>
 			<div>
+				<sec:authentication property="principal" var="principal"/>
 				<p>예약자(필수)</p>
 				<input id="name" type="text" name="bookingUserName" required>
 				<span id="nameErrorMsg"></span> <br>
 				<p>전화번호(필수)</p>
 				<input id="phone" type="text" name="bookingUserPhone" maxlength="11"
-					required value="${sessionScope.login.memberPhone }"> 
+					required value="${principal.member.memberPhone }"> 
 					<span id="phoneErrorMsg"></span> <br>
 				<p>이메일</p>
 				<input id="email" type="email" name="bookingUserEmail" readonly
-					value="${sessionScope.login.memberEmail }"> <br>
+					value="${principal.member.memberEmail }"> <br>
 				<p>사용 목적(선택)</p>
 				<textarea cols="120" name="bookingPerpose"
 					placeholder="공간의 사용 목적을 입력 (최대 100자)" maxlength="100"></textarea>
