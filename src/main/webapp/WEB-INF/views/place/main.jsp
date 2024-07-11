@@ -109,14 +109,16 @@ $(document).ready(function() {
 		        <form action="../auth/logout" method="post">
 		            <input type="submit" value="로그아웃">
 		        </form>
+		        <!-- 게스트 권한 확인 -->
+		        <sec:authorize access="hasRole('ROLE_GUEST')">
+		        </sec:authorize>
+		        <!-- 호스트 권한 확인 -->
+		        <sec:authorize access="hasRole('ROLE_HOST')">
+					<a href="../host/myPlace">내가 등록한 장소들</a>
+		        </sec:authorize>
+		        
 		    </sec:authorize>
 		</div>
-		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
-		</c:if>
-		<c:if test="${sessionScope.login.memberStatus == 'host' }">
-			<a href="../host/myPlace?memberEmail=${memberVO.memberEmail}">내가 등록한 장소들</a>		
-		</c:if>
-    <input type="hidden" id="memberEmail" value="${memberVO.memberEmail}">
 	<div class="container">
 		<div class="wrap-btn">
 			<button class="btn-keyword">

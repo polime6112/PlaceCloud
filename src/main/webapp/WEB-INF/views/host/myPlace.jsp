@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,8 +58,9 @@ body {
 			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
-    <h2>${sessionScope.login.memberName}의 페이지</h2>
-    <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
+	<sec:authentication property="principal" var="principal"/>
+    <h2>${principal.member.memberName}의 페이지</h2>
+    <input type="hidden" id="memberEmail" value="${principal.username}">
     <button name="register" onclick="location.href='../host/register'">장소 등록하기</button><br><br>
     <hr>
     <div class="placeList">

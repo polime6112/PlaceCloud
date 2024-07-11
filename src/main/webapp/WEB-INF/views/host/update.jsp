@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,10 +82,11 @@ button:hover {
 			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
 		</div>
 	</header>
+	<sec:authentication property="principal" var="principal"/>
 	<h1>정보 수정하기</h1>
 	<form id="update" action="update" method="POST" >
 		<input type="hidden" id="placeId" name="placeId" value="${placeVO.placeId}">
-		<input type="hidden" id="memberEmail" name="memberEmail" value="${sessionScope.login.memberEmail}">
+		<input type="hidden" id="memberEmail" name="memberEmail" value="${principal.username}">
 		<label for="placeName">장소 이름</label>
 		<input type="text" id="placeName" name="placeName" maxlength="30" >
 		<label for="placeCategory">카테고리</label>
@@ -120,8 +122,6 @@ button:hover {
 	</div>
 	
 	<button id="updateBtn">등록</button>
-	<script src="${pageContext.request.contextPath }/resources/js/image.js"></script>
-	
 	<script>
 		$(document).ready(function() {
 			// update 데이터 전송
@@ -172,5 +172,6 @@ button:hover {
 			});
 		}); // end document
 	</script>
+	<script src="${pageContext.request.contextPath }/resources/js/image.js"></script>
 </body>
 </html>

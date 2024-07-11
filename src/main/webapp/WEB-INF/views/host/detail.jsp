@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,8 +100,9 @@
 		</div>
 	</header>
 	<br>
-	<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
-		<button name="myPlace" onclick="location.href='../host/myPlace?memberEmail=${sessionScope.login.memberEmail}'">등록한 장소들</button>
+	<sec:authentication property="principal" var="principal"/>
+	<c:if test="${principal.username == placeVO.memberEmail }">
+		<button name="myPlace" onclick="location.href='../host/myPlace'">등록한 장소들</button>
 	</c:if>
 	<br>
 	<br>	
@@ -122,9 +124,9 @@
 	</c:if>
 	<br>
 	<div>
-		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
+		<c:if test="${principal.username == placeVO.memberEmail }">
 			<br> <button name="update" onclick="location.href='../host/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
-			<br> <button name="delete" onclick="location.href='../host/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
+			<br> <button name="delete" onclick="location.href='../host/delete?placeId=${placeVO.placeId}'">장소 삭제</button>
 		</c:if>
 	</div>
 </body>
