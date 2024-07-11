@@ -105,57 +105,51 @@ $(document).ready(function() {
 		    <!-- 로그인 상태 -->
 		    <sec:authorize access="isAuthenticated()">
 		        <p><a href="../member/info"><sec:authentication property="principal.username"/></a>님</p>
+		        <a href="../member/myPage">마이페이지</a>
 		        <form action="../auth/logout" method="post">
 		            <input type="submit" value="로그아웃">
 		        </form>
 		    </sec:authorize>
 		</div>
-    
-    <c:if test="${empty sessionScope.login.memberEmail }">
-	<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-	</c:if>
-	<c:if test="${not empty sessionScope.login.memberEmail }">
-		<a href="../member/logout">로그아웃</a>
-		<a href="../member/myPage">마이페이지</a>
 		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
 		</c:if>
 		<c:if test="${sessionScope.login.memberStatus == 'host' }">
-			<a href="${pageContext.request.contextPath}/host/myPlace?memberEmail=${sessionScope.login.memberEmail}">내가 등록한 장소들</a>		
+			<a href="../host/myPlace?memberEmail=${memberVO.memberEmail}">내가 등록한 장소들</a>		
 		</c:if>
-	</c:if>
-    <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
-<div class="container">
-    <div class="wrap-btn">
-        <button class="btn-keyword">
-            <img class="icon" src="../resources/image/party.png"/>
-            <div class="category">파티룸</div>
-        </button>
-        <button class="btn-keyword">
-            <img class="icon" src="../resources/image/meeting.png"/>
-            <div class="category">회의실</div>
-        </button>
-        <button class="btn-keyword">
-            <img class="icon" src="../resources/image/record.png"/>
-            <div class="category">녹음실</div>
-        </button>
-        <button class="btn-keyword">
-            <img class="icon" src="../resources/image/studio.png"/>
-            <div class="category">스튜디오</div>
-        </button>
-        <button class="btn-keyword">
-            <img class="icon" src="../resources/image/stage.png"/>
-            <div class="category">공연장</div>
-        </button>
-    </div>
-    <div class="placeList">
-        <c:forEach var="placeVO" items="${list}">
-            <div class="placeCard" id="placeCard" onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
-                <div class="placeName">${placeVO.placeName}</div>
-                <div class="placeCategory">${placeVO.placeCategory}</div>
-            </div>
-        </c:forEach>
-    </div>
-</div>
+    <input type="hidden" id="memberEmail" value="${memberVO.memberEmail}">
+	<div class="container">
+		<div class="wrap-btn">
+			<button class="btn-keyword">
+				<img class="icon" src="../resources/image/party.png" />
+				<div class="category">파티룸</div>
+			</button>
+			<button class="btn-keyword">
+				<img class="icon" src="../resources/image/meeting.png" />
+				<div class="category">회의실</div>
+			</button>
+			<button class="btn-keyword">
+				<img class="icon" src="../resources/image/record.png" />
+				<div class="category">녹음실</div>
+			</button>
+			<button class="btn-keyword">
+				<img class="icon" src="../resources/image/studio.png" />
+				<div class="category">스튜디오</div>
+			</button>
+			<button class="btn-keyword">
+				<img class="icon" src="../resources/image/stage.png" />
+				<div class="category">공연장</div>
+			</button>
+		</div>
+		<div class="placeList">
+			<c:forEach var="placeVO" items="${list}">
+				<div class="placeCard" id="placeCard"
+					onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
+					<div class="placeName">${placeVO.placeName}</div>
+					<div class="placeCategory">${placeVO.placeCategory}</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
 
 </body>
 </html>

@@ -3,6 +3,8 @@ package web.spring.placecloud.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +42,8 @@ public class PlaceController {
 	@GetMapping("/detail")
 	public String detailGET(Integer placeId, Integer imageId, Model model) {
 		log.info("detailGet");
-
 		PlaceVO placeVO = placeService.getPlaceById(placeId);
-		ImageVO imageVO = imageService.getImageById(placeId); // placeId를 매개변수로 imageVO 값 불러오기
+		ImageVO imageVO = imageService.getImageById(placeId);// placeId를 매개변수로 imageVO 값 불러오기
 		log.info("PlaceVO : " + placeVO);
 		log.info("ImageVO : " + imageVO);
 		model.addAttribute("placeVO", placeVO);

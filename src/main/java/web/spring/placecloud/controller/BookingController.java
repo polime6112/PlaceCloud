@@ -36,7 +36,7 @@ public class BookingController {
 	
 	// 모든 예약 정보를 bookingList.jsp 페이지로 전송
 	@GetMapping("/list")
-	public String bookingList(Model model, @AuthenticationPrincipal UserDetails userDetails,Bpagination bpagination) {
+	public String bookingList(Model model, @AuthenticationPrincipal UserDetails userDetails, Bpagination bpagination) {
 		log.info("bookingList()");
 			String userEmail = userDetails.getUsername();
 			log.info("userEmail = " + userEmail);
@@ -49,6 +49,7 @@ public class BookingController {
 			bpageMaker.setBpagination(bpagination);
 			bpageMaker.setTotalCount(bookingService.getTotalCount(bpagination));
 			
+			model.addAttribute("userEmail", userEmail);
 			model.addAttribute("bpagination", bpagination);
 			model.addAttribute("bookingList", bookingList);
 			model.addAttribute("bpageMaker", bpageMaker);

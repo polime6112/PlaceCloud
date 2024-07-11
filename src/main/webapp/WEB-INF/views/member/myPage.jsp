@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +108,8 @@ form {
     <div id="myInfoContainer">
         <form id="myInfo">
     		<h1 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">마이페이지</h1>
-            <label for="email">이메일:</label> <input type="text" id="memberEmail"
+            <label for="email">이메일:</label> 
+            <input type="text" id="memberEmail"
                 name="memberEmail" value="${member.memberEmail}" readonly><br>
 
             <label for="name">닉네임:</label> <input type="text" id="memberName"
@@ -116,15 +118,8 @@ form {
             <label for="phone">전화번호:</label> <input type="text" id="memberPhone"
                 name="memberPhone" value="${member.memberPhone}" readonly><br>
         </form>
-        <c:if test="${not empty memberVO }">
-	        <img class="image" src="../profile/display?profilePath=${memberVO.profilePath}&profileChgName=${memberVO.profileChgName}&profileExtension=${memberVO.profileExtension}"
-	        						 alt="프로필 사진을 추가해주세요">
-        </c:if>
-		<c:if test="${empty profileVO }">
-			<button name="upload" onclick="location.href='../profile/upload?memberEmail=${member.memberEmail}'">
-			프로필 사진 등록
-			</button>
-		</c:if>
+	    <img class="image" src="../profile/display?profilePath=${member.profilePath}&profileChgName=${member.profileChgName}&profileExtension=${member.profileExtension}"
+	        					alt="프로필 사진을 추가해주세요">
 		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
 		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
 		

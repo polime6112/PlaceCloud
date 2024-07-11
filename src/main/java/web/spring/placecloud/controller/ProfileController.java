@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
-import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.ProfileVO;
-import web.spring.placecloud.service.MemberService;
-import web.spring.placecloud.service.ProfileService;
 import web.spring.placecloud.util.ImageUploadUtil;
 import web.spring.placecloud.util.ProfileUploadUtil;
 
@@ -35,12 +31,6 @@ public class ProfileController {
 	
 	@Autowired
 	private String uploadPath;
-	
-	@Autowired
-	private ProfileService profileService;
-	
-	@Autowired
-	private MemberService memberService;
 	
 	@PostMapping
 	public ResponseEntity<ArrayList<ProfileVO>> uploadPOST(MultipartFile files) {
@@ -73,20 +63,16 @@ public class ProfileController {
 		return new ResponseEntity<ArrayList<ProfileVO>> (list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/delete")
-	public String deleteGET(String memberEmail, Model model) {
-		log.info("deleteGet");
-		log.info(memberEmail);
-		ProfileVO profileVO = profileService.getProfileByEmail(memberEmail);
-		String profilePath = profileVO.getProfilePath();
-		String profileChgName = profileVO.getProfileChgName();
-		
-		ProfileUploadUtil.deleteProfile(uploadPath, profilePath, profileChgName);
-		int profileDelete = profileService.delete(memberEmail);
-		log.info(profileDelete + "행 삭제");
-		MemberVO memberVO = memberService.getMemberByEmail(memberEmail);
-		model.addAttribute("member", memberVO);
-		return "member/myPage";
+	@PostMapping("/delete") 
+	public ResponseEntity<Integer> deletePOST(String profilePath, String profileChgName, String profileExtension) {
+    	log.info("deletePost"); 
+    	log.info(profileChgName);
+	  	ImageUploadUtil.deleteImage(uploadPath, profilePath, profileChgName);
+	  
+	  	String thumbnailName = "t_" + profileChgName + "." + profileExtension;
+	  	ImageUploadUtil.deleteImage(uploadPath, profilePath, thumbnailName);
+	  
+	  	return new ResponseEntity<Integer>(1, HttpStatus.OK); 
 	}
 	
 	@GetMapping("/display")

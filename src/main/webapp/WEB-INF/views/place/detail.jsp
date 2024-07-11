@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,13 +102,12 @@
 		</div>
 	</header>
 	<br>
-	<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
-		<button name="myPlace" onclick="location.href='../host/myPlace?memberEmail=${sessionScope.login.memberEmail}'">등록한 장소들</button>
-	</c:if>
 	<br>
-	<br>
+	<sec:authentication property="principal" var="principal"/>
+	<sec:authorize access="isAuthenticated()">
+		<input type="hidden" name="memberEmail" id="memberEmail" value="${principal.member.memberEmail}">	
+	</sec:authorize>
 	<input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
-	<input type="hidden" name="memberEmail" id="memberEmail" value="${sessionScope.login.memberEmail}">
 	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
 	<p>작성일 : ${placeCreateDate }</p>
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
@@ -124,32 +124,20 @@
 	</c:if>
 	<br>
 	<div>
-		<c:if test="${sessionScope.login.memberStatus != 'host' }">	
-			<button id="bookingBtn">예약 하기</button>
-			<div id="likePlace"></div>
-		</c:if>
+		<button id="bookingBtn">예약 하기</button>
+		<div id="likePlace"></div>
 		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
-		<c:if test="${sessionScope.login.memberEmail == placeVO.memberEmail }">
-			<br> <button name="update" onclick="location.href='../place/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
-			<c:if test="${empty imageVO }">
-			<br> <button name="upload" onclick="location.href='../image/upload?placeId=${placeVO.placeId}'">장소 사진 추가</button><br>
-			</c:if>
-			<br> <button name="delete" onclick="location.href='../place/delete?placeId=${placeVO.placeId}&memberEmail=${placeVO.memberEmail}'">장소 삭제</button>
-
-		</c:if>
 	</div>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
-			if(${sessionScope.login.memberStatus != 'host'}){
-				getLike();
-			}
-			
+			getLike();
+			let memberEmail = $('#memberEmail').val();
 			$('#bookingBtn').click(function(){
-				if(${sessionScope.login.memberStatus == 'guest'}){
+				if(memberEmail != null) {
 					console.log("작동?");
 					location.href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}";
-				} else if(${sessionScope.login.memberStatus == null}){
+				} else {
 					console.log("작동?");
 					if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
 						console.log("작동?");
@@ -177,8 +165,6 @@
 								
 							if(data != '') {
 								likeData = '<button class="likeBtn_delete">찜 취소</button>';
-							} else {
-								
 							}
 							$('#likePlace').html(likeData);
 						} // end function()
@@ -190,7 +176,7 @@
 			// 찜 하기 버튼
 			$('#likePlace').on('click', '.likeBtn_insert', function(){
 				console.log(this);
-				if(${sessionScope.login.memberStatus == 'guest'}){
+				if(memberEmail != null) {
 					let memberEmail = $('#memberEmail').val();
 					let placeId = $('#placeId').val();
 					let placeName = $('#placeName').val();
@@ -217,11 +203,11 @@
 							}
 						}
 					}); 
-				} else if(${sessionScope.login.memberStatus == null}){
+				} else {
 					console.log("작동?");
 					if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
 						console.log("작동?");
-						location.href="../member/login";
+						location.href="../auth/login";
 					}
 				}
 				

@@ -143,7 +143,7 @@ h1 {
 				<span id="nameErrorMsg"></span> <br>
 				<p>전화번호(필수)</p>
 				<input id="phone" type="text" name="bookingUserPhone" maxlength="11"
-					required value="${principal.member.mamberPhone }"> 
+					required value="${principal.member.memberPhone }"> 
 					<span id="phoneErrorMsg"></span> <br>
 				<p>이메일</p>
 				<input id="email" type="email" name="bookingUserEmail" readonly

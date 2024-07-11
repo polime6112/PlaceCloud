@@ -3,6 +3,8 @@ package web.spring.placecloud.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,14 +46,6 @@ public class MemberController {
         return "redirect:/auth/login";
     } // memberJoinPOST()
 
-    // 로그아웃
-    @RequestMapping("logout")
-    public String logout(HttpSession session) {
-        log.info("logout()");
-        session.invalidate();
-        return "redirect:/place/main";
-    } // end logout()
-
     // 이메일 중복 체크
     @PostMapping("emailCheck")
     @ResponseBody
@@ -84,22 +78,11 @@ public class MemberController {
 
     // 마이페이지 이동
     @GetMapping("myPage")
-    public String myPage(HttpSession session, Model model) {
+    public void myPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         log.info("myPage()");
-        MemberVO member = (MemberVO) session.getAttribute("login");
-
-        if (member != null) { // 사용자 정보가 null이 아닌지 확인
-            String memberEmail = member.getMemberEmail();
-            log.info(memberEmail + "이메일");
-            log.info("세션 o");
-            MemberVO vo = memberService.getMemberByEmail(memberEmail);
-            log.info(vo.toString());
-            model.addAttribute("member", vo);
-            return "/member/myPage";
-        } else {
-            log.info("세션 x");
-            return "redirect:/member/login";
-        }
+        String memberEmail = userDetails.getUsername();
+        MemberVO memberVO = memberService.getMemberByEmail(memberEmail);
+        model.addAttribute("member", memberVO);
     } // end myPage()
 
     // 회원정보 수정 페이지 이동
