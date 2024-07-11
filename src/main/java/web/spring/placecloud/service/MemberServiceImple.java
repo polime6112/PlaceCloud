@@ -24,8 +24,12 @@ public class MemberServiceImple implements MemberService {
 		log.info("addMember()");
 		int result = memberMapper.memberJoin(memberVO);
 		log.info(result + "회원가입");
-		
-		int insertRoleResult = memberMapper.insertMemberRole(memberVO.getMemberEmail());
+		int insertRoleResult = 0;
+		if (memberVO.getMemberStatus().equals("host")) {
+			insertRoleResult = memberMapper.insertMemberRoleHost(memberVO.getMemberEmail());
+		} else {
+			insertRoleResult = memberMapper.insertMemberRole(memberVO.getMemberEmail());			
+		}
 		log.info(insertRoleResult + "행 권한 정보 등록");
 		return 1;
 	}

@@ -27,6 +27,7 @@ public class HostController {
 	
 	@GetMapping("/myPlace")
 	public String myPlaceGET(String memberEmail, Model model, ImageVO imageVO) {
+		
 		log.info("myPlaceGet");
 		log.info(memberEmail);
 		List<PlaceVO> list = placeService.getMyPlace(memberEmail);
