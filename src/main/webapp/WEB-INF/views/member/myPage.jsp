@@ -108,13 +108,17 @@ form {
     <div id="myInfoContainer">
         <form id="myInfo">
     		<h1 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">마이페이지</h1>
+            
+            <!-- 이메일  -->
             <label for="email">이메일:</label> 
             <input type="text" id="memberEmail"
                 name="memberEmail" value="${member.memberEmail}" readonly><br>
-
+			
+			<!-- 닉네임  -->
             <label for="name">닉네임:</label> <input type="text" id="memberName"
                 name="memberName" value="${member.memberName}" readonly><br>
-
+			
+			<!-- 전화번호  -->
             <label for="phone">전화번호:</label> <input type="text" id="memberPhone"
                 name="memberPhone" value="${member.memberPhone}" readonly><br>
         </form>
@@ -122,17 +126,11 @@ form {
 	        					alt="프로필 사진을 추가해주세요">
 		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
 		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
-		
-        <form id="updateForm" action="updateInfo" method="get">
-            <input type="submit" value="정보 변경">
-        </form>
+		      
+       <button id="modifyMember" onclick="location.href='../member/updateInfo'">정보 수정</button>
+       <button id="removeBtn" onclick="location.href='../member/remove'">회원 탈퇴</button>
 
-        <form id="deleteForm" action="remove" method="get">
-            <button id="removeBtn" type="submit">회원 탈퇴</button>
-        </form>
-        
-        
     </div>
-
+      
 </body>
 </html>
