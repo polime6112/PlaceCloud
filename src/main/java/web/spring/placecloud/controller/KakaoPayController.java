@@ -20,14 +20,14 @@ public class KakaoPayController {
    private BookingService bookingService;
    
    @Autowired
-   private KakaoPayService payService;
+   private KakaoPayService kakaoPayService;
    
    private BookingVO bookingVO;
    
    @GetMapping("/ready")
    public String ready(BookingVO bookingVO) {
       log.info("ready()");
-      KakaoPayReadyResponse readyResponse = payService.ready(bookingVO);
+      KakaoPayReadyResponse readyResponse = kakaoPayService.ready(bookingVO);
       this.bookingVO = bookingVO;
       log.info("bookingVO : " + this.bookingVO);
       return "redirect:" + readyResponse.getNext_redirect_pc_url();
@@ -42,7 +42,7 @@ public class KakaoPayController {
       int result = bookingService.createBoard(bookingVO);
       log.info(result + "행 추가");
       
-      String approveResponse = payService.approve(bookingVO, pgToken);
+      String approveResponse = kakaoPayService.approve(bookingVO, pgToken);
       model.addAttribute("response", approveResponse);
       return "redirect:/kakaoPay/success";
             

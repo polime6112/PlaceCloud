@@ -153,7 +153,7 @@
 					console.log("작동?");
 					if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
 						console.log("작동?");
-						location.href="../member/login";
+						location.href="../auth/login";
 					}
 				}
 			});
