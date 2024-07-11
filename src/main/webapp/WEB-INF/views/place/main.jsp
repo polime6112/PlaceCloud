@@ -111,20 +111,12 @@ $(document).ready(function() {
 		        </form>
 		    </sec:authorize>
 		</div>
-    
-    <c:if test="${empty sessionScope.login.memberEmail }">
-	<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-	</c:if>
-	<c:if test="${not empty sessionScope.login.memberEmail }">
-		<a href="../member/logout">로그아웃</a>
-		<a href="../member/myPage">마이페이지</a>
 		<c:if test="${sessionScope.login.memberStatus == 'guest'}">
 		</c:if>
 		<c:if test="${sessionScope.login.memberStatus == 'host' }">
-			<a href="${pageContext.request.contextPath}/host/myPlace?memberEmail=${sessionScope.login.memberEmail}">내가 등록한 장소들</a>		
+			<a href="../host/myPlace?memberEmail=${memberVO.memberEmail}">내가 등록한 장소들</a>		
 		</c:if>
-	</c:if>
-    <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
+    <input type="hidden" id="memberEmail" value="${memberVO.memberEmail}">
 	<div class="container">
 		<div class="wrap-btn">
 			<button class="btn-keyword">

@@ -9,6 +9,7 @@ import web.spring.placecloud.domain.MemberVO;
 public interface MemberMapper {
 	int memberJoin(MemberVO memberVO); // 회원(게스트) 등록
 	int insertMemberRole(String memberEmail); // 권한 정보 등록
+	int insertMemberRoleHost(String memberEmail); // 권한 정보 호스트 등록
 	MemberVO selectMember(String memberEmail); // 특정 회원(게스트) 조회
 	MemberRole selectRoleByMemberEmail(String memberEmail); // 권한 정보 조회
 	int update(MemberVO memberVO); // 특정 회원(게스트) 수정
