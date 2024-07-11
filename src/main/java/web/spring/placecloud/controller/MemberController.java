@@ -1,9 +1,8 @@
 package web.spring.placecloud.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +32,7 @@ public class MemberController {
     @GetMapping("join")
     public void joinGET() {
         log.info("joinGET()");
+        
     } // end memberJoinGET()
 
     // 회원(게스트) 가입
@@ -40,10 +40,13 @@ public class MemberController {
     public String joinPOST(MemberVO memberVO, RedirectAttributes reAttr) {
         log.info("joinPOST()");
         log.info("memberVO = " + memberVO.toString());
-        memberVO.setMemberPw(passwordEncoder.encode(memberVO.getMemberPw()));
+        
+        memberVO.setMemberPw(passwordEncoder.encode(memberVO.getMemberPw())); // 비밀번호를 암호화하여 설정
         int result = memberService.addMember(memberVO);
         log.info(result + "회원 가입");
+        
         return "redirect:/auth/login";
+        
     } // memberJoinPOST()
 
     // 이메일 중복 체크
@@ -59,6 +62,7 @@ public class MemberController {
         } else {
             return "success"; // 중복 이메일 x
         }
+        
     } // end emailDoubleCheck()
 
     // 닉네임 중복 체크
@@ -74,6 +78,7 @@ public class MemberController {
         } else {
             return "success"; // 중복 닉네임 x
         }
+        
     } // end nameDoubleCheck()
 
     // 마이페이지 이동
@@ -83,82 +88,53 @@ public class MemberController {
         String memberEmail = userDetails.getUsername();
         MemberVO memberVO = memberService.getMemberByEmail(memberEmail);
         model.addAttribute("member", memberVO);
+    
     } // end myPage()
 
     // 회원정보 수정 페이지 이동
     @GetMapping("updateInfo")
-    public String updateInfoGET(HttpSession session, Model model) {
+    public void updateInfoGET(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         log.info("updateInfoGET()");
 
-        MemberVO member = (MemberVO) session.getAttribute("login");
-
-        if (member != null) { // 사용자 정보가 null이 아닌지 확인
-            String memberEmail = member.getMemberEmail();
-            log.info(memberEmail + "이메일");
-            MemberVO vo = memberService.getMemberByEmail(memberEmail);
-            log.info(vo.toString());
-            model.addAttribute("member", vo);
-            return "/member/updateInfo";
-        } else {
-            log.info("세션 x");
-            return "redirect:/member/login";
-        }
+        String memberEmail = userDetails.getUsername();
+        MemberVO memberVO = memberService.getMemberByEmail(memberEmail);
+        model.addAttribute("member", memberVO);
+      
     } // end updateInfoGET()
 
     // 회원 정보 수정
     @PostMapping("updateInfo")
-    public String updateInfoPOST(HttpSession session, MemberVO memberVO, Model model) {
+    public String updateInfoPOST(MemberVO memberVO) {
         log.info("updateInfoPOST()");
 
-        MemberVO member = (MemberVO) session.getAttribute("login");
+        String encPw = passwordEncoder.encode(memberVO.getMemberPw());
+        memberVO.setMemberPw(encPw);
+		int result = memberService.updateMember(memberVO);
+		log.info(result + "행 수정 완료");
+		
+		return "redirect:/member/myPage";
 
-        if (member != null) { // 사용자 정보가 null이 아닌지 확인
-            String memberEmail = member.getMemberEmail();
-            log.info(memberEmail + "이메일");
-            int result = memberService.updateMember(memberVO);
-            log.info(result + "수정 완료");
-            MemberVO vo = memberService.getMemberByEmail(memberEmail);
-            log.info(vo.toString());
-            model.addAttribute("member", vo);
-            return "/member/myPage";
-        } else {
-            log.info("세션 x");
-            return "redirect:/member/login";
-        }
-    }
+    } // end updateInfoPOST()
 
     // 회원 탈퇴 페이지 이동
     @GetMapping("remove")
-    public String removeGET(HttpSession session) {
+    public void removeGET() {
         log.info("removeGET()");
-        MemberVO member = (MemberVO) session.getAttribute("login");
 
-        if (member != null) { // 사용자 정보가 null이 아닌지 확인
-            String memberEmail = member.getMemberEmail();
-            log.info(memberEmail + "이메일");
-            return "/member/remove";
-        } else {
-            log.info("세션 x");
-            return "redirect:/member/login";
-        }
-    }
+    } // end removeGET()
 
     // 회원 탈퇴
     @PostMapping("remove")
-    public String removePOST(HttpSession session) {
+    public String removePOST(@AuthenticationPrincipal UserDetails userDetails) {
         log.info("removePOST()");
-        MemberVO member = (MemberVO) session.getAttribute("login");
-
-        if (member != null) { // 사용자 정보가 null이 아닌지 확인
-            String memberEmail = member.getMemberEmail();
-            log.info(memberEmail + "이메일");
-            int result = memberService.removeMember(memberEmail);
-            log.info(result + "회원 탈퇴");
-            session.invalidate();
-            return "redirect:/place/main";
-        } else {
-            log.info("세션 x");
-            return "redirect:/member/login";
-        }
-    }
+        
+        String memberEmail = userDetails.getUsername();
+        int result = memberService.removeMember(memberEmail);
+        log.info(result + "행 삭제 완료");
+        SecurityContextHolder.clearContext(); // 인증 정보 초기화
+        
+        return "redirect:/place/main";
+        
+    } // end removePOST()
+    
 } // end MemberController

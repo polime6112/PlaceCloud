@@ -92,12 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       	DELETE MEMBER
       	WHERE MEMBER_EMAIL = #{memberEmail}
       </delete>
-      
-      <select id="loginChk" resultMap="memberResultMap">
-      	<!-- 로그인 체크  -->
-      	SELECT * FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PW = #{memberPw}
-      </select>
-      
+          
       <select id="emailDoubleChk" resultType="int">
       	<!-- 이메일 중복 체크  -->
       	SELECT COUNT(*) FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail}

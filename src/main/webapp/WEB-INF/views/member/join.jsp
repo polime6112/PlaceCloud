@@ -156,8 +156,6 @@ body {
 
 	$(document).ready(function(){
 		
-		
-		
 		// register 데이터 전송
 		$('#joinBtn').click(function() {
 			var memberEmail = $('#memberEmail').val().trim(); // 문자열의 양끝 공백 제거
