@@ -151,7 +151,7 @@
 </header>
 <body>
 	<div class="container">
-		<h1>${userEmail }님의 예약목록</h1>
+		<h1>${member.memberName }님의 예약목록</h1>
 		<button class="userInfo"
 			onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
 		<br> <br>

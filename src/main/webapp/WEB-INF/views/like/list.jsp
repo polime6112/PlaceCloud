@@ -114,7 +114,7 @@
 </header>
 <body>
 	<div class="container">
-		<h1>${sessionScope.login.memberName }님의 관심 장소 목록</h1>
+		<h1>${member.memberName }님의 관심 장소 목록</h1>
 		<button class="userInfo"
 			onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
 		<br> <br>
