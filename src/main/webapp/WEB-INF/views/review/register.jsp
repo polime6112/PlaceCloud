@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,15 +55,17 @@ header {
 		</div>
 		<div>
 			<span>작성자 : </span>
-			<input type="text" name="memberEmail" value="${login.memberEmail}" readonly>
+			<sec:authentication property="principal" var="principal"/>
+			<input type="text" name="memberEmail" value="${principal.username}" readonly>
 		</div>
 		<div>
 			<span>내용 : </span>
 			<textarea rows="20" cols="120" name="reviewContent" placeholder="내용" maxlength="50" required></textarea>
 		</div>
 		<div>
-			<input type="submit" value="리뷰 등록">
+			<button id="register">등록</button>
 		</div>	
 	</form>
+	
 </body>
 </html>

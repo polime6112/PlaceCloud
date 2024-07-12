@@ -1,6 +1,7 @@
 package web.spring.placecloud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -103,6 +104,7 @@ public class MemberController {
     } // end updateInfoGET()
 
     // 회원 정보 수정
+    @PreAuthorize("principal.username == #memberVO.memberEmail")
     @PostMapping("updateInfo")
     public String updateInfoPOST(MemberVO memberVO) {
         log.info("updateInfoPOST()");

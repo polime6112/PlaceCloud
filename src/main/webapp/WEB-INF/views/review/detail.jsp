@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +110,7 @@ textarea {
 	</header>
 
 	<h2
-		style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A
-		및 이용후기 보기</h2>
+		style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기 보기</h2>
 
 	<div>
 		<span>이용 후기 번호 : ${reviewVO.reviewId }</span> <input type="hidden"
@@ -137,9 +138,13 @@ textarea {
 	</div>
 
 	<button onclick="location.href='../review/list?placeId=${reviewVO.placeId}'">목록</button>
-	
-	<button onclick="location.href='edit?reviewId=${reviewVO.reviewId}'">수정</button>
-	<button id="deleteReview">삭제</button>
+	<sec:authentication property="principal" var="user"/>	
+	<sec:authorize access="isAuthenticated()">
+		<c:if test="${reviewVO.memberEmail eq user.username }"> <!-- eq : equal (==) -->
+			<button onclick="location.href='edit?reviewId=${reviewVO.reviewId}'">수정</button>
+			<button id="deleteReview">삭제</button>
+		</c:if>
+	</sec:authorize>
 	
 	<hr>
 
@@ -151,17 +156,18 @@ textarea {
 	<hr>
 	<div id="writeComment">
 		<input type="hidden" id="reviewId" value="${reviewVO.reviewId}">
-		<input type="hidden" id="memberEmail" value="${reviewVO.memberEmail}">
 		<p>
-			<label>댓글 등록</label><br>
-			<textarea id="commentContent" name="commentContent" rows="5"
-				cols="80" placeholder="댓글을 입력하세요" maxlength="50"></textarea>
+			<sec:authorize access="isAnonymous()">
+				<a href="../auth/login">* 댓글을 작성하려면 로그인해 주세요.</a>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<label>댓글 작성</label><br>
+				<input type="hidden" id="memberEmail" value="${user.username}">
+				<textarea id="commentContent" name="commentContent" rows="5" cols="80" placeholder="댓글을 입력하세요" maxlength="50"></textarea>
+				<br>
+				<button name="commentBtn" id="commentBtn">작성</button>
+			</sec:authorize>
 		</p>
-
-		<div class="Comment2">
-			<button name="commentBtn" id="commentBtn" type="submit">댓글
-				작성</button>
-		</div>
 	</div>
 
 
@@ -215,6 +221,7 @@ textarea {
                         selectAllView += '<p>&nbsp;&nbsp;' + formattedDate + '</p>';
 						
                         // 댓글 작성한 이메일과 로그인한 이메일이 같으면
+                        
                         selectAllView += '<div class="row">';
                         selectAllView += '<div class="col-12">';
                         // 수정 및 삭제 버튼
