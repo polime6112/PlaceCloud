@@ -143,7 +143,7 @@ h1 {
             <button id="backBtn" onclick="location.href='list'">뒤로가기</button>
             <button id="updateBtn" onclick="location.href='update?bookingId=${bookingVO.bookingId }'">수정하기</button>
             <button id="deleteBtn">예약 취소</button>
-            <form id="deleteform" action="delete" method="get">
+            <form id="deleteform" action="delete" method="post">
                 <input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
             </form>
         </div>
@@ -153,6 +153,7 @@ h1 {
         $(document).ready(function() {
             $('#deleteBtn').click(function() {
                 if (confirm('취소하시겠습니까?')) {
+                	alert('예약이 취소되었습니다!');
                     $('#deleteform').submit(); // form 데이터 전송
                 }
             });

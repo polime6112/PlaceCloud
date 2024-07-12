@@ -275,13 +275,14 @@ h1 {
 					$('#personErrorMsg').css('display', 'inline-block');
 					personFlag = false;
 				} else if (person > 200) {
-					console.log('최대 인원 초과입력');
-					$('#personErrorMsg').html('최대 예약 인원은 200명입니다');
+					console.log('최대 입력 인원 초과');
+					$('#personErrorMsg').html('최대 입력 인원은 200명입니다');
 					$('#personErrorMsg').css("color", 'red');
 					$('#personErrorMsg').css('display', 'inline-block');
 					personFlag = false;
 				} else {
 					$('#personErrorMsg').html('');
+					personFlag = true;
 				}
 
 				$('#person').focusout(function() {
@@ -323,6 +324,7 @@ h1 {
 					return;
 				} else {
 					$('#nameErrorMsg').html('');
+					nameFlag = true;
 				}
 
 				$('#name').focusout(function() {

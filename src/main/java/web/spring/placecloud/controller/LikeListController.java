@@ -34,7 +34,7 @@ public class LikeListController {
 			log.info("likeList()");
 			String userEmail = userDetails.getUsername();
 			log.info("userEmail = " + userEmail);
-			List<LikeVO> likeList = likeService.getAllBoards();
+			List<LikeVO> likeList = likeService.getBoardsById(userEmail);
 			log.info("likeList() = " + likeList);
 			MemberVO memberVO = memberService.getMemberByEmail(userEmail);
 			log.info("memberVO : " + memberVO);

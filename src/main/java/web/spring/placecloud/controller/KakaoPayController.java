@@ -1,6 +1,8 @@
 package web.spring.placecloud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +27,16 @@ public class KakaoPayController {
    private BookingVO bookingVO;
    
    @GetMapping("/ready")
-   public String ready(BookingVO bookingVO) {
+   public String ready(BookingVO bookingVO, @AuthenticationPrincipal UserDetails userDetails) {
       log.info("ready()");
-      KakaoPayReadyResponse readyResponse = kakaoPayService.ready(bookingVO);
-      this.bookingVO = bookingVO;
-      log.info("bookingVO : " + this.bookingVO);
-      return "redirect:" + readyResponse.getNext_redirect_pc_url();
+		if(userDetails != null) {	
+			KakaoPayReadyResponse readyResponse = kakaoPayService.ready(bookingVO);
+			this.bookingVO = bookingVO;
+			log.info("bookingVO : " + this.bookingVO);
+			return "redirect:" + readyResponse.getNext_redirect_pc_url();
+		} else {
+			return "event/needLogin";
+		}
    }
    
    @GetMapping("/approve")
