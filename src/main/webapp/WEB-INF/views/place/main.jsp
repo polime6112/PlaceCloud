@@ -104,7 +104,7 @@ $(document).ready(function() {
 		    </sec:authorize>
 		    <!-- 로그인 상태 -->
 		    <sec:authorize access="isAuthenticated()">
-		        <p><a href="../member/info"><sec:authentication property="principal.username"/></a>님</p>
+		        <p><sec:authentication property="principal.member.memberName"/>님 환영합니다</p>
 		        <a href="../member/myPage">마이페이지</a>
 		        <form action="../auth/logout" method="post">
 		            <input type="submit" value="로그아웃">
@@ -144,11 +144,22 @@ $(document).ready(function() {
 		</div>
 		<div class="placeList">
 			<c:forEach var="placeVO" items="${list}">
-				<div class="placeCard" id="placeCard"
+				<!-- 게스트 권한 확인 -->
+				<sec:authorize access="hasRole('ROLE_GUEST')">
+					<div class="placeCard" id="placeCard"
 					onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
 					<div class="placeName">${placeVO.placeName}</div>
 					<div class="placeCategory">${placeVO.placeCategory}</div>
-				</div>
+					</div>
+				</sec:authorize>
+				<!-- 호스트 권한 확인 -->
+				<sec:authorize access="hasRole('ROLE_HOST')">
+					<div class="placeCard" id="placeCard"
+					onclick="location.href='../host/detail?placeId=' + ${placeVO.placeId}">
+					<div class="placeName">${placeVO.placeName}</div>
+					<div class="placeCategory">${placeVO.placeCategory}</div>
+					</div>
+				</sec:authorize>
 			</c:forEach>
 		</div>
 	</div>
