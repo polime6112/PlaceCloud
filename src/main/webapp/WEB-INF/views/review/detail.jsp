@@ -113,9 +113,8 @@ textarea {
 		style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기 보기</h2>
 
 	<div>
-		<span>이용 후기 번호 : ${reviewVO.reviewId }</span> <input type="hidden"
-			id="placeId" value="${reviewVO.placeId }"> <input
-			type="hidden" id="reviewId" value="${reviewVO.reviewId}">
+		<span>이용 후기 번호 : ${reviewVO.reviewId }</span> <input type="hidden" id="placeId" value="${reviewVO.placeId }"> 
+		<input type="hidden" id="reviewId" value="${reviewVO.reviewId}">
 	</div>
 
 	<div>
@@ -221,12 +220,13 @@ textarea {
                         selectAllView += '<p>&nbsp;&nbsp;' + formattedDate + '</p>';
 						
                         // 댓글 작성한 이메일과 로그인한 이메일이 같으면
-                        
+                        if(comment.memberEmail == memberEmail ) {
                         selectAllView += '<div class="row">';
                         selectAllView += '<div class="col-12">';
                         // 수정 및 삭제 버튼
                         selectAllView += '<button type="button" data-commentId="' + comment.commentId + '" class="mini token operator" onclick="updateAndDeleteCommentBtn(' + comment.commentId + ', \'' + formattedDate + '\', \'' + replaceContent + '\', \'' + comment.memberEmail + '\')" id="updateComment">수정 및 삭제</button>';
                         selectAllView += '</div></div>';
+                        }
                         
                      	// 대댓글 작성 폼 
                         selectAllView += '<div id="replyForm' + comment.commentId + '" style="display:none;">';
@@ -405,7 +405,10 @@ textarea {
                 }
             },
             error: function() {
-                alert('통신 실패');
+                if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
+                	location.href="../auth/login";
+          
+                }
             }
         }); // end ajax()
         
