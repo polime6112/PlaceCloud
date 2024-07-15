@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +63,8 @@
         </div>
     </header>
     <br><br>
-    <input type="hidden" id="memberEmail" value="${sessionScope.login.memberEmail}">
+    <sec:authentication property="principal" var="principal"/>
+    <input type="hidden" id="memberEmail" value="${principal.username}">
     <div class="placeList">
         <c:forEach var="placeVO" items="${list}">
             <c:if test="${placeVO.placeCategory == param.placeCategory}">
