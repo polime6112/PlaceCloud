@@ -133,6 +133,14 @@ body {
         		<input type="radio" id="host" name="memberStatus" value="host">호스트
         </div>
 
+
+		<!-- 뒤로가기 회원가입 버튼  -->
+		<div id="button">
+			<a href="#" id="goBackBtn">뒤로가기</a>
+			<button id="joinBtn">회원가입</button>
+		</div>
+	</form>
+	
 		<div class="profile-upload">
 			<h2>이미지 파일 업로드</h2>
 			<p>* 이미지 파일은 1개만 가능합니다.</p>
@@ -144,13 +152,6 @@ body {
 		
 
 		<div class="profileVOImg-list"></div>
-
-		<!-- 뒤로가기 회원가입 버튼  -->
-		<div id="button">
-			<a href="#" id="goBackBtn">뒤로가기</a>
-			<button id="joinBtn">회원가입</button>
-		</div>
-	</form>
   
 	<script type="text/javascript">
 

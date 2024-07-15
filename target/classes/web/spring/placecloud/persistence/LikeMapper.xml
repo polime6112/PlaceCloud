@@ -23,6 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM LIKELIST ORDER BY LIKE_ID DESC
 	</select>
 	
+	<select id="selectListByEmail" resultMap="likeResultMap"><!-- 계정 별 관심 장소 전체 조회 -->
+		SELECT * FROM LIKELIST
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
 	<select id="selectOne" resultMap="likeResultMap"><!-- 관심 장소 조회 -->
 		SELECT * FROM LIKELIST
 		WHERE MEMBER_EMAIL = #{memberEmail} AND PLACE_ID = #{placeId}

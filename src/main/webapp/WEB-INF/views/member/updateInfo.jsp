@@ -27,7 +27,7 @@ body {
 	color: #333;
 }
 
-#updateInfo {
+#updateForm {
 	border: 1px solid #706FFF;
 	width: 40%;
 	padding: 20px;

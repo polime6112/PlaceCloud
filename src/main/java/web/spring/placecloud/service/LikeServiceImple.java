@@ -30,6 +30,12 @@ public class LikeServiceImple implements LikeService {
 	}
 
 	@Override
+	public List<LikeVO> getBoardsById(String memberEmail) {
+		log.info("getBoardsByEmail");
+		return likeMapper.selectListByEmail(memberEmail);
+	}
+	
+	@Override
 	public LikeVO getBoardbyId(int placeId, String memberEmail) {
 		log.info("getBoardById()");
 		return likeMapper.selectOne(placeId, memberEmail);

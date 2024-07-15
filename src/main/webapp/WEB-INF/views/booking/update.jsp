@@ -109,9 +109,9 @@ h1 {
 	<h1>예약 수정</h1>
 	<div id="updatebody">
 		<div>
-			<input type="hidden" name="placeId" value="${booking.placeId }">
+			<input type="hidden" name="placeId" value="${bookingVO.placeId }">
 			<p>예약 공간</p>
-			<input type="text" name="placeName" readonly value="${booking.placeName }">
+			<input type="text" name="placeName" readonly value="${bookingVO.placeName }">
 		</div>
 		<form id="updateform" action="update" method="post">
 			<input type="hidden" name="bookingId" value="${bookingVO.bookingId }">
@@ -146,7 +146,7 @@ h1 {
 				<br>
 			</div>
 			<div style="text-align: center;">
-				<button id="updateBtn">수정하기</button>
+				<button id="updateBtn">수정완료</button>
 			</div>
 		</form>
 		<button id="backBtn">뒤로가기</button>
@@ -188,10 +188,8 @@ h1 {
 
 				// 모든 유효성 검사 플래그가 true인지 확인
 				if (dateFlag && personFlag && nameFlag && phoneFlag) {
-					// 모든 조건이 true면 예약 수정 수행
-					if(confirm('수정하시겠습니까?')){
-						$('#updateform').submit(); // form 데이터 전송
-					}
+					// 모든 조건이 true면 회원가입 수행
+					$('#updateform').submit(); // 폼 제출
 				} else {
 					// 유효성 검사 실패 시 메시지 출력
 					if (!dateFlag) {
@@ -249,29 +247,53 @@ h1 {
 			function personError() {
 				console.log('personKeyup()');
 				let person = $('#person').val();
-				let personPattern = /^[0-9]{1,3}$/;
+				// 숫자 정규 표현식(2자 이상 10자이하 영어 또는 한글 또는 숫자로 구성)
+				let personRegex = /^[0-9]{1,3}$/;
 
-				if (person.trim() === '') { // 인원수가 입력 되지 않은 경우 또는 공백만 입력된 경우
+				if (person.trim() === '') { // 예약 인원이 입력 되지 않은 경우 또는 공백만 입력된 경우
 					console.log('인원수 입력 x');
-					$('#personErrorMsg').html('인원수를 입력하세요');
+					personFlag = false;
+					return;
+				} else if (person.trim() === '0') {
+					console.log('0명 입력 x');
+					$('#personErrorMsg').html('최소 예약 인원은 1명입니다');
 					$('#personErrorMsg').css("color", 'red');
 					$('#personErrorMsg').css('display', 'inline-block');
 					personFlag = false;
-					return;
-				} else if (!personPattern.test(person)) { // 유효성 검사 실패
-					console.log('인원수 유효성 검사 실패');
-					$('#personErrorMsg').html('유효한 인원수를 입력하세요');
-					$('#personErrorMsg').css('color', 'red');
+				} else if (person > 200) {
+					console.log('최대 입력 인원 초과');
+					$('#personErrorMsg').html('최대 입력 인원은 200명입니다');
+					$('#personErrorMsg').css("color", 'red');
 					$('#personErrorMsg').css('display', 'inline-block');
 					personFlag = false;
-					return;
-				} else { // 유효성 검사 통과
+				} else {
 					$('#personErrorMsg').html('');
 					personFlag = true;
 				}
-			}
 
-			// 예약자 이름 유효성 검사
+				$('#person').focusout(function() {
+					personFocusOut();
+				});
+
+				function personFocusOut() {
+					console.log('personFocusOut()');
+					let person = $('#person').val();
+					// 숫자 정규 표현식(2자 이상 10자이하 영어 또는 한글 또는 숫자로 구성)
+					let personRegex = /^[0-9]{1,3}$/;
+					if (!personRegex.test(person)) { // 숫자 정규 표현식 검사
+						console.log('숫자 형식');
+						$('#personErrorMsg').html('숫자만 입력가능합니다');
+						$('#personErrorMsg').css('color', 'red');
+						$('#personErrorMsg').css('display', 'inline-block');
+						personFlag = false;
+					} else {
+						personFlag = true;
+					}
+				}
+
+			} // end personError()
+
+			// 예약자 유효성 검사
 			$('#name').keyup(function() {
 				nameError();
 
@@ -280,27 +302,39 @@ h1 {
 			function nameError() {
 				console.log('nameKeyup()');
 				let name = $('#name').val();
-				let namePattern = /^[a-zA-Z가-힣]{2,30}$/;
 
 				if (name.trim() === '') { // 이름이 입력 되지 않은 경우 또는 공백만 입력된 경우
-					console.log('예약자 입력 x');
-					$('#nameErrorMsg').html('예약자를 입력하세요');
-					$('#nameErrorMsg').css("color", 'red');
-					$('#nameErrorMsg').css('display', 'inline-block');
+					console.log('이름 입력 x');
+					$('#nameErrorMsg').html('');
 					nameFlag = false;
 					return;
-				} else if (!namePattern.test(name)) { // 유효성 검사 실패
-					console.log('예약자 유효성 검사 실패');
-					$('#nameErrorMsg').html('유효한 예약자를 입력하세요');
-					$('#nameErrorMsg').css('color', 'red');
-					$('#nameErrorMsg').css('display', 'inline-block');
-					nameFlag = false;
-					return;
-				} else { // 유효성 검사 통과
+				} else {
 					$('#nameErrorMsg').html('');
 					nameFlag = true;
 				}
-			}
+
+				$('#name').focusout(function() {
+					nameFocusOut();
+				});
+
+				function nameFocusOut() {
+					console.log('nameFocusOut()');
+					let name = $('#name').val();
+					// 예약자 이름 정규 표현식(2자 이상 10자이하 영어 또는 2자 ~ 4자 한글로 구성)
+					let nameRegex = /^([가-힣]{2,4}|[a-zA-Z]{1,20})$/;
+
+					if (!nameRegex.test(name)) { // 한글, 영어 정규 표현식 검사
+						console.log('이름 형식');
+						$('#nameErrorMsg').html('이름을 확인해주세요(예: 홍길동)');
+						$('#nameErrorMsg').css('color', 'red');
+						$('#nameErrorMsg').css('display', 'inline-block');
+						nameFlag = false;
+					} else {
+						nameFlag = true;
+					}
+				}
+
+			} // end nameError()
 
 			// 전화번호 유효성 검사
 			$('#phone').keyup(function() {
@@ -311,27 +345,36 @@ h1 {
 			function phoneError() {
 				console.log('phoneKeyup()');
 				let phone = $('#phone').val();
-				let phonePattern = /^[0-9]{10,11}$/;
 
 				if (phone.trim() === '') { // 전화번호가 입력 되지 않은 경우 또는 공백만 입력된 경우
 					console.log('전화번호 입력 x');
-					$('#phoneErrorMsg').html('전화번호를 입력하세요');
-					$('#phoneErrorMsg').css("color", 'red');
-					$('#phoneErrorMsg').css('display', 'inline-block');
 					phoneFlag = false;
 					return;
-				} else if (!phonePattern.test(phone)) { // 유효성 검사 실패
-					console.log('전화번호 유효성 검사 실패');
-					$('#phoneErrorMsg').html('유효한 전화번호를 입력하세요');
-					$('#phoneErrorMsg').css('color', 'red');
-					$('#phoneErrorMsg').css('display', 'inline-block');
-					phoneFlag = false;
-					return;
-				} else { // 유효성 검사 통과
+				} else {
 					$('#phoneErrorMsg').html('');
-					phoneFlag = true;
 				}
-			}
+
+				$('#phone').focusout(function() {
+					phoneFocusOut();
+				});
+
+				function phoneFocusOut() {
+					console.log('phoneFocusOut()');
+					let phone = $('#phone').val();
+					// 전화번호 정규 표현식
+					let phoneRegex = /^010\d{4}\d{4}$/;
+					if (!phoneRegex.test(phone)) { // 전화번호 정규 표현식 검사
+						console.log('전화번호 형식');
+						$('#phoneErrorMsg').html('전화번호를 확인해주세요');
+						$('#phoneErrorMsg').css('color', 'red');
+						$('#phoneErrorMsg').css('display', 'inline-block');
+						phoneFlag = false;
+					} else {
+						phoneFlag = true;
+					}
+				}
+
+			} // end phoneError()
 		}); // end ready()
 	</script>
 </body>

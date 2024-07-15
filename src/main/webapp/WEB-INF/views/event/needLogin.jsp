@@ -9,7 +9,7 @@
 <body>
 	<script type="text/javascript">
 		alert('로그인이 만료 되었습니다.');
-		location.href="../place/main";
+		location.href="http://localhost:8080/placecloud/place/main";
 	</script>
 </body>
 </html>
