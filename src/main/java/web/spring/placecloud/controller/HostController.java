@@ -26,12 +26,16 @@ public class HostController {
 	@GetMapping("/myPlace")
 	public String myPlaceGET(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 		log.info("myPlaceGet");
-		String memberEmail = userDetails.getUsername();
-		List<PlaceVO> list = placeService.getMyPlace(memberEmail);
-		log.info("List : " + list);
-		model.addAttribute("List", list);
-		log.info(memberEmail);
-		return "host/myPlace";
+		if(userDetails != null ) {
+			String memberEmail = userDetails.getUsername();
+			List<PlaceVO> list = placeService.getMyPlace(memberEmail);
+			log.info("List : " + list);
+			model.addAttribute("List", list);
+			log.info(memberEmail);
+			return "host/myPlace";			
+		} else {
+			return "event/needLogin";
+		}
 	}
 	
 	@GetMapping("/register")
@@ -43,26 +47,33 @@ public class HostController {
 	public String registerPOST(PlaceVO placeVO, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 		log.info(placeVO);
 		log.info(userDetails);
-		if (placeVO.getPlaceCategory().contains("옵션")) {
-			return "host/register";
-		}
-		int placeNum = placeService.createPlace(placeVO);
-		if (placeNum > 0) {
-			return "redirect:/host/myPlace";
+		if (userDetails != null) {
+			if (placeVO.getPlaceCategory().contains("옵션")) {
+				return "host/register";
+			}
+			int placeNum = placeService.createPlace(placeVO);
+			if (placeNum > 0) {
+				return "redirect:/host/myPlace";
+			} else {
+				model.addAttribute("errorMessage", "장소 등록에 실패했습니다.");
+				return "host/register";
+			}			
 		} else {
-			model.addAttribute("errorMessage", "장소 등록에 실패했습니다.");
-			return "host/register";
+			return "event/needLogin";
 		}
 	}
 
 	@GetMapping("/detail")
-	public String hostDetailGET(Integer placeId, Model model) {
+	public String hostDetailGET(Integer placeId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 		log.info("detailGet");
-
-		PlaceVO placeVO = placeService.getPlaceById(placeId);
-		log.info("PlaceVO : " + placeVO);
-		model.addAttribute("placeVO", placeVO);
-		return "host/detail";
+		if (userDetails != null) {
+			PlaceVO placeVO = placeService.getPlaceById(placeId);
+			log.info("PlaceVO : " + placeVO);
+			model.addAttribute("placeVO", placeVO);
+			return "host/detail";			
+		} else {
+			return "event/needLogin";
+		}
 	}
 	
 	@GetMapping("/update")
@@ -73,25 +84,33 @@ public class HostController {
 	}
 
 	@PostMapping("/update")
-	public String updatePOST(PlaceVO placeVO, Model model, Integer placeId) {
+	public String updatePOST(PlaceVO placeVO, Model model, Integer placeId, @AuthenticationPrincipal UserDetails userDetails) {
 		log.info("updatePost");
 		log.info(placeVO.toString());
-		int placeNum = placeService.updatePlace(placeVO);
-		log.info(placeNum + "행 수정");
-		placeId = placeVO.getPlaceId();
-		placeVO = placeService.getPlaceById(placeId);
-		return "redirect:/host/myPlace";
+		if (userDetails != null) {
+			int placeNum = placeService.updatePlace(placeVO);
+			log.info(placeNum + "행 수정");
+			placeId = placeVO.getPlaceId();
+			placeVO = placeService.getPlaceById(placeId);
+			return "redirect:/host/myPlace";			
+		} else {
+			return "event/needLogin";
+		}
 	}
 	
 	@GetMapping("/delete")
 	public String deleteGET(Integer placeId, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 		log.info("deleteGet");
-		String memberEmail = userDetails.getUsername();
-		int placeDel = placeService.deletePlace(placeId);
-		log.info(placeDel + "행 삭제");
-		List<PlaceVO> list = placeService.getMyPlace(memberEmail);
-		log.info("List : " + list);
-		model.addAttribute("List", list);
-		return "host/myPlace";
+		if (userDetails != null) {
+			String memberEmail = userDetails.getUsername();
+			int placeDel = placeService.deletePlace(placeId);
+			log.info(placeDel + "행 삭제");
+			List<PlaceVO> list = placeService.getMyPlace(memberEmail);
+			log.info("List : " + list);
+			model.addAttribute("List", list);
+			return "host/myPlace";			
+		} else {
+			return "event/needLogin";
+		}
 	}
 }
