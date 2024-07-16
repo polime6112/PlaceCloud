@@ -112,7 +112,7 @@ button:hover {
 		<label for="placeInfo">장소 설비</label>
 		<textarea rows="4" id="placeInfo" name="placeInfo" maxlength="100" ></textarea>
 		<label for="placeMoneyTime">시간당 가격(원/시간)</label>
-		<input type="number" id="placeMoneyTime" name="placeMoneyTime">
+		<input type="number" id="placeMoneyTime" name="placeMoneyTime" placeholder="숫자만 입력해주세요.">
 	</form>
 	<div class="image-upload">
 		<h2>이미지 파일 업로드</h2>

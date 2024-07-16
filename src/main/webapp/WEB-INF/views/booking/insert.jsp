@@ -114,19 +114,19 @@ h1 {
 	<div id="insertbody">
 		<form id="insertform" action="../ready" method="get">
 			<div>
-				<input type="hidden" name="placeId" value="${PlaceVO.placeId }">
+				<input type="hidden" name="placeId" value="${placeVO.placeId }">
 				<p>예약 공간</p>
-				<input type="text" name="placeName" readonly value="${PlaceVO.placeName }"> <br> <br>
-				<c:if test="${not empty ImageVO }">
+				<input type="text" name="placeName" readonly value="${placeVO.placeName }"> <br> <br>
+				<c:if test="${not empty placeVO }">
 					<img class="image"
-						src="../image/display?imagePath=${ImageVO.imagePath }&imageChgName=${ImageVO.imageChgName}&imageExtension=${ImageVO.imageExtension}"
+						src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}"
 						alt="이미지 로딩 실패">
 				</c:if>
 				<br>
-				<p>카테고리 : ${PlaceVO.placeCategory }</p>
-				<p>주소 : ${PlaceVO.placeAddress }</p>
-				<p>장소 설비 : ${PlaceVO.placeInfo }</p>
-				<p>주의 사항 : ${PlaceVO.placeWarning }</p>
+				<p>카테고리 : ${placeVO.placeCategory }</p>
+				<p>주소 : ${placeVO.placeAddress }</p>
+				<p>장소 설비 : ${placeVO.placeInfo }</p>
+				<p>주의 사항 : ${placeVO.placeWarning }</p>
 			</div>
 			<div>
 				<p>예약 날짜(필수)</p>
@@ -159,7 +159,7 @@ h1 {
 			<div>
 				<p>결제 금액</p>
 				<input type="text" name="bookingPrice" readonly
-					value="${PlaceVO.placeMoneyTime }"> <br>
+					value="${placeVO.placeMoneyTime }"> <br>
 			</div>
 			<div style="text-align: center;">
 				<button id="payBtn">결제하기</button>
@@ -182,7 +182,7 @@ h1 {
 			// 뒤로가기 버튼 클릭 시 이전 페이지로 이동
 			$('#backBtn').click(function() {
 				console.log('backBtn()');
-				location.href = "../place/detail?placeId=${PlaceVO.placeId }"
+				location.href = "../place/detail?placeId=${placeVO.placeId }"
 			}); // end pageBack.click()
 		})
 
