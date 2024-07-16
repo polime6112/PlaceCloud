@@ -117,10 +117,9 @@ h1 {
             <div>
                 <p>${bookingVO.placeName }</p>
                 <br>
-                <c:if test="${not empty ImageVO }">
+                <c:if test="${not empty placeVO }">
                     <img class="image"
-                        src="../image/display?imagePath=${ImageVO.imagePath }&imageChgName=${ImageVO.imageChgName}
-                                        &imageExtension=${ImageVO.imageExtension}"
+                        src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}"
                         alt="이미지 로딩 실패">
                 </c:if>
                 <fmt:formatDate value="${bookingVO.bookingDate }"

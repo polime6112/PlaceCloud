@@ -124,7 +124,7 @@ form {
         </form>
         
         <!-- 프로필 이미지  -->
-	    <img class="image" src="../profile/display?profilePath=${member.profilePath}&profileChgName=${member.profileChgName}&profileExtension=${member.profileExtension}"
+	    <img class="image" src="../profile/get?memberEmail=${member.memberEmail}&profileExtension=${member.profileExtension}"
 				alt="프로필 사진을 추가해주세요">
 				
 		<!-- 찜 목록  -->

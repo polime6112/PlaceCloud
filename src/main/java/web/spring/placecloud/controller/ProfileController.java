@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
+import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.ProfileVO;
+import web.spring.placecloud.service.MemberService;
 import web.spring.placecloud.util.ImageUploadUtil;
 import web.spring.placecloud.util.ProfileUploadUtil;
 
@@ -31,6 +33,9 @@ public class ProfileController {
 	
 	@Autowired
 	private String uploadPath;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@PostMapping
 	public ResponseEntity<ArrayList<ProfileVO>> uploadPOST(MultipartFile files) {
@@ -107,4 +112,41 @@ public class ProfileController {
 		
 		return entity;
 	}
+	
+    @GetMapping("/get")
+    public ResponseEntity<byte[]> getImage(String memberEmail, String profileExtension) {
+    	log.info("getImage()");
+    	
+    	MemberVO memberVO = memberService.getMemberByEmail(memberEmail);
+    	ResponseEntity<byte[]> entity = null;
+    	try {
+    		// 파일을 읽어와서 byte 배열로 변환
+    		String savedPath = uploadPath + File.separator
+    				+ memberVO.getProfilePath() + File.separator;
+    		
+    		if (profileExtension != null) {
+    			savedPath += "t_" + memberVO.getProfileChgName() + "." + memberVO.getProfileExtension();
+    		} else {
+    			savedPath += memberVO.getProfileChgName();
+    		}
+    		
+    		Path path = Paths.get(savedPath);
+    		byte[] imageBytes = Files.readAllBytes(path);
+    		
+    		Path extensionPath = Paths.get("." + memberVO.getProfileExtension());
+    		// 이미지의 MIME 타입 확인하여 적절한 Content-Type 지정
+    		String contentType = Files.probeContentType(extensionPath);
+    		
+    		// HTTP 응답에 byte 배열과 Content-Type을 설정하여 전송
+    		HttpHeaders httpHeaders = new HttpHeaders();
+    		httpHeaders.setContentType(MediaType.parseMediaType(contentType));
+    		entity = new ResponseEntity<byte[]>(imageBytes, httpHeaders, HttpStatus.OK);
+    	} catch (IOException e) {
+    		// 파일을 읽는 중에 예외 발생 시 예외 처리
+    		e.printStackTrace();
+    		return ResponseEntity.notFound().build(); // 파일을 찾을 수 없음을 클라이언트에게 알림
+    	}
+    	
+    	return entity;
+    }
 }

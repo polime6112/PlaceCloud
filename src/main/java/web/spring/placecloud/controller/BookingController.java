@@ -14,11 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.BookingVO;
-import web.spring.placecloud.domain.ImageVO;
 import web.spring.placecloud.domain.MemberVO;
 import web.spring.placecloud.domain.PlaceVO;
 import web.spring.placecloud.service.BookingService;
-import web.spring.placecloud.service.ImageService;
 import web.spring.placecloud.service.MemberService;
 import web.spring.placecloud.service.PlaceService;
 import web.spring.placecloud.util.BpageMaker;
@@ -33,8 +31,6 @@ public class BookingController {
 	private BookingService bookingService;
 	@Autowired
 	private PlaceService placeService;
-	@Autowired
-	private ImageService imageService;
 	@Autowired
 	private MemberService memberService;
 	
@@ -72,11 +68,8 @@ public class BookingController {
 		if(userDetails != null) {
 			log.info("placeId : " + placeId);
 			PlaceVO placeVO = placeService.getPlaceById(placeId);
-			ImageVO imageVO = imageService.getImageById(placeId);
 			log.info("placeVO : " + placeVO);
-			log.info("imageVO : " + imageVO);
-			model.addAttribute("PlaceVO", placeVO);
-			model.addAttribute("ImageVO", imageVO);
+			model.addAttribute("placeVO", placeVO);
 			return "booking/insert";
 		} else {
 			return "event/needLogin";

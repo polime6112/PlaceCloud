@@ -18,15 +18,15 @@
         margin: 0;
         padding: 0;
     }
-	.logo {
-    	text-align: center;
-    	margin: 20px 0;
-	}
-	.logo a {
-    	font-size: 2em;
-    	text-decoration: none;
-    	color: #333;
-	}
+    .logo {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .logo a {
+        font-size: 2em;
+        text-decoration: none;
+        color: #333;
+    }
     .container {
         max-width: 800px;
         margin: 50px auto;
@@ -97,12 +97,24 @@
     #QnABtn:hover {
         background-color: #0056b3;
     }
+    .likeBtn_insert {
+        background-color: #87CEEB;
+    }
+    .likeBtn_insert:hover {
+        background-color: #00BFFF;
+    }
+    .likeBtn_delete {
+        background-color: #FFB6C1;
+    }
+    .likeBtn_delete:hover {
+        background-color: #FF69B4;
+    }
 </style>
 </head>
 <body>
     <header>
         <div class="logo">
-    		<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
+            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
         </div>
     </header>
     <div class="container">
@@ -122,8 +134,7 @@
         <br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
         <br>
         <c:if test="${not empty placeVO }">
-            <img class="image" src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName}
-                                    &imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
+            <img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
         </c:if>
         <br>
         <div>
@@ -146,7 +157,6 @@
                     </c:if>
                 </div>
             </sec:authorize>
-            <br>
             <button id="QnABtn" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용 후기, Q&A 관리</button>
         </div>
     </div>
@@ -157,9 +167,12 @@
             let memberEmail = $('#memberEmail').val();
             $('#bookingBtn').click(function(){
                 if(memberEmail != null) {
+                    console.log("작동?");
                     location.href="${pageContext.request.contextPath}/booking/insert?placeId=${placeVO.placeId}";
                 } else {
+                    console.log("작동?");
                     if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
+                        console.log("작동?");
                         location.href="../auth/login";
                     }
                 }
@@ -169,26 +182,34 @@
             function getLike() {
                 let memberEmail = $('#memberEmail').val();
                 let placeId = $('#placeId').val();
+                console.log("memberEmail : " + memberEmail + " / placeId : " + placeId);
                 
                 let url = '../like/selectOne/' + memberEmail + '/' + placeId;
+                console.log("url : " + url);
                 $('#likePlace').html('<button class="likeBtn_insert">찜 하기</button>');
                 if(memberEmail != '') {
                     $.getJSON(
                         url,
                         function(data) {
+                            console.log("data : " + data);
+                                
                             let likeData = '';
+                                
                             if(data != '') {
                                 likeData = '<button class="likeBtn_delete">찜 취소</button>';
                             }
                             $('#likePlace').html(likeData);
-                        }
-                    );
+                        } // end function()
+                    ); // end getJSON()
                 }
-            }
+            } // end getLike()
+            
             
             // 찜 하기 버튼
             $('#likePlace').on('click', '.likeBtn_insert', function(){
+                console.log(this);
                 if(memberEmail != null) {
+                    let memberEmail = $('#memberEmail').val();
                     let placeId = $('#placeId').val();
                     let placeName = $('#placeName').val();
                     
@@ -197,6 +218,8 @@
                             'placeId' : placeId,
                             'placeName' : placeName
                     }
+                    console.log(likeObj);
+                    console.log("작동?");
                     // ajax 송수신
                     $.ajax({
                         type : 'POST',
@@ -206,21 +229,29 @@
                         },
                         data : JSON.stringify(likeObj),
                         success : function(result) {
+                            console.log(result);
                             if(result == 1) {
                                 getLike();
                             }
                         }
                     }); 
                 } else {
+                    console.log("작동?");
                     if(confirm('로그인 이후 이용이 가능합니다. 로그인 하시겠습니까?')){
+                        console.log("작동?");
                         location.href="../auth/login";
                     }
                 }
-            });
+                
+                
+            }); // end likeBtn_insert.on
             
             // 찜 삭제 버튼
             $('#likePlace').on('click', '.likeBtn_delete', function(){
+                console.log(this);
+                let memberEmail = $('#memberEmail').val();
                 let placeId = $('#placeId').val();
+                
                 $.ajax({
                     type : 'DELETE',
                     url : '../like/' + memberEmail + '/' + placeId,
@@ -228,16 +259,17 @@
                         'Content-Type' : 'application/json'
                     },
                     success : function(result) {
+                        console.log(result);
                         if(result == 1) {
                             getLike();
                         }
                     }
                 }) 
-            });
+            }); // end likeBtn_delete.on
             
-        });
+        }); // end document()
     </script>
-    
 </body>
 </html>
+
 
