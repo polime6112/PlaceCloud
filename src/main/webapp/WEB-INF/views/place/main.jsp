@@ -11,15 +11,6 @@
     body {
         font-family: Arial, sans-serif;
     }
-    .logo {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .logo a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #333;
-    }
     .container {
         display: flex;
         flex-direction: column;
@@ -76,7 +67,7 @@
         color: gray;
     }
 </style>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
 $(document).ready(function() {
     // 버튼 클릭 시 카테고리 값을 URL 파라미터로 전달
@@ -88,37 +79,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-        </div>
-    </header>
+	
+	<%@include file="../fix/header.jsp"%>
     
     <br><br>
-    	<div class="header-section">
-			<!-- 로그아웃 상태 -->
-			<sec:authorize access="isAnonymous()">
-			    <a href="../member/join">회원 가입</a>
-			    <a href="../auth/login">로그인</a>
-		    </sec:authorize>
-		    <!-- 로그인 상태 -->
-		    <sec:authorize access="isAuthenticated()">
-		        <p><sec:authentication property="principal.member.memberName"/>님 환영합니다</p>
-		        <a href="../member/myPage">마이페이지</a>
-		        <form action="../auth/logout" method="post">
-		            <input type="submit" value="로그아웃">
-		        </form>
-		        <!-- 게스트 권한 확인 -->
-		        <sec:authorize access="hasRole('ROLE_GUEST')">
-		        </sec:authorize>
-		        <!-- 호스트 권한 확인 -->
-		        <sec:authorize access="hasRole('ROLE_HOST')">
-					<a href="../host/myPlace">내가 등록한 장소들</a>
-		        </sec:authorize>
-		        
-		    </sec:authorize>
-		</div>
 	<div class="container">
 		<div class="wrap-btn">
 			<button class="btn-keyword">

@@ -9,17 +9,6 @@
 <meta charset="UTF-8">
 <title>BookingUpdate</title>
 <style>
-.logo {
-	text-align: center;
-	margin: 20px 0;
-}
-
-.logo a {
-	font-size: 2em;
-	text-decoration: none;
-	color: #333;
-}
-
 body {
 	font-family: Arial, sans-serif;
 }
@@ -100,11 +89,7 @@ h1 {
 }
 </style>
 </head>
-<header>
-	<div class="logo">
-		<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-	</div>
-</header>
+<%@include file="../fix/header.jsp"%>
 <body>
 	<h1>예약 수정</h1>
 	<div id="updatebody">

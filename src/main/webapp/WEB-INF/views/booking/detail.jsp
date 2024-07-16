@@ -11,21 +11,9 @@
 <meta charset="UTF-8">
 <title>예약 정보</title>
 <style>
-.logo {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.logo a {
-    font-size: 2em;
-    text-decoration: none;
-    color: #333;
-}
-
 body {
     font-family: Arial, sans-serif;
 }
-
 #detailbody {
     border: 2px solid #706FFF;
     width: 80%;
@@ -37,7 +25,6 @@ body {
     margin: 50px auto;
     background-color: #fff;
 }
-
 input[type="text"], input[type="date"], input[type="email"], textarea {
     width: 100%;
     padding: 10px;
@@ -45,11 +32,9 @@ input[type="text"], input[type="date"], input[type="email"], textarea {
     box-sizing: border-box;
     font-size: 16px;
 }
-
 input[readonly] {
     background-color: #f1f1f1;
 }
-
 button {
     width: 100%;
     color: black;
@@ -64,38 +49,30 @@ button {
 textarea {
         resize: none;
 }
-
 #backBtn {
     background-color: #f44336;
 }
-
 #backBtn:hover {
     background-color: #e41e1e;
 }
-
 #updateBtn {
     background-color: #4CAF50;
 }
-
 #updateBtn:hover {
     background-color: #45a049;
 }
-
 #deleteBtn {
     background-color: #ff9800;
 }
-
 #deleteBtn:hover {
     background-color: #e68900;
 }
-
 img {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 10px 0;
 }
-
 h1 {
     text-align: center;
     font-size: 40px;
@@ -104,11 +81,7 @@ h1 {
 }
 </style>
 </head>
-<header>
-    <div class="logo">
-        <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-    </div>
-</header>
+<%@include file="../fix/header.jsp"%>
 <body>
     <h1>예약 정보</h1>
     <div id="detailbody">

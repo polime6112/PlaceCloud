@@ -12,17 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <title>공간 예약</title>
 <style>
-.logo {
-	text-align: center;
-	margin: 20px 0;
-}
-
-.logo a {
-	font-size: 2em;
-	text-decoration: none;
-	color: #333;
-}
-
 body {
 	font-family: Arial, sans-serif;
 }
@@ -104,11 +93,7 @@ h1 {
 </style>
 
 </head>
-<header>
-	<div class="logo">
-		<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-	</div>
-</header>
+<%@include file="../fix/header.jsp"%>
 <body>
 	<h1>공간 예약</h1>
 	<div id="insertbody">

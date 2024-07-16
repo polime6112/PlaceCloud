@@ -17,17 +17,6 @@
         };
 </script>
 <style>
-.logo {
-	text-align: center;
-	margin: 20px 0;
-}
-
-.logo a {
-	font-size: 2em;
-	text-decoration: none;
-	color: #333;
-}
-
 .container {
 	font-family: Arial, sans-serif;
 	margin: 50px auto;
@@ -144,11 +133,7 @@
 }
 </style>
 </head>
-<header>
-	<div class="logo">
-		<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-	</div>
-</header>
+<%@include file="../fix/header.jsp"%>
 <body>
 	<div class="container">
 		<h1>${member.memberName }님의 예약목록</h1>
