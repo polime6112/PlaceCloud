@@ -122,13 +122,19 @@ form {
             <label for="phone">전화번호:</label> <input type="text" id="memberPhone"
                 name="memberPhone" value="${member.memberPhone}" readonly><br>
         </form>
+        
+        <!-- 프로필 이미지  -->
 	    <img class="image" src="../profile/display?profilePath=${member.profilePath}&profileChgName=${member.profileChgName}&profileExtension=${member.profileExtension}"
-	        					alt="프로필 사진을 추가해주세요">
+				alt="프로필 사진을 추가해주세요">
+				
+		<!-- 찜 목록  -->
 		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
+		<!-- 예약 목록 -->
 		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
-		      
-       <button id="modifyMember" onclick="location.href='../member/updateInfo'">정보 수정</button>
-       <button id="removeBtn" onclick="location.href='../member/remove'">회원 탈퇴</button>
+		<!-- 회원 정보 수정  -->      
+       	<button id="modifyMember" onclick="location.href='../member/updateInfo'">정보 수정</button>
+       	<!-- 회원 탈퇴  -->
+       	<button id="removeBtn" onclick="location.href='../member/remove'">회원 탈퇴</button>
 
     </div>
       
