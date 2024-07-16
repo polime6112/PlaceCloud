@@ -124,9 +124,26 @@
 	</c:if>
 	<br>
 	<div>
-		<button id="bookingBtn">예약 하기</button>
-		<div id="likePlace"></div>
-		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용후기 Q&A관리</button>
+		<!-- 비회원 상태 -->
+		<sec:authorize access="isAnonymous()">
+			<button id="bookingBtn">예약 하기</button>
+			<div id="likePlace"></div>
+		</sec:authorize>
+		<!-- 게스트 권한 확인 -->
+		<sec:authorize access="hasRole('ROLE_GUEST')">
+			<button id="bookingBtn">예약 하기</button>
+			<div id="likePlace"></div>
+		</sec:authorize>
+		<!-- 호스트 권한 확인 -->
+		<sec:authorize access="hasRole('ROLE_HOST')">
+			<div>
+				<c:if test="${principal.username == placeVO.memberEmail }">
+				<br> <button name="update" onclick="location.href='../host/update?placeId=${placeVO.placeId}'">장소 정보 수정</button><br>
+				<br> <button name="delete" onclick="location.href='../host/delete?placeId=${placeVO.placeId}'">장소 삭제</button>
+				</c:if>
+			</div>
+		</sec:authorize>
+		<button id="Q&A" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용 후기, Q&A 관리</button>
 	</div>
 	
 	<script type="text/javascript">
