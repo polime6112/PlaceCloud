@@ -31,8 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.authorizeRequests()
-		.antMatchers("/host/register").access("hasRole('ROLE_HOST')")
-		.antMatchers("/review/rigster").access("hasRole('ROLE_GUEST')");
+		.antMatchers("/host/register", "/host/detail", "/host/myPlace", "/host/update").access("hasRole('ROLE_HOST')")
+		.antMatchers("/review/register", "/review/edit").access("hasRole('ROLE_GUEST')")
+		.antMatchers("/booking/detail", "/booking/insert", "/booking/list", "/booking/update").access("hasRole('ROLE_GUEST')")
+		.antMatchers("/like/list").access("hasRole('ROLE_GUEST')");
 		
 		// antMatchers(pattern) : 특정 url 패턴에 맞는 경로 매핑
 		// permitAll() : 모든 사용자 접근
