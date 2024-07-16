@@ -10,17 +10,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <title>My likes</title>
 <style>
-.logo {
-	text-align: center;
-	margin: 20px 0;
-}
-
-.logo a {
-	font-size: 2em;
-	text-decoration: none;
-	color: #333;
-}
-
 .container {
 	font-family: Arial, sans-serif;
 	margin: 50px auto;
@@ -33,21 +22,6 @@
 	font-size: 24px;
 	color: #343a40;
 	margin-bottom: 20px;
-}
-
-.userInfo {
-	float: right;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	cursor: pointer;
-	border-radius: 5px;
-	text-decoration: none;
-}
-
-.userInfo:hover {
-	background-color: #0056b3;
 }
 
 .like-form {
@@ -107,16 +81,10 @@
 }
 </style>
 </head>
-<header>
-	<div class="logo">
-		<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-	</div>
-</header>
 <body>
+<%@include file="../fix/header.jsp"%>
 	<div class="container">
 		<h1>${member.memberName }님의 관심 장소 목록</h1>
-		<button class="userInfo"
-			onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
 		<br> <br>
 		<div class="row">
 			<div class="col-md-12">

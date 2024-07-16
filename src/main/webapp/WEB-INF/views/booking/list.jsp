@@ -31,21 +31,6 @@
 	margin-bottom: 20px;
 }
 
-.userInfo {
-	float: right;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	cursor: pointer;
-	border-radius: 5px;
-	text-decoration: none;
-}
-
-.userInfo:hover {
-	background-color: #0056b3;
-}
-
 .booking-form {
 	margin-bottom: 20px;
 }
@@ -137,8 +122,6 @@
 <body>
 	<div class="container">
 		<h1>${member.memberName }님의 예약목록</h1>
-		<button class="userInfo"
-			onclick="location.href='/placecloud/member/myPage'">회원 정보</button>
 		<br> <br>
 		<div class="row">
 			<div class="col-md-12">
