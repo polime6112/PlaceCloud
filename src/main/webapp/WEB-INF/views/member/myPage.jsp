@@ -10,6 +10,21 @@
 <!-- jquery 라이브러리 import -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <style type="text/css">
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
 .logo {
 	text-align: center;
 	margin: 20px 0;
@@ -19,13 +34,6 @@
 	font-size: 2em;
 	text-decoration: none;
 	color: #333;
-}
-
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
-	margin: 0;
-	padding: 0;
 }
 
 #myInfoContainer {

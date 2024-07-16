@@ -11,15 +11,6 @@
     body {
         font-family: Arial, sans-serif;
     }
-    .logo {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .logo a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #333;
-    }
     .placeList {
         display: flex;
         flex-wrap: wrap;
@@ -57,14 +48,8 @@
 </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="${pageContext.request.contextPath}/place/main">PlaceCloud</a>
-        </div>
-    </header>
+	<%@include file="../fix/header.jsp"%>
     <br><br>
-    <sec:authentication property="principal" var="principal"/>
-    <input type="hidden" id="memberEmail" value="${principal.username}">
     <div class="placeList">
         <c:forEach var="placeVO" items="${list}">
             <c:if test="${placeVO.placeCategory == param.placeCategory}">

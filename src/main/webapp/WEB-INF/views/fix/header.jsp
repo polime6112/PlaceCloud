@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	body {
+		font-family: Arial, sans-serif;
+	}
     .header-section {
         display: flex;
         justify-content: center;

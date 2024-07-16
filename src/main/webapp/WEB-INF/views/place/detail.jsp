@@ -14,18 +14,6 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-    }
-    .logo {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .logo a {
-        font-size: 2em;
-        text-decoration: none;
-        color: #333;
     }
     .container {
         max-width: 800px;
@@ -122,11 +110,7 @@
 </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-        </div>
-    </header>
+	<%@include file="../fix/header.jsp"%>
     <div class="container">
         <input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
         <sec:authentication property="principal" var="principal"/>
