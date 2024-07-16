@@ -109,6 +109,16 @@
     .likeBtn_delete:hover {
         background-color: #FF69B4;
     }
+    #likePlace {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 </head>
 <body>
@@ -118,13 +128,19 @@
         </div>
     </header>
     <div class="container">
-        <sec:authentication property="principal" var="principal"/>
-        <sec:authorize access="isAuthenticated()">
-            <input type="hidden" name="memberEmail" id="memberEmail" value="${principal.member.memberEmail}">
-        </sec:authorize>
         <input type="hidden" name="placeId" id="placeId" value="${placeVO.placeId }">
-        <fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
-        <p>작성일 : ${placeCreateDate }</p>
+        <sec:authentication property="principal" var="principal"/>
+        <div class="header-row">
+        	<fmt:formatDate value="${placeVO.placeCreateDate }" pattern="yyyy-MM-dd HH:mm:ss" var="placeCreateDate" />
+        	<p>작성일 : ${placeCreateDate }</p>
+        	<sec:authorize access="isAnonymous()">
+                	<div id="likePlace"></div>
+       		</sec:authorize>
+        	<sec:authorize access="hasRole('ROLE_GUEST')">
+            	<input type="hidden" name="memberEmail" id="memberEmail" value="${principal.username}">
+            	<div id="likePlace"></div>
+        	</sec:authorize>
+        </div>
         장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
         <br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
         <br> 장소 설명<br><br> <textarea rows="4" cols="20" id="placeContext" readonly>${placeVO.placeContext }</textarea><br>
@@ -141,12 +157,10 @@
             <!-- 비회원 상태 -->
             <sec:authorize access="isAnonymous()">
                 <button id="bookingBtn">예약 하기</button>
-                <div id="likePlace"></div>
             </sec:authorize>
             <!-- 게스트 권한 확인 -->
             <sec:authorize access="hasRole('ROLE_GUEST')">
                 <button id="bookingBtn">예약 하기</button>
-                <div id="likePlace"></div>
             </sec:authorize>
             <!-- 호스트 권한 확인 -->
             <sec:authorize access="hasRole('ROLE_HOST')">
