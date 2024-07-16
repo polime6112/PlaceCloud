@@ -144,22 +144,11 @@ $(document).ready(function() {
 		</div>
 		<div class="placeList">
 			<c:forEach var="placeVO" items="${list}">
-				<!-- 게스트 권한 확인 -->
-				<sec:authorize access="hasRole('ROLE_GUEST')">
-					<div class="placeCard" id="placeCard"
+				<div class="placeCard" id="placeCard"
 					onclick="location.href='../place/detail?placeId=' + ${placeVO.placeId}">
 					<div class="placeName">${placeVO.placeName}</div>
 					<div class="placeCategory">${placeVO.placeCategory}</div>
-					</div>
-				</sec:authorize>
-				<!-- 호스트 권한 확인 -->
-				<sec:authorize access="hasRole('ROLE_HOST')">
-					<div class="placeCard" id="placeCard"
-					onclick="location.href='../host/detail?placeId=' + ${placeVO.placeId}">
-					<div class="placeName">${placeVO.placeName}</div>
-					<div class="placeCategory">${placeVO.placeCategory}</div>
-					</div>
-				</sec:authorize>
+				</div>
 			</c:forEach>
 		</div>
 	</div>
