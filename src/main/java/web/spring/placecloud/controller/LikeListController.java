@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.LikeVO;
 import web.spring.placecloud.domain.MemberVO;
+import web.spring.placecloud.domain.PlaceVO;
 import web.spring.placecloud.service.LikeService;
 import web.spring.placecloud.service.MemberService;
+import web.spring.placecloud.service.PlaceService;
 
 @Controller
 @RequestMapping(value = "/like")
@@ -38,6 +40,7 @@ public class LikeListController {
 			log.info("likeList() = " + likeList);
 			MemberVO memberVO = memberService.getMemberByEmail(userEmail);
 			log.info("memberVO : " + memberVO);
+			
 			
 			model.addAttribute("member", memberVO);	
 			model.addAttribute("likeList", likeList);

@@ -124,6 +124,7 @@
 					<c:forEach var="likeVO" items="${likeList }">
 						<div class="like-item">
 							<a href="../place/detail?placeId=${likeVO.placeId }">${likeVO.placeName }</a>
+							<p>${likeVO.placeCategory}</p>
 						</div>
 					</c:forEach>
 				</div>

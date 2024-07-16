@@ -40,11 +40,12 @@ public class LikeServiceImple implements LikeService {
 		log.info("getBoardById()");
 		return likeMapper.selectOne(placeId, memberEmail);
 	}
-
+	
 	@Override
 	public int deleteBoard(int placeId, String memberEmail) {
 		log.info("deleteBoard()");
 		return likeMapper.delete(placeId, memberEmail);
 	}
+
 
 }

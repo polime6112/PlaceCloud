@@ -226,11 +226,13 @@
                     let memberEmail = $('#memberEmail').val();
                     let placeId = $('#placeId').val();
                     let placeName = $('#placeName').val();
+                    let placeCategory = $('#placeCategory').val();
                     
                     let likeObj = {
                             'memberEmail' : memberEmail,
                             'placeId' : placeId,
-                            'placeName' : placeName
+                            'placeName' : placeName,
+                            'placeCategory' : placeCategory
                     }
                     console.log(likeObj);
                     console.log("작동?");

@@ -16,4 +16,5 @@ public class LikeVO {
 	private String memberEmail; // 회원 계정(이메일)
 	private int placeId; // 장소 index
 	private String placeName; // 장소 이름
+	private String placeCategory; // 장소 카테고리
 } // end LikeVO

@@ -10,13 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="memberEmail" column="MEMBER_EMAIL" />
 		<result property="placeId" column="PLACE_ID" />
 		<result property="placeName" column="PLACE_NAME" />
+		<result property="placeCategory" column="PLACE_CATEGORY" />
 	</resultMap>
 	
 	<insert id="insert"><!-- 관심 장소 설정 -->
 		INSERT INTO LIKELIST
-		(LIKE_ID, MEMBER_EMAIL, PLACE_ID, PLACE_NAME)
+		(LIKE_ID, MEMBER_EMAIL, PLACE_ID, PLACE_NAME, PLACE_CATEGORY)
 		VALUES
-		(LIKELIST_SEQ.NEXTVAL, #{memberEmail}, #{placeId}, #{placeName})
+		(LIKELIST_SEQ.NEXTVAL, #{memberEmail}, #{placeId}, #{placeName}, #{placeCategory})
 	</insert>
 	
 	<select id="selectList" resultMap="likeResultMap"><!-- 관심 장소 전체 조회 -->
