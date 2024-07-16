@@ -93,6 +93,70 @@ input[type="text"], input[type="password"] {
 	opacity: 0.8;
 }
 
+.profile-upload {
+	width: 600px;
+	padding: 40px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: 100px auto;
+	background-color: #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	text-align: center;
+}
+
+.profile-upload h2 {
+	margin-bottom: 10px;
+	font-size: 24px;
+	color: #706FFF;
+}
+
+.profile-upload p {
+	font-size: 14px;
+	color: #666;
+}
+
+.profile-drop {
+	text-align: center;
+	width: 90%;
+	padding: 20px;
+	border: 2px dashed #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	cursor: pointer;
+}
+
+.profile-drop:hover {
+	background-color: #e6e6e6;
+}
+
+.profile-list, .profileVOImg-list {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.profile_item {
+	display: inline-block;
+	margin-right: 10px;
+	position: relative;
+}
+
+.profile_item img {
+	border-radius: 10px;
+}
+
+.profile_delete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	border: none;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -131,7 +195,15 @@ input[type="text"], input[type="password"] {
             <input class="join" type="text" id="memberPhone" name="memberPhone" placeholder="전화번호" maxlength="13" required>
             <span id="phoneValidMsg"></span>
         </div>
-
+        
+        <!-- 뒤로가기 저장하기 버튼  -->
+        <div id="button">
+   			<a href="#" id="goBackBtn">뒤로가기</a>
+	    	<button id="updateBtn">저장하기</button>		
+		</div>
+		
+    </form>
+    
 		<div class="profile-upload">
 			<h2>이미지 파일 업로드</h2>
 			<p>* 이미지 파일은 1개만 가능합니다.</p>
@@ -142,15 +214,7 @@ input[type="text"], input[type="password"] {
 		</div>
 
 		<div class="profileVOImg-list"></div>
-        
-        <!-- 뒤로가기 저장하기 버튼  -->
-        <div id="button">
-   			<a href="#" id="goBackBtn">뒤로가기</a>
-	    	<button id="updateBtn">저장하기</button>		
-		</div>
 		
-    </form>
-    
     <script type="text/javascript">
     	$(document).ready(function(){
     		

@@ -85,6 +85,69 @@ body {
 #joinBtn:hover {
 	background-color: #ffca28;
 }
+.profile-upload {
+	width: 600px;
+	padding: 40px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: 100px auto;
+	background-color: #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	text-align: center;
+}
+
+.profile-upload h2 {
+	margin-bottom: 10px;
+	font-size: 24px;
+	color: #706FFF;
+}
+
+.profile-upload p {
+	font-size: 14px;
+	color: #666;
+}
+
+.profile-drop {
+	text-align: center;
+	width: 90%;
+	padding: 20px;
+	border: 2px dashed #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	cursor: pointer;
+}
+
+.profile-drop:hover {
+	background-color: #e6e6e6;
+}
+
+.profile-list, .profileVOImg-list {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.profile_item {
+	display: inline-block;
+	margin-right: 10px;
+	position: relative;
+}
+
+.profile_item img {
+	border-radius: 10px;
+}
+
+.profile_delete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	border: none;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
