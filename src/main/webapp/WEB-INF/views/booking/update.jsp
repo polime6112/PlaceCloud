@@ -64,7 +64,7 @@ button {
 }
 
 #backBtn:hover {
-	background-color: #e41e1e;
+	background-color: #b32d2d;
 }
 
 img {

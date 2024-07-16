@@ -44,7 +44,7 @@
         text-align: center;
     }
     .image {
-        max-width: 100%;
+        width: 100%;
         max-height: 400px;
         border: 1px solid #ddd;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -61,11 +61,17 @@
         cursor: pointer;
         font-size: 15px;
     }
+    #bookingBtn {
+    	background-color: #FFD700;
+    }
+    #bookingBtn:hover {
+    	background-color: #ffa500;
+    }
     #backBtn {
         background-color: #f44336;
     }
     #backBtn:hover {
-        background-color: #e41e1e;
+        background-color: #b32d2d;
     }
     #updateBtn {
         background-color: #4CAF50;
@@ -127,15 +133,15 @@
         </div>
         장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
         <br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
+        <c:if test="${not empty placeVO }">
+            <img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
+        </c:if>
+        <br>
         <br> 장소 설명<br><br> <textarea rows="4" cols="20" id="placeContext" readonly>${placeVO.placeContext }</textarea><br>
         <br> 주소 <input type="text" id="placeAddress" value="${placeVO.placeAddress }" readonly><br>
         <br> 주의사항<br><br> <textarea rows="4" cols="20" id="placeWarning" readonly>${placeVO.placeWarning }</textarea><br>
         <br> 장소 설비<br><br> <textarea rows="4" cols="20" id="placeInfo" readonly>${placeVO.placeInfo }</textarea><br>
         <br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
-        <br>
-        <c:if test="${not empty placeVO }">
-            <img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
-        </c:if>
         <br>
         <div>
             <!-- 비회원 상태 -->
@@ -156,6 +162,7 @@
                 </div>
             </sec:authorize>
             <button id="QnABtn" onclick="location.href='../review/list?placeId=${placeVO.placeId }'">이용 후기, Q&A 관리</button>
+            <button id="backBtn" onclick="window.history.back()">뒤로 가기</button>
         </div>
     </div>
     

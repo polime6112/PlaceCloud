@@ -59,7 +59,7 @@ button {
 }
 
 #payBtn:hover {
-	background-color: #ffa500;
+	background-color: #f3e85a;
 }
 
 #backBtn {
@@ -67,14 +67,21 @@ button {
 }
 
 #backBtn:hover {
-	background-color: #e41e1e;
+	background-color: #b32d2d;
 }
 
-img {
-	max-width: 100%;
-	height: auto;
-	display: block;
-	margin: 10px 0;
+.image-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image {
+    width: 100%;
+    max-height: 400px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 10px 0;
 }
 
 span {

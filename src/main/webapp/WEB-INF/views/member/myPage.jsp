@@ -134,11 +134,13 @@ form {
         <!-- 프로필 이미지  -->
 	    <img class="image" src="../profile/get?memberEmail=${member.memberEmail}&profileExtension=${member.profileExtension}"
 				alt="프로필 사진을 추가해주세요">
-				
-		<!-- 찜 목록  -->
-		<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
-		<!-- 예약 목록 -->
-		<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
+		
+		<sec:authorize access="hasRole('ROLE_GUEST')">
+			<!-- 찜 목록  -->
+			<button id="likeList" onclick="location.href='../like/list'">관심 장소 목록</button>
+			<!-- 예약 목록 -->
+			<button id="bookingList" onclick="location.href='../booking/list'">예약 목록</button>
+        </sec:authorize>		
 		<!-- 회원 정보 수정  -->      
        	<button id="modifyMember" onclick="location.href='../member/updateInfo'">정보 수정</button>
        	<!-- 회원 탈퇴  -->

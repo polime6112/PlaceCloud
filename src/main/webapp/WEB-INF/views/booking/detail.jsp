@@ -53,7 +53,7 @@ textarea {
     background-color: #f44336;
 }
 #backBtn:hover {
-    background-color: #e41e1e;
+    background-color: #b32d2d;
 }
 #updateBtn {
     background-color: #4CAF50;
@@ -67,11 +67,15 @@ textarea {
 #deleteBtn:hover {
     background-color: #e68900;
 }
-img {
+.image-container {
+    margin-top: 20px;
+    text-align: center;
+}
+.image {
     max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px 0;
+    max-height: 400px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 h1 {
     text-align: center;
