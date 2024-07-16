@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
 import web.spring.placecloud.domain.ImageVO;
+import web.spring.placecloud.domain.PlaceVO;
+import web.spring.placecloud.service.PlaceService;
 import web.spring.placecloud.util.ImageUploadUtil;
 
 @RestController
@@ -31,6 +33,9 @@ public class ImageController {
     @Autowired
     // ServletConfig에 @Bean으로 설정된 uploadPath() 객체 사용
     private String uploadPath; 
+    
+    @Autowired
+    private PlaceService placeService;
     
     @PostMapping
     public ResponseEntity<ArrayList<ImageVO>> uploadPOST(MultipartFile files) {
@@ -111,5 +116,42 @@ public class ImageController {
 
        return entity;
 
+    }
+    
+    @GetMapping("/get")
+    public ResponseEntity<byte[]> getImage(int placeId, String imageExtension) {
+    	log.info("getImage()");
+    	
+    	PlaceVO placeVO = placeService.getPlaceById(placeId);
+    	ResponseEntity<byte[]> entity = null;
+    	try {
+    		// 파일을 읽어와서 byte 배열로 변환
+    		String savedPath = uploadPath + File.separator
+    				+ placeVO.getImagePath() + File.separator;
+    		
+    		if (imageExtension != null) {
+    			savedPath += "t_" + placeVO.getImageChgName() + "." + placeVO.getImageExtension();
+    		} else {
+    			savedPath += placeVO.getImageChgName();
+    		}
+    		
+    		Path path = Paths.get(savedPath);
+    		byte[] imageBytes = Files.readAllBytes(path);
+    		
+    		Path extensionPath = Paths.get("." + placeVO.getImageExtension());
+    		// 이미지의 MIME 타입 확인하여 적절한 Content-Type 지정
+    		String contentType = Files.probeContentType(extensionPath);
+    		
+    		// HTTP 응답에 byte 배열과 Content-Type을 설정하여 전송
+    		HttpHeaders httpHeaders = new HttpHeaders();
+    		httpHeaders.setContentType(MediaType.parseMediaType(contentType));
+    		entity = new ResponseEntity<byte[]>(imageBytes, httpHeaders, HttpStatus.OK);
+    	} catch (IOException e) {
+    		// 파일을 읽는 중에 예외 발생 시 예외 처리
+    		e.printStackTrace();
+    		return ResponseEntity.notFound().build(); // 파일을 찾을 수 없음을 클라이언트에게 알림
+    	}
+    	
+    	return entity;
     }
 }
