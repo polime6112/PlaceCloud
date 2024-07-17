@@ -40,11 +40,7 @@ header {
 </style>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+<%@include file="../fix/header.jsp"%>
 
 	<h2 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">글 작성</h2>
 	<form action="../review/register" method="post">

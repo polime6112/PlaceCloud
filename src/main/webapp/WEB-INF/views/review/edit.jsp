@@ -7,11 +7,7 @@
 <title>${reviewVO.reviewTitle }</title>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+	<%@include file="../fix/header.jsp"%>
 	
 	<h2 style="text-align: center; font-size: 40px; font-weight: 900; color: #706FFF;">리뷰 수정</h2>
 	<form id="editForm" action="edit" method="post">

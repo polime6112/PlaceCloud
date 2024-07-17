@@ -109,11 +109,7 @@ table th {
 </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-        </div>
-    </header>
+    <%@include file="../fix/header.jsp"%>
 
     <h1 style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기</h1>
     <div class="top-bar">

@@ -53,11 +53,7 @@ body {
 </script>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+	<%@include file="../fix/header.jsp"%>
 	<sec:authentication property="principal" var="principal"/>
     <h2>${principal.member.memberName}의 페이지</h2>
     <input type="hidden" id="memberEmail" value="${principal.username}">

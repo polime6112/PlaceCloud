@@ -94,11 +94,7 @@
 </style>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+	<%@include file="../fix/header.jsp"%>
 	<br>
 	<sec:authentication property="principal" var="principal"/>
 	<c:if test="${principal.username == placeVO.memberEmail }">
