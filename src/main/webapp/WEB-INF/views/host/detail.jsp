@@ -119,7 +119,7 @@
 	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
 	<br>
 	<c:if test="${not empty placeVO }">
-		<img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" 
+		<img class="image" src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}" 
 							alt="이미지 로딩 실패">
 	</c:if>
 	<br>

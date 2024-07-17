@@ -132,7 +132,7 @@ form {
         </form>
         
         <!-- 프로필 이미지  -->
-	    <img class="image" src="../profile/get?memberEmail=${member.memberEmail}&profileExtension=${member.profileExtension}"
+	    <img class="image" src="../profile/display?profilePath=${memberVO.profilePath }&profileChgName=${memberVO.profileChgName }&profileExtension=${memberVO.profileExtension}"
 				alt="프로필 사진을 추가해주세요">
 		
 		<sec:authorize access="hasRole('ROLE_GUEST')">

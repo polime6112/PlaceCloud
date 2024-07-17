@@ -192,7 +192,7 @@ input[type="text"], input[type="password"] {
         <!-- 전화번호 -->
         <div id="phone">
 	        <label for="phone">전화번호:</label>
-            <input class="join" type="text" id="memberPhone" name="memberPhone" placeholder="전화번호" maxlength="13" required>
+            <input class="join" type="text" id="memberPhone" name="memberPhone" placeholder="전화번호" maxlength="11" required>
             <span id="phoneValidMsg"></span>
         </div>
         
