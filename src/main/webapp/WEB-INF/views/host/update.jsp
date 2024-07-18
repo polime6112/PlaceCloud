@@ -101,17 +101,17 @@ button:hover {
 		<label for="placeContext">장소 설명</label>
 		<textarea rows="4" id="placeContext" name="placeContext" maxlength="100" ></textarea>
 		<label for="placeAddress">주소 입력</label>
-		<input type="text" id="postcode" placeholder="우편번호">
+		<input type="text" id="postcode" placeholder="우편번호" readonly>
 		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="address" placeholder="주소"><br>
+		<input type="text" id="address" placeholder="주소" readonly><br>
 		<input type="text" id="detailAddress" placeholder="상세주소">
-		<input type="text" id="extraAddress" placeholder="참고항목">
+		<input type="text" id="extraAddress" placeholder="참고항목" readonly>
 		<input type="hidden" id="placeAddress" name="placeAddress">
 		<label for="placeWarning">주의사항</label>
 		<textarea rows="4" id="placeWarning" name="placeWarning" maxlength="100" ></textarea>
 		<label for="placeInfo">장소 설비</label>
 		<textarea rows="4" id="placeInfo" name="placeInfo" maxlength="100" ></textarea>
-		<label for="placeMoneyTime">시간당 가격(원/시간)</label>
+		<label for="placeMoneyTime">가격</label>
 		<input type="number" id="placeMoneyTime" name="placeMoneyTime" placeholder="숫자만 입력해주세요.">
 	</form>
 	<div class="image-upload">
@@ -204,33 +204,35 @@ button:hover {
 	
 				$('#placeAddress').val(fullAddress);
 				
-				// form 객체 참조
-				var update = $('#update');
-
-				var imageVO = JSON.parse($('.imageVOImg-list input').val());
-				console.log(imageVO);
-				
-				var inputPath = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imagePath');
-				inputPath.val(imageVO.imagePath);
-				
-				var inputRealName = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageRealName');
-				inputRealName.val(imageVO.imageRealName);
-				
-				var inputChgName = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageChgName');
-				inputChgName.val(imageVO.imageChgName);
-				
-				var inputExtension = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageExtension');
-				inputExtension.val(imageVO.imageExtension);
-				
-				update.append(inputPath);
-				update.append(inputRealName);
-				update.append(inputChgName);
-				update.append(inputExtension);
-				
+				var i = 0;
+				$('.imageVOImg-list input[name="imageVO"]').each(function() {
+					console.log(this);
+					
+					var imageVO = JSON.parse($(this).val());
+					
+					var inputPath = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imagePath');
+					inputPath.val(imageVO.imagePath);
+					
+					var inputRealName = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageRealName');
+					inputRealName.val(imageVO.imageRealName);
+					
+					var inputChgName = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageChgName');
+					inputChgName.val(imageVO.imageChgName);
+					
+					var inputExtension = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageExtension');
+					inputExtension.val(imageVO.imageExtension);
+					
+					update.append(inputPath);
+					update.append(inputRealName);
+					update.append(inputChgName);
+					update.append(inputExtension);
+					
+					i++;
+				});
 				update.submit();
 			});
 		}); // end document

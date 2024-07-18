@@ -106,17 +106,17 @@ button:hover {
 		<label for="placeContext">장소 설명</label>
 		<textarea rows="4" id="placeContext" name="placeContext" maxlength="100"></textarea>
 		<label for="placeAddress">주소 입력</label>
-		<input type="text" id="postcode" placeholder="우편번호">
+		<input type="text" id="postcode" placeholder="우편번호" readonly>
 		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="address" placeholder="주소"><br>
+		<input type="text" id="address" placeholder="주소" readonly><br>
 		<input type="text" id="detailAddress" placeholder="상세주소">
-		<input type="text" id="extraAddress" placeholder="참고항목">
+		<input type="text" id="extraAddress" placeholder="참고항목" readonly>
 		<input type="hidden" id="placeAddress" name="placeAddress">
 		<label for="placeWarning">주의사항</label>
 		<textarea rows="4" id="placeWarning" name="placeWarning" maxlength="100"></textarea>
 		<label for="placeInfo">장소 설비</label>
 		<textarea rows="4" id="placeInfo" name="placeInfo" maxlength="100"></textarea>
-		<label for="placeMoneyTime">시간당 가격(원/시간)</label>
+		<label for="placeMoneyTime">가격</label>
 		<input type="number" id="placeMoneyTime" name="placeMoneyTime" placeholder="숫자만 입력해주세요.">
 	</form>
 	<div class="image-upload">
@@ -199,8 +199,10 @@ button:hover {
 				var detailAddress = $('#detailAddress').val().trim();
 				var extraAddress = $('#extraAddress').val().trim();
 				var fullAddress = postcode + ' ' + address + ' ' + detailAddress + ' ' + extraAddress;
+				var inputPath = $('')
 				
-				if (placeName === '' || placeContext === '' || postcode === '' || address === '' || detailAddress === '' || placeWarning === '' || placeInfo === '' || placeMoneyTime === '') {
+				if (placeName === '' || placeContext === '' || postcode === '' || address === '' || detailAddress === '' 
+						|| placeWarning === '' || placeInfo === '' || placeMoneyTime === '') {
 					alert("모든 사항을 작성해주세요.");
 					return;
 				} else {

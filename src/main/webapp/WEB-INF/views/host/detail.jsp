@@ -109,10 +109,10 @@
 	장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
 	<br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
 	<br> 장소 설명 <input type="text" id="placeContext" value="${placeVO.placeContext }" readonly><br>
-	<br> 주소 <input type="text" id="placeAddress" value="${placeVO.placeAddress }" readonly><br>
+	<br> 주소 <br><br><textarea rows="4" cols="20" id="placeAddress" readonly>${placeVO.placeAddress }</textarea><br>
 	<br> 주의사항<br><br> <textarea rows="4" cols="20" id="placeWarning" readonly>${placeVO.placeWarning }</textarea><br>
 	<br> 장소 설비<br><br> <textarea rows="4" cols="20" id="placeInfo" readonly>${placeVO.placeInfo }</textarea><br>
-	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
+	<br> 가격 <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
 	<br>
 	<div class="image-upload">
 		<div class="image-view">
