@@ -240,27 +240,6 @@ h1 {
 				console.log('dateChange()');
 				let date = $('#date').val();
 				let email = $('#email').val();
-				console.log("date : " + date + " / email : " + email);
-				
-				let url = '../booking/selectDate/' + date + '/' + email;
-				console.log("url : " + url);
-				
-				if(date != '') {
-					$.getJSON(
-						url,
-						function(data) {
-							console.log("data : " + data);
-							if(data != '') {
-								$('#dateErrorMsg').html('이미 예약이 된 날짜입니다. 다른 날짜를 선택해주세요');
-								$('#dateErrorMsg').css("color", 'red');
-								$('#dateErrorMsg').css('display', 'inline-block');
-								dateFlag = false;
-								date = '';
-								return;
-							}
-						}
-					);
-				}
 
 				if (date.trim() === '') { // 날짜가 입력 되지 않은 경우 또는 공백만 입력된 경우
 					console.log('날짜 입력 x');
