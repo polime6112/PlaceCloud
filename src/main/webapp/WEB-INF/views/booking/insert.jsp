@@ -135,10 +135,10 @@ h1 {
 				<span id="nameErrorMsg"></span> <br>
 				<p>전화번호(필수)</p>
 				<input id="phone" type="text" name="bookingUserPhone" maxlength="11"
-					required value="${principal.member.memberPhone }"> 
+					placeholder="(-)을 제외하고 입력해주세요." required value="${principal.member.memberPhone }"> 
 					<span id="phoneErrorMsg"></span> <br>
 				<p>이메일</p>
-				<input id="email" type="email" name="bookingUserEmail" readonly
+				<input id="email" type="email" id="bookingEmail" name="bookingUserEmail" readonly
 					value="${principal.member.memberEmail }"> <br>
 				<p>사용 목적(선택)</p>
 				<textarea cols="120" name="bookingPerpose"
@@ -184,6 +184,7 @@ h1 {
 			let nameFlag = false; // 닉네임 유효성 검사
 			let phoneFlag = true; // 전화번호 유효성 검사
 
+			
 			$('#payBtn').click(function(event) {
 				event.preventDefault(); // 기본 동작 취소
 				// 각 필드에 대해 유효성 검사 함수 호출
@@ -228,8 +229,29 @@ h1 {
 			}); // end date.keyup()
 
 			function dateError() {
-				console.log('dateKeyup()');
+				console.log('dateChange()');
 				let date = $('#date').val();
+				let email = $('#email').val();
+				console.log("date : " + date + " / email : " + email);
+				
+				let url = '../like/selectOne/' + date + '/' + email;
+				console.log("url : " + url);
+				
+				if(date != '') {
+					$.getJSON(
+						url,
+						function(data) {
+							console.log("data : " + data);
+							if(data != '') {
+								$('#dateErrorMsg').html('이미 예약이 된 날짜 입니다. 다른 날짜를 선택해주세요');
+								$('#dateErrorMsg').css("color", 'red');
+								$('#dateErrorMsg').css('display', 'inline-block');
+								dateFlag = false;
+								return;
+							}
+						}
+					);
+				}
 
 				if (date.trim() === '') { // 날짜가 입력 되지 않은 경우 또는 공백만 입력된 경우
 					console.log('날짜 입력 x');

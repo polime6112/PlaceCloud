@@ -47,6 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BOOKING_ID = #{bookingId}
 	</select>
 	
+	<select id="selectOneByDate" resultMap="bookingResultMap">
+		SELECT * FROM BOOKING
+		WHERE BOOKING_DATE = #{bookingDate} AND BOOKING_USEREMAIL = #{bookingUserEmail}
+	</select>
+	
+	
 	<update id="update"> <!-- 투숙객, 예약 날짜 수정 -->
 		UPDATE BOOKING
 		SET BOOKING_DATE = #{bookingDate},

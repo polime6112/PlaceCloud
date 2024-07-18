@@ -41,6 +41,12 @@ public class BookingServiceImple implements BookingService {
 		log.info("getBoardById()");
 		return bookingMapper.selectOne(bookingId);
 	}
+	
+	@Override
+	public BookingVO getBoardByDate(String bookingDate, String bookingUserEmail) {
+		log.info("getBoardByDate()");
+		return bookingMapper.selectOnebyDate(bookingDate, bookingUserEmail);
+	}
 
 	@Override
 	public int updateBoard(BookingVO bookingVO) {
@@ -65,5 +71,6 @@ public class BookingServiceImple implements BookingService {
 		log.info("selectTotalCound()");
 		return bookingMapper.selectTotalCount(bpagination);
 	}
+
 
 }
