@@ -12,7 +12,7 @@ public interface BookingService {
 	List<BookingVO> getAllBoards();
 	List<BookingVO> getBoardsByDate(@Param("startDate") String startDate, @Param("endDate") String endDate);
 	BookingVO getBoardById(int bookingId);
-	BookingVO getBoardByDate(String date, String email);
+	BookingVO getBoardByDate(String date, String placeName);
 	int updateBoard(BookingVO bookingVO);
 	int deleteBoard(int bookingId);
 	List<BookingVO> getPagingBoards(Bpagination bpagination);
