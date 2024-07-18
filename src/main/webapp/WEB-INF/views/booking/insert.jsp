@@ -109,11 +109,20 @@ h1 {
 				<input type="hidden" name="placeId" value="${placeVO.placeId }">
 				<p>예약 공간</p>
 				<input type="text" name="placeName" readonly value="${placeVO.placeName }"> <br> <br>
-				<c:if test="${not empty placeVO }">
-					<img class="image"
-						src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}"
-						alt="이미지 로딩 실패">
-				</c:if>
+				<div class="image-upload">
+					<div class="image-view">
+						<div class="image-list">
+							<!-- 이미지 파일 처리 코드 -->
+							<c:forEach var="imageVO" items="${placeVO.imageList}">
+							    
+							        <div class="image_item">
+							        	<a href="../image/get?imageId=${imageVO.imageId }" target="_blank">
+										<img src="../image/get?imageId=${imageVO.imageId }&imageExtension=${imageVO.imageExtension}"/></a>
+							        </div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 				<br>
 				<p>카테고리 : ${placeVO.placeCategory }</p>
 				<p>주소 : ${placeVO.placeAddress }</p>

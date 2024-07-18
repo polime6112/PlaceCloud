@@ -134,9 +134,20 @@
         </div>
         장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
         <br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
-        <c:if test="${not empty placeVO }">
-	           <img class="image" src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
-        </c:if>
+        <div class="image-upload">
+			<div class="image-view">
+				<div class="image-list">
+					<!-- 이미지 파일 처리 코드 -->
+					<c:forEach var="imageVO" items="${placeVO.imageList}">
+					    
+					        <div class="image_item">
+					        	<a href="../image/get?imageId=${imageVO.imageId }" target="_blank">
+								<img src="../image/get?imageId=${imageVO.imageId }&imageExtension=${imageVO.imageExtension}"/></a>
+					        </div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
         <br>
         <br> 장소 설명<br><br> <textarea rows="4" cols="20" id="placeContext" readonly>${placeVO.placeContext }</textarea><br>
         <br> 주소 <input type="text" id="placeAddress" value="${placeVO.placeAddress }" readonly><br>

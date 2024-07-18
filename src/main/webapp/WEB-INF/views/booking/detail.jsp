@@ -93,12 +93,6 @@ h1 {
             <p>예약 번호: ${bookingVO.bookingId }</p>
             <div>
                 <p>${bookingVO.placeName }</p>
-                <br>
-                <c:if test="${not empty placeVO }">
-                    <img class="image"
-                        src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}"
-                        alt="이미지 로딩 실패">
-                </c:if>
                 <fmt:formatDate value="${bookingVO.bookingDate }"
                     pattern="yyyy-MM-dd" var="bookingDate" />
                 <p>예약 날짜: ${bookingDate }</p>
