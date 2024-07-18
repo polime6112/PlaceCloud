@@ -116,7 +116,6 @@
 	<br>
 	<div class="image-upload">
 		<div class="image-view">
-			<h2>이미지 파일 리스트</h2>
 			<div class="image-list">
 				<!-- 이미지 파일 처리 코드 -->
 				<c:forEach var="imageVO" items="${placeVO.imageList}">
