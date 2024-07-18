@@ -1,7 +1,5 @@
 package web.spring.placecloud.domain;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,5 +16,4 @@ public class ImageVO {
 	private String imageRealName;
 	private String imageChgName;
 	private String imageExtension;
-	private MultipartFile image;
 }

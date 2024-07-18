@@ -1,6 +1,8 @@
 package web.spring.placecloud.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +24,13 @@ public class PlaceVO {
 	private int placeMoneyTime;
 	private String memberEmail;
 	private Date placeCreateDate;
-	private int imageId;
-	private String imagePath;
-	private String imageRealName;
-	private String imageChgName;
-	private String imageExtension;
+
+	private List<ImageVO> imageList;
+	
+	public List<ImageVO> getImageList() {
+		if(imageList == null) {
+			imageList = new ArrayList<ImageVO>();
+		}
+		return imageList;
+	}
 }

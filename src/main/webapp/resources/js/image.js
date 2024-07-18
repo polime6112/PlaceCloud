@@ -8,8 +8,8 @@ $(document).ready(function() {
 				var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i; 
 				// 허용된 확장자 정규식 (jpg, jpeg, png, gif)
 				
-				if(files.length > 1) { // 파일 개수 제한
-					alert("파일은 최대 1개만 가능합니다.");
+				if(files.length > 3) { // 파일 개수 제한
+					alert("파일은 최대 3개만 가능합니다.");
 					return false;
 				}
 				

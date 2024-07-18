@@ -69,6 +69,7 @@ public class HostController {
 		if (userDetails != null) {
 			PlaceVO placeVO = placeService.getPlaceById(placeId);
 			log.info("PlaceVO : " + placeVO);
+			log.info(placeVO.getImageList());
 			model.addAttribute("placeVO", placeVO);
 			return "host/detail";			
 		} else {

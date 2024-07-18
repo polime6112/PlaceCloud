@@ -212,30 +212,35 @@ button:hover {
 				// form 객체 참조
 				var register = $('#register');
 				
-				var imageVO = JSON.parse($('.imageVOImg-list input').val());
-				console.log(imageVO);
-				
-				var inputPath = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imagePath');
-				inputPath.val(imageVO.imagePath);
-				
-				var inputRealName = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageRealName');
-				inputRealName.val(imageVO.imageRealName);
-				
-				var inputChgName = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageChgName');
-				inputChgName.val(imageVO.imageChgName);
-				
-				var inputExtension = $('<input>').attr('type', 'hidden')
-				.attr('name', 'imageExtension');
-				inputExtension.val(imageVO.imageExtension);
-				
-				register.append(inputPath);
-				register.append(inputRealName);
-				register.append(inputChgName);
-				register.append(inputExtension);
-				
+				var i = 0;
+				$('.imageVOImg-list input[name="imageVO"]').each(function() {
+					console.log(this);
+					
+					var imageVO = JSON.parse($(this).val());
+					
+					var inputPath = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imagePath');
+					inputPath.val(imageVO.imagePath);
+					
+					var inputRealName = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageRealName');
+					inputRealName.val(imageVO.imageRealName);
+					
+					var inputChgName = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageChgName');
+					inputChgName.val(imageVO.imageChgName);
+					
+					var inputExtension = $('<input>').attr('type', 'hidden')
+					.attr('name', 'imageList[' + i + '].imageExtension');
+					inputExtension.val(imageVO.imageExtension);
+					
+					register.append(inputPath);
+					register.append(inputRealName);
+					register.append(inputChgName);
+					register.append(inputExtension);
+					
+					i++;
+				});
 				register.submit();
 			});
 		});
