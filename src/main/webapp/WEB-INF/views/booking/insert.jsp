@@ -108,7 +108,7 @@ h1 {
 			<div>
 				<input type="hidden" name="placeId" value="${placeVO.placeId }">
 				<p>예약 공간</p>
-				<input type="text" name="placeName" readonly value="${placeVO.placeName }"> <br> <br>
+				<input type="text" id="placeName" name="placeName" readonly value="${placeVO.placeName }"> <br> <br>
 				<div class="image-upload">
 					<div class="image-view">
 						<div class="image-list">
@@ -196,7 +196,7 @@ h1 {
 			$('#payBtn').click(function(event) {
 				event.preventDefault(); // 기본 동작 취소
 				// 각 필드에 대해 유효성 검사 함수 호출
-				dateError();
+				bookingDateError();
 				personError();
 				nameError();
 				phoneError();
@@ -232,36 +232,42 @@ h1 {
 
 			// 예약 날짜 유효성 검사
 			$('#date').change(function() {
+				bookingDateError();
 				dateError();
 
 			}); // end date.keyup()
-
+			
+			/* $('#date').focusout(function() {
+				dateError()
+			}); */
+			
+			function bookingDateError() {
+				console.log('dateChange()');
+				let date = $('#date').val();
+				let placeName = $('#placeName').val();
+				console.log('date : ' + date + ' / placeName : ' + placeName);
+				
+				let url = '../booking/selectDate/' + date + '/' + placeName;
+				console.log('url : ' + url);
+				
+				$.getJSON(
+					url,
+					function(data) {
+						console.log('data : ' + data);
+						if(data != '') {
+							$('#dateErrorMsg').html('해당 날짜는 이미 예약이 찼습니다. 다른 날짜를 선택하세요.');
+							$('#dateErrorMsg').css('color', 'red');
+							$('#dateErrorMsg').css('display', 'inline-block');
+							dateFlag = false;
+							return;
+						}
+					}
+				)
+			}
+			
 			function dateError() {
 				console.log('dateChange()');
 				let date = $('#date').val();
-				let email = $('#email').val();
-				console.log("date : " + date + " / email : " + email);
-				
-				let url = '../booking/selectDate/' + date + '/' + email;
-				console.log("url : " + url);
-				
-				if(date != '') {
-					$.getJSON(
-						url,
-						function(data) {
-							console.log("data : " + data);
-							if(data != '') {
-								$('#dateErrorMsg').html('이미 예약이 된 날짜입니다. 다른 날짜를 선택해주세요');
-								$('#dateErrorMsg').css("color", 'red');
-								$('#dateErrorMsg').css('display', 'inline-block');
-								dateFlag = false;
-								date = '';
-								return;
-							}
-						}
-					);
-				}
-
 				if (date.trim() === '') { // 날짜가 입력 되지 않은 경우 또는 공백만 입력된 경우
 					console.log('날짜 입력 x');
 					$('#dateErrorMsg').html('날짜를 입력하세요');
