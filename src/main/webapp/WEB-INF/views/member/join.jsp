@@ -211,6 +211,7 @@ body {
 			<div class="profile-drop"></div>
 			<h2>선택한 이미지 파일 :</h2>
 			<div class="profile-list"></div>
+			<span id="imageValidMsg"></span>
 		</div>
 		
 
@@ -428,6 +429,7 @@ body {
 	    let passwordConfirmFlag = false; // 비밀번호 확인 유효성 검사
 	    let nameFlag = false; // 닉네임 유효성 검사
 	    let phoneFlag = false; // 전화번호 유효성 검사
+	    let imageFlag = false;
 
 	    // 회원가입 버튼 클릭 시
 	    $('#joinBtn').click(function(event){
@@ -439,9 +441,10 @@ body {
 	        passwordConfirmValid();
 	        nameValid();
 	        phoneValid();
+	        imageValid();
 	        
 	        // 모든 유효성 검사 플래그가 true인지 확인
-	        if(emailFlag && passwordFlag && nameFlag && phoneFlag) {
+	        if(emailFlag && passwordFlag && nameFlag && phoneFlag && imageFlag) {
 	            // 모든 조건이 true면 회원가입 수행
 	        	$("#memberForm").submit();
 	        } else {
@@ -465,6 +468,9 @@ body {
 	                $('#phoneValidMsg').html('전화번호를 확인해주세요');
 	                $('#phoneValidMsg').css('color', 'red');
 	                $('#phoneValidMsg').css('display', 'inline-block');
+	            }
+	            if(!imageFlag) {
+	            	
 	            }
 	        }
 	    }); // end joinBtn.click()
@@ -717,6 +723,17 @@ body {
 	        }
 	        
 	    } // end phoneValid()
+	    
+	    function imageValid() {
+	    	console.log('imageInput');
+	    	let imageInput = $('.profile-list').val();
+	    	
+	    	if (imageInput != null) {
+	    		imageFlag = true;
+	    	} else {
+	    		imageFlag = false;
+	    	}
+	    }
 	    
 	}); // end document.ready()
 

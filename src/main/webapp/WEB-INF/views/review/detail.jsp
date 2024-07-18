@@ -103,14 +103,9 @@ textarea {
 <title>${reviewVO.reviewTitle }</title>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+	<%@include file="../fix/header.jsp"%>
 
-	<h2
-		style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기 보기</h2>
+	<h2 style="text-align: center; font-size: 30px; font-weight: 900; color: #706FFF;">Q&A 및 이용후기 보기</h2>
 
 	<div>
 		<span>이용 후기 번호 : ${reviewVO.reviewId }</span> <input type="hidden" id="placeId" value="${reviewVO.placeId }"> 

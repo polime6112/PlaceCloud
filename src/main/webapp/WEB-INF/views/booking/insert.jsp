@@ -111,7 +111,7 @@ h1 {
 				<input type="text" name="placeName" readonly value="${placeVO.placeName }"> <br> <br>
 				<c:if test="${not empty placeVO }">
 					<img class="image"
-						src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}"
+						src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}"
 						alt="이미지 로딩 실패">
 				</c:if>
 				<br>

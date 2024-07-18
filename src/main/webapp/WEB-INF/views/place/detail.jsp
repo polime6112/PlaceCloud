@@ -44,6 +44,7 @@
         text-align: center;
     }
     .image {
+    	max-width: 800px;
         width: 100%;
         max-height: 400px;
         border: 1px solid #ddd;
@@ -134,7 +135,7 @@
         장소 이름 <input type="text" id="placeName" value="${placeVO.placeName }" readonly><br>
         <br> 카테고리 <input type="text" id="placeCategory" value="${placeVO.placeCategory }" readonly><br>
         <c:if test="${not empty placeVO }">
-            <img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
+	           <img class="image" src="../image/display?imagePath=${placeVO.imagePath }&imageChgName=${placeVO.imageChgName }&imageExtension=${placeVO.imageExtension}" alt="이미지 로딩 실패">
         </c:if>
         <br>
         <br> 장소 설명<br><br> <textarea rows="4" cols="20" id="placeContext" readonly>${placeVO.placeContext }</textarea><br>

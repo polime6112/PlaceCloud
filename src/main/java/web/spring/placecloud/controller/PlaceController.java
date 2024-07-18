@@ -18,10 +18,6 @@ import web.spring.placecloud.service.PlaceService;
 public class PlaceController {
 
 	@Autowired
-	// ServletConfig에 @Bean으로 설정된 uploadPath() 객체 사용
-	private String uploadPath;
-
-	@Autowired
 	private PlaceService placeService;
 
 	@GetMapping("/main")
@@ -38,7 +34,6 @@ public class PlaceController {
 		PlaceVO placeVO = placeService.getPlaceById(placeId);
 		log.info("PlaceVO : " + placeVO);
 		model.addAttribute("placeVO", placeVO);
-		model.addAttribute("uploadPath", uploadPath);
 		return "place/detail";
 	}
 

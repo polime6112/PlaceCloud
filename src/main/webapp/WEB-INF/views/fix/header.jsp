@@ -66,7 +66,7 @@
             </sec:authorize>
             <!-- 로그인 상태 -->
             <sec:authorize access="isAuthenticated()">
-                <p><sec:authentication property="principal.member.memberName"/>님 환영합니다</p>
+                <p><sec:authentication property="principal.member.memberName"/>님 <br>환영합니다</p>
                 <a class="btn" href="../member/myPage">마이페이지</a>
                 <form action="../auth/logout" method="post">
                     <input class="btn" type="submit" value="로그아웃">

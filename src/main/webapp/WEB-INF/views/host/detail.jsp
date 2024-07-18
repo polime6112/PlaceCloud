@@ -94,11 +94,7 @@
 </style>
 </head>
 <body>
-	<header>
-		<div class="logo">
-			<a href="${pageContext.request.contextPath }/place/main">PlaceCloud</a>
-		</div>
-	</header>
+	<%@include file="../fix/header.jsp"%>
 	<br>
 	<sec:authentication property="principal" var="principal"/>
 	<c:if test="${principal.username == placeVO.memberEmail }">
@@ -118,10 +114,21 @@
 	<br> 장소 설비<br><br> <textarea rows="4" cols="20" id="placeInfo" readonly>${placeVO.placeInfo }</textarea><br>
 	<br> 시간당 가격(원/시간) <input type="text" id="placeMoneyTime" value="${placeVO.placeMoneyTime }" readonly><br>
 	<br>
-	<c:if test="${not empty placeVO }">
-		<img class="image" src="../image/get?placeId=${placeVO.placeId }&imageExtension=${placeVO.imageExtension}" 
-							alt="이미지 로딩 실패">
-	</c:if>
+	<div class="image-upload">
+		<div class="image-view">
+			<h2>이미지 파일 리스트</h2>
+			<div class="image-list">
+				<!-- 이미지 파일 처리 코드 -->
+				<c:forEach var="imageVO" items="${placeVO.imageList}">
+				    
+				        <div class="image_item">
+				        	<a href="../image/get?imageId=${imageVO.imageId }" target="_blank">
+							<img src="../image/get?imageId=${imageVO.imageId }&imageExtension=${imageVO.imageExtension}"/></a>
+				        </div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
 	<br>
 	<div>
 		<c:if test="${principal.username == placeVO.memberEmail }">
