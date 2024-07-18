@@ -132,8 +132,8 @@ form {
         </form>
         
         <!-- 프로필 이미지  -->
-	    <img class="image" src="../profile/display?profilePath=${memberVO.profilePath }&profileChgName=${memberVO.profileChgName }&profileExtension=${memberVO.profileExtension}"
-				alt="프로필 사진을 추가해주세요">
+	    <img class="image" src="../profile/display?profilePath=${member.profilePath }&profileChgName=${member.profileChgName }&profileExtension=${member.profileExtension}"
+				onerror="this.onerror=null; this.src='../resources/image/profile_Basic.jpg'">
 		
 		<sec:authorize access="hasRole('ROLE_GUEST')">
 			<!-- 찜 목록  -->
