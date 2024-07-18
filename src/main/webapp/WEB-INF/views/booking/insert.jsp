@@ -234,7 +234,7 @@ h1 {
 				let email = $('#email').val();
 				console.log("date : " + date + " / email : " + email);
 				
-				let url = '../like/selectOne/' + date + '/' + email;
+				let url = '../booking/selectDate/' + date + '/' + email;
 				console.log("url : " + url);
 				
 				if(date != '') {
@@ -243,10 +243,11 @@ h1 {
 						function(data) {
 							console.log("data : " + data);
 							if(data != '') {
-								$('#dateErrorMsg').html('이미 예약이 된 날짜 입니다. 다른 날짜를 선택해주세요');
+								$('#dateErrorMsg').html('이미 예약이 된 날짜입니다. 다른 날짜를 선택해주세요');
 								$('#dateErrorMsg').css("color", 'red');
 								$('#dateErrorMsg').css('display', 'inline-block');
 								dateFlag = false;
+								date = '';
 								return;
 							}
 						}
