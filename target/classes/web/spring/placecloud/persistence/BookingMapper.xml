@@ -47,9 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BOOKING_ID = #{bookingId}
 	</select>
 	
-	<select id="selectOneByDate" resultMap="bookingResultMap">
+	<select id="selectDate" resultMap="bookingResultMap">
 		SELECT * FROM BOOKING
-		WHERE BOOKING_DATE = #{bookingDate} AND BOOKING_USEREMAIL = #{bookingUserEmail}
+		WHERE BOOKING_DATE = #{date} AND BOOKING_USEREMAIL = #{email}
 	</select>
 	
 	

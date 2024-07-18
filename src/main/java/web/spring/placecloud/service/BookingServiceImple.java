@@ -43,9 +43,9 @@ public class BookingServiceImple implements BookingService {
 	}
 	
 	@Override
-	public BookingVO getBoardByDate(String bookingDate, String bookingUserEmail) {
+	public BookingVO getBoardByDate(String date, String email) {
 		log.info("getBoardByDate()");
-		return bookingMapper.selectOnebyDate(bookingDate, bookingUserEmail);
+		return bookingMapper.selectDate(date, email);
 	}
 
 	@Override

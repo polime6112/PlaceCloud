@@ -21,11 +21,11 @@ public class BookingRESTController {
 	private BookingService bookingService;
 	
 	@GetMapping("/selectDate/{date}/{email}") // 기존 예약된 정보를 조회
-	public ResponseEntity<BookingVO> readBookingOne(@PathVariable("date") String bookingDate, @PathVariable("email") String bookingUserEmail) {
+	public ResponseEntity<BookingVO> readBookingOne(@PathVariable("date") String date, @PathVariable("email") String email) {
 		log.info("readBookingOne()");
-		log.info("bookingDate : " + bookingDate);
-		log.info("bookingUserEmail : " + bookingUserEmail);
-		BookingVO bookingVO = bookingService.getBoardByDate(bookingDate, bookingUserEmail);
+		log.info("date : " + date);
+		log.info("email : " + email);
+		BookingVO bookingVO = bookingService.getBoardByDate(date, email);
 		return new ResponseEntity<BookingVO>(bookingVO, HttpStatus.OK);
 	}
 	
