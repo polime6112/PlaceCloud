@@ -56,6 +56,7 @@ header {
 		</div>
 		<div>
 			<span>내용 : </span>
+			<br><br>
 			<textarea rows="20" cols="120" name="reviewContent" placeholder="내용" maxlength="50" required></textarea>
 		</div>
 		<div>

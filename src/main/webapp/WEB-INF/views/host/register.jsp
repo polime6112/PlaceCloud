@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>장소 등록 페이지</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=50db7f08d40cda8eb45fb595ec7828ae&libraries=services"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/image.css">
 <style>
@@ -102,14 +103,14 @@ button:hover {
 			<option value="스튜디오">스튜디오</option>
 			<option value="공연장">공연장</option>
 		</select>
-		<!-- 한 프로젝트 안에서 통일성을 주기 위해 javaScript로 required를 빼고 입력하지 않았을 때 주의 문구 띄우기 -->
 		<label for="placeContext">장소 설명</label>
 		<textarea rows="4" id="placeContext" name="placeContext" maxlength="100"></textarea>
 		<label for="placeAddress">주소 입력</label>
 		<input type="text" id="postcode" placeholder="우편번호" readonly>
-		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="address" placeholder="주소" readonly><br>
+		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+		<input type="text" id="address" placeholder="주소" readonly>
 		<input type="text" id="detailAddress" placeholder="상세주소">
+		<div id="map" style="width:500px;height:400px;"></div><br>
 		<input type="text" id="extraAddress" placeholder="참고항목" readonly>
 		<input type="hidden" id="placeAddress" name="placeAddress">
 		<label for="placeWarning">주의사항</label>
@@ -121,7 +122,7 @@ button:hover {
 	</form>
 	<div class="image-upload">
 		<h2>이미지 파일 업로드</h2>
-		<p>* 이미지 파일은 1개만 가능합니다.</p>
+		<p>* 이미지 파일은 3개만 가능합니다.</p>
 		<p>* 최대 용량은 10MB 입니다.</p>
 		<div class="image-drop"></div>
 		<h2>선택한 이미지 파일 :</h2>
@@ -134,7 +135,16 @@ button:hover {
 	<button id="registerBtn">등록</button>
 
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+	<script>
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
 
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	</script>
 	<script>
 	    function execDaumPostcode() {
 	        new daum.Postcode({

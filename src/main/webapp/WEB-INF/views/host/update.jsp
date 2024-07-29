@@ -52,7 +52,7 @@ form {
 	gap: 10px;
 }
 
-input[type="text"], input[type="number"], textarea, select, button {
+input[type="text"], input[type="number"], textarea, select{
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
@@ -64,11 +64,16 @@ textarea {
 	resize: vertical;
 }
 
-button {
+.registerBtn{
 	background-color: #007bff;
 	color: #fff;
 	cursor: pointer;
 	border: none;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
 
 button:hover {
@@ -116,7 +121,7 @@ button:hover {
 	</form>
 	<div class="image-upload">
 		<h2>이미지 파일 업로드</h2>
-		<p>* 이미지 파일은 1개만 가능합니다.</p>
+		<p>* 이미지 파일은 3개만 가능합니다.</p>
 		<p>* 최대 용량은 10MB 입니다.</p>
 		<div class="image-drop"></div>
 		<h2>선택한 이미지 파일 :</h2>

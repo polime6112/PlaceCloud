@@ -119,7 +119,6 @@
 			<div class="image-list">
 				<!-- 이미지 파일 처리 코드 -->
 				<c:forEach var="imageVO" items="${placeVO.imageList}">
-				    
 				        <div class="image_item">
 				        	<a href="../image/get?imageId=${imageVO.imageId }" target="_blank">
 							<img src="../image/get?imageId=${imageVO.imageId }&imageExtension=${imageVO.imageExtension}"/></a>
